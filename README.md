@@ -1,3 +1,5 @@
+※リンクは、Ctrl＋クリックで、別タブ表示できます。
+
 [レビュー指摘管理一覧](https://docs.google.com/spreadsheets/d/19ayyDDpPGiop25kMRbKgMhRT__rsHEfm/edit?usp=sharing&ouid=100680044938375547873&rtpof=true&sd=true)
 
 [ドキュメント（チームBノート）](https://docs.google.com/document/d/1Tkya6Z-wgdsOs0fdJ0tIpx1IsviJSv4YSxCOzYkUZ44/edit?usp=sharing)
