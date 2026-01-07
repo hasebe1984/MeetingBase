@@ -1,4 +1,4 @@
-※リンクは、Ctrl＋クリックで、別タブ表示できます。
+※リンクは、Ctrl＋クリックで、別タブ表示できます。 あ
 
 [Googleチャット](https://chat.google.com/room/AAQAB8237Jg?cls=7)
 　※共有ファイルはここに
