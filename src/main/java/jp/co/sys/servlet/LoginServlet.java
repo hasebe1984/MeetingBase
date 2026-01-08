@@ -31,7 +31,8 @@ public class LoginServlet extends HttpServlet {
         HttpSession session=request.getSession();
         session.setAttribute("pass", pass);
         session.setAttribute("id", id);
-        RequestDispatcher dispatcher= request.getRequestDispatcher(pass);
-        
+        String nextPage="/menu.jsp";
+        RequestDispatcher rd= request.getRequestDispatcher(nextPage);
+        rd.forward(request, response);
     }
 }
