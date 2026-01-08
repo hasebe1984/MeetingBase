@@ -3,16 +3,17 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>ログインテスト</title>
+<title>ログイン</title>
 </head>
 <body>
-    <h2>ログイン画面（コンテキストパス対応版）</h2>
-    
+    <h1>会議室予約</h1>
+    <hr>
     <%-- 動的にパスを取得するため、プロジェクト名が変わっても修正不要です --%>
+    <h2>ログイン</h2>
     <form action="<%= request.getContextPath() %>/LoginServlet" method="POST">
-        ID: <input type="text" name="user_id" required><br>
-        PW: <input type="password" name="password" required><br>
-        <input type="submit" value="Servletへ送信">
+        利用者ID: <input type="text" name="userId" required><br>
+        パスワード: <input type="password" name="userPw" required><br>
+        <input type="submit" value="ログイン">
     </form>
 </body>
 </html>

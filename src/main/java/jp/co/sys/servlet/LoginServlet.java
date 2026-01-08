@@ -1,13 +1,14 @@
 package jp.co.sys.servlet;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 @WebServlet("/LoginServlet")
 public class LoginServlet extends HttpServlet {
@@ -25,19 +26,12 @@ public class LoginServlet extends HttpServlet {
             throws ServletException, IOException {
         
         request.setCharacterEncoding("UTF-8");
-        String id = request.getParameter("user_id");
-        String pass = request.getParameter("password");
-
-        response.setContentType("text/html; charset=UTF-8");
-        PrintWriter out = response.getWriter();
+        String id = request.getParameter("userId");
+        String pass = request.getParameter("userPw");
+        HttpSession session=request.getSession();
+        session.setAttribute("pass", pass);
+        session.setAttribute("id", id);
+        RequestDispatcher dispatcher= request.getRequestDispatcher(pass);
         
-        out.println("<html><body>");
-        out.println("<h1>Java Servlet 受信成功</h1>");
-        out.println("<p>取得したコンテキストパス: " + request.getContextPath() + "</p>");
-        out.println("<p>入力ID: " + id + "</p>");
-        out.println("<p>入力PW: " + pass + "</p>");
-        out.println("<hr>");
-        out.println("<a href='" + request.getContextPath() + "/jsp/login.jsp'>戻る</a>");
-        out.println("</body></html>");
     }
 }
