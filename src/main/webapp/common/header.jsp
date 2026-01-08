@@ -10,9 +10,7 @@
 </head>
 <body>
 <header>
-	<div>
-		<a href="../jsp/login.jsp">ログイン</a>
-		<a href="../jsp/login.jsp">ログアウト</a>
-	</div>
+	<a href="../jsp/login.jsp">ログイン</a>
+	<a href="../jsp/login.jsp">ログアウト</a>
 </header>
 <main>
