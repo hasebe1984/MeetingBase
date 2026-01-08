@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>reserveInput</title>
+<title>予約エラー画面</title>
 </head>
 <body>
     <h1>会議室予約</h1>
@@ -15,6 +15,7 @@
     ${"会議室　大会議室"}<br>
     ${"予約時刻　10:00～11:00"}<br>
     ${"予約者　情報太郎"}<br>
+    <hr>
     <form action="<%= request.getContextPath() %>/SearchServlet" method="get">
         <input type="submit" value="確認"><br>
     </form>
