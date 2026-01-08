@@ -1,15 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>キャンセル確定画面</title>
+<title>キャンセル確認画面</title>
 </head>
 <body>
 	<h1>会議室予約キャンセル</h1>
 	<hr>
-	<h2>キャンセル完了</h2>
+	<h2>キャンセル確認</h2>
 	<table>
 		<tr>
 			<td>予約日</td>
@@ -29,9 +29,12 @@
 		</tr>
 	</table>
 	<hr>
-	<form action="<%=request.getContextPath()%>/jsp/menu.jsp"
+	<form action="<%=request.getContextPath()%>/jsp/cancelInput.jsp"
 		method="POST">
-		<input type="submit" value="完了">
+		<input type="submit" value="戻る">
 	</form>
+	<form action="<%=request.getContextPath()%>/CancelServlet"
+		method="POST">
+		<input type="submit" value="決定">
 </body>
 </html>
