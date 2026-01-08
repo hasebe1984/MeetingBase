@@ -1,9 +1,11 @@
-package jp.co.sys.util;
+package jp.co.sys.stub;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+
+import jp.co.sys.util.DatabaseConnectionProvider;
 
 public class DBtestDriver {
 
