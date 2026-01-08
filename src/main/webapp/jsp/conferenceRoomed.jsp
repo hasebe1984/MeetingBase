@@ -13,15 +13,11 @@
 	<table>
 		<tr>
 			<td>会議室ID</td>
-			<td>${"A0001"}</td>
+			<td>${"0401"}</td>
 		</tr>
 		<tr>
 			<td>会議室名</td>
 			<td>${"大会議室"}</td>
-		</tr>
-		<tr>
-			<td>登録者</td>
-			<td>${"情報太郎"}</td>
 		</tr>
 	</table>
 	<hr>
