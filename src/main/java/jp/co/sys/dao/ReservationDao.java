@@ -1,7 +1,6 @@
 package jp.co.sys.dao;
 
 public class ReservationDao {
-	private ReservationDao() {
-
-	}
+	private ReservationDao() {}
+	
 }
