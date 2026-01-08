@@ -13,7 +13,7 @@
 		<form action="<%=request.getContextPath()%>/ChangeDateServlet" method="POST">
 			<h1>利用日</h1>
 			<input type="date" name="date" value="ミーティングルームから取得"> <input type="submit" value="日付変更"><br>
-			<input type="submit" name="page" value="cancelInput.jsp">
+			<input type="hidden" name="page" value="cancelInput.jsp">
 
 
 		</form>

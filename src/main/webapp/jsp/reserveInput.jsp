@@ -14,7 +14,7 @@
 			<h1>利用日</h1>
 			<input type="date" name="date" value="ミーティングルームから取得">
 			<input type="submit" value="日付変更"><br>
-			<input type="submit" name="page" value="reserveInput.jsp">
+			<input type="hidden" name="page" value="reserveInput.jsp">
 
 		</form>
 
