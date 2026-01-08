@@ -10,13 +10,12 @@
     <h1>会議室予約</h1>
     <hr>
     <h2>予約エラー</h2>
-    {"時刻が過ぎているため予約できません。"}
-    {"予約日"}
-    {"会議室"}
-    {"予約時刻"}
-    {"予約者"}
+    ${"時刻が過ぎているため予約できません。"}<br>
+    ${"予約日　2023-02-02"}<br>
+    ${"会議室　大会議室"}<br>
+    ${"予約時刻　10:00～11:00"}<br>
+    ${"予約者　情報太郎"}<br>
     <form action="<%= request.getContextPath() %>/SearchServlet" method="get">
-        英単語：<input type="text" name="confirmation">
         <input type="submit" value="確認"><br>
     </form>
 
