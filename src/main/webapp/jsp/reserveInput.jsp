@@ -24,7 +24,7 @@
 
 
 		<form action="<%=request.getContextPath()%>/reserveCreateServlet" method="POST">
-			<table border="1">
+			<table class="table" border="1">
 				<tr>
 					<th>会議室/時間</th>
 					<th>09:00</th>

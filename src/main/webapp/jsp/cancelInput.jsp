@@ -1,13 +1,6 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-	<!DOCTYPE html>
-	<html>
-
-	<head>
-		<meta charset="UTF-8">
-		<title>キャンセル入力画面</title>
-	</head>
-
-	<body>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@include file="../common/header.jsp"%>
 
 		<h1>会議室予約キャンセル</h1>
 		<form action="<%=request.getContextPath()%>/ChangeDateServlet" method="POST">
@@ -24,7 +17,7 @@
 
 
 		<form action="<%=request.getContextPath()%>/CancelCreateServlet" method="POST">
-			<table border="1">
+			<table class="table" border="1">
 				<tr>
 					<th>会議室/時間</th>
 					<th>09:00</th>
@@ -108,7 +101,4 @@
 
 
 		</form>
-
-	</body>
-
-	</html>
+<%@include file="../common/footer.jsp"%>
