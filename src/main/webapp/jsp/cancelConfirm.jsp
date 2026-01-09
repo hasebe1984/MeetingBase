@@ -6,29 +6,31 @@
 <h2>キャンセル確認</h2>
 <table>
 	<tr>
-		<td>予約日</td>
+		<th>予約日</th>
 		<td>${"2025-01-31"}</td>
 	</tr>
 	<tr>
-		<td>会議室</td>
+		<th>会議室</td>
 		<td>${"大会議室"}</td>
 	</tr>
 	<tr>
-		<td>予約時刻</td>
+		<th>予約時刻</th>
 		<td>${"14:00～15:00"}</td>
 	</tr>
 	<tr>
-		<td>予約者</td>
+		<th>予約者</th>
 		<td>${"情報太郎"}</td>
 	</tr>
 </table>
 <hr>
-<form action="<%=request.getContextPath()%>/jsp/cancelInput.jsp"
-	method="post">
-	<input type="submit" value="戻る">
-</form>
-<form action="<%=request.getContextPath()%>/CancelServlet"
-	method="post">
-	<input type="submit" value="決定">
-</form>
+<div class="button_row">
+	<form action="<%=request.getContextPath()%>/jsp/cancelInput.jsp"
+		method="post">
+		<input type="submit" value="戻る">
+	</form>
+	<form action="<%=request.getContextPath()%>/CancelServlet"
+		method="post">
+		<input type="submit" value="決定">
+	</form>
+</div>
 <%@include file="../common/footer.jsp"%>
