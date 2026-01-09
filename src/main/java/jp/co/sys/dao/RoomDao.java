@@ -28,5 +28,7 @@ public class RoomDao {
 			e.printStackTrace();
 		}
 	}
+	
+//	追加・削除・編集のメソッド　名前は仮で
 
 }
