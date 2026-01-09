@@ -45,22 +45,21 @@ CREATE TABLE reservation (
         UNIQUE(roomId, date, start)
 );
 
-
-INSERT INTO user VALUES('1100003','xxxxxx','一般太郎','東京都','0','0');
-INSERT INTO user VALUES('1100015','yyyyyy','管理花子','大阪府','0','1');
-INSERT INTO user VALUES('1100015','yyyyyy','削除よしお','大阪府','1','0');
-INSERT INTO user VALUES('1100015','yyyyyy','管理削除リチャード','大阪府','1','1');
+INSERT INTO user VALUES('2500001','111111','一般太郎','東京都','0','0');
+INSERT INTO user VALUES('2500002','111111','管理花子','大阪府','0','1');
+INSERT INTO user VALUES('2500003','111111','削除よしお','大阪府','1','0');
+INSERT INTO user VALUES('2500004','111111','管理削除リチャード','大阪府','1','1');
 
 INSERT INTO room VALUES('0201','大会議室');
 INSERT INTO room VALUES('0301','３Ａ会議室');
 INSERT INTO room VALUES('0302','３Ｂ会議室');
 
-INSERT INTO reservation VALUES(NULL,'0201','2026-01-01','09:00:00','10:00:00','1100003');
-INSERT INTO reservation VALUES(NULL,'0201','2026-01-01','11:00:00','12:00:00','1100003');
-INSERT INTO reservation VALUES(NULL,'0201','2026-01-05','09:00:00','10:00:00','1100003');
-INSERT INTO reservation VALUES(NULL,'0301','2026-01-05','12:00:00','13:00:00','1100003');
-INSERT INTO reservation VALUES(NULL,'0301','2026-01-05','09:00:00','10:00:00','1100003');
-INSERT INTO reservation VALUES(NULL,'0302','2026-01-05','13:00:00','14:00:00','1100015');
+INSERT INTO reservation VALUES(NULL,'0201','2026-01-01','09:00:00','10:00:00','2500001');
+INSERT INTO reservation VALUES(NULL,'0201','2026-01-01','11:00:00','12:00:00','2500002');
+INSERT INTO reservation VALUES(NULL,'0201','2026-01-05','09:00:00','10:00:00','2500003');
+INSERT INTO reservation VALUES(NULL,'0301','2026-01-05','12:00:00','13:00:00','2500004');
+INSERT INTO reservation VALUES(NULL,'0301','2026-01-05','09:00:00','10:00:00','2500001');
+INSERT INTO reservation VALUES(NULL,'0302','2026-01-05','13:00:00','14:00:00','2500002');
 
 -- SELECT * FROM user;
 -- SELECT * FROM room;
