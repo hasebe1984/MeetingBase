@@ -2,6 +2,9 @@ package jp.co.sys.bean;
 
 import java.io.Serializable;
 
+import jp.co.sys.dao.RoomDao;
+import jp.co.sys.dao.UserDao;
+
 public class MeetingRoom implements Serializable {
 	//フィールド
 	private static final long serialVersionUID = 1L;
@@ -37,13 +40,18 @@ public class MeetingRoom implements Serializable {
 		return ;
 	}
 	public RoomBean[] getRooms() {
-		return ;
+		return RoomDao.findAll();
 	}
 	public UserBean	getUser() {
-		return ;
+		return user;
 	}
 	public boolean login​(String id, String password) {
-		return ;
+		user = UserDao.certificate​(id,password);
+		if(user != null) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 	private int	roomIndex​(String roomId) throws IndexOutOfBoundsException {
 		
