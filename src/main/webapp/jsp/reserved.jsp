@@ -1,12 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>予約確定画面</title>
-</head>
-<body>
+	pageEncoding="UTF-8"%>
+<%@include file="../common/header.jsp"%>
     <h1>会議室予約</h1>
     <hr>
     <h2>予約完了</h2>
@@ -19,6 +13,4 @@
     <form action="<%= request.getContextPath() %>/SearchServlet" method="get">
         <input type="submit" value="完了">
     </form>
-
-</body>
-</html>
+<%@include file="../common/footer.jsp"%>

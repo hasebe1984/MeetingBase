@@ -1,11 +1,6 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>ログイン</title>
-</head>
-<body>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@include file="../common/header.jsp"%>
     <h1>会議室予約</h1>
     <hr>
     <%-- 動的にパスを取得するため、プロジェクト名が変わっても修正不要です --%>
@@ -15,5 +10,4 @@
         パスワード: <input type="password" name="userPw" required><br>
         <input type="submit" value="ログイン">
     </form>
-</body>
-</html>
+<%@include file="../common/footer.jsp"%>
