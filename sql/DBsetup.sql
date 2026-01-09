@@ -23,7 +23,9 @@ CREATE TABLE user (
         id VARCHAR(7) PRIMARY KEY,
         password VARCHAR(255) NOT NULL,
         name VARCHAR(10),
-        address VARCHAR(30)
+        address VARCHAR(30),
+        isDeleted TINYINT(1) not null,
+        isAdmin TINYINT(1) not null
 );
 
 CREATE TABLE room (
@@ -44,8 +46,10 @@ CREATE TABLE reservation (
 );
 
 
-INSERT INTO user VALUES('1100003','xxxxxx','情報太郎','東京都');
-INSERT INTO user VALUES('1100015','yyyyyy','情報花子','大阪府');
+INSERT INTO user VALUES('1100003','xxxxxx','一般太郎','東京都','0','0');
+INSERT INTO user VALUES('1100015','yyyyyy','管理花子','大阪府','0','1');
+INSERT INTO user VALUES('1100015','yyyyyy','削除よしお','大阪府','1','0');
+INSERT INTO user VALUES('1100015','yyyyyy','管理削除リチャード','大阪府','1','1');
 
 INSERT INTO room VALUES('0201','大会議室');
 INSERT INTO room VALUES('0301','３Ａ会議室');
