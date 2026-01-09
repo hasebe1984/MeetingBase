@@ -22,7 +22,6 @@
 					<input type="submit" value="会員情報削除">
 				</form>
 			</td>
-
 		</tr>
 		<tr>
 			<td>${"id"}</td>
@@ -41,7 +40,6 @@
 					<input type="submit" value="会員情報削除">
 				</form>
 			</td>
-
 		</tr>
 		<tr>
 			<td>${"id"}</td>
@@ -60,7 +58,6 @@
 					<input type="submit" value="会員情報削除">
 				</form>
 			</td>
-
 		</tr>
 	</table>
 	<hr>
@@ -69,6 +66,5 @@
 		<form action="<%=request.getContextPath()%>/SearchServlet"
 			method="get">
 			<input type="submit" value="会員追加">
-
 		</form>
 <%@include file="../common/footer.jsp"%>

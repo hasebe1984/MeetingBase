@@ -58,8 +58,10 @@
 	</tr>
 </table>
 <hr>
-<a herf="conferenceRoomList.jsp">戻る</a>
-<form action="<%=request.getContextPath()%>/SearchServlet" method="post">
-	<input type="submit" value="会議室追加">
-</form>
+<div class="button_row">
+	<a href="conferenceRoomList.jsp">戻る</a>
+	<form action="<%=request.getContextPath()%>/SearchServlet" method="post">
+		<input type="submit" value="会議室追加">
+	</form>
+</div>
 <%@include file="../common/footer.jsp"%>

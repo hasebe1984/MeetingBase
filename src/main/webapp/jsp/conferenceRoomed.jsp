@@ -6,11 +6,11 @@
 <h2>登録完了</h2>
 <table>
 	<tr>
-		<td>会議室ID</td>
+		<th>会議室ID</th>
 		<td>${"0401"}</td>
 	</tr>
 	<tr>
-		<td>会議室名</td>
+		<th>会議室名</th>
 		<td>${"大会議室"}</td>
 	</tr>
 </table>

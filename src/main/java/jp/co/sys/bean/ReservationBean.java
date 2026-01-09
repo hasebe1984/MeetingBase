@@ -25,7 +25,6 @@ public class ReservationBean {
 
 	public ReservationBean(String roomId, String date, String start, String end, String userID) {
 		this(0, roomId, date, start, end, userID);
-		this.id = id;
 		this.roomId = roomId;
 		this.date = date;
 		this.start = start;
