@@ -42,10 +42,10 @@ public class ReserveCreateServlet extends HttpServlet {
 			HttpSession session =request.getSession();
 			
 		//sessionからmeetingRoomを取得
-			MeetingRoom meetingroom =(MeetingRoom)session.getAttribute("meetingroom");
+			MeetingRoom meetingRoom =(MeetingRoom)session.getAttribute("meetingRoom");
 			
 		//Meetingroomに予約情報の生成を依頼する
-			ReservationBean reservation = meetingroom.createResevation("roomId,start");			
+			ReservationBean reservation = meetingRoom.createReservation(roomId,start);			
 			
 		//sessionに戻す
 			session.setAttribute("reservation", reservation);
