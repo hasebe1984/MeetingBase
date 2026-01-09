@@ -43,13 +43,12 @@ public class ChangeDateServlet extends HttpServlet {
 		
 		//利用日がYYYY-MM-DDに一致しているかをチェックする
 		if(date !=null && date.matches("\\d{4}-\\d{2}-\\{2}")) {
-			
-			
+			meetingroom.setDate​("date");
+						
 		}
-		
 		//sessionに戻す
 		session.setAttribute("meetingRoom", meetingroom);
-		
+				
 		//元の画面に戻る
 		request.getRequestDispatcher("/jsp/"+ page)
 		.forward(request, response);
