@@ -1,6 +1,7 @@
 @charset "UTF-8";
 
 body {
+<<<<<<< HEAD
 	display: flex;
 	flex-direction: column;
 	align-items: center;
@@ -9,6 +10,10 @@ body {
 	color: #292929;
 	font-size: 18px;
 
+=======
+	text-align: center;
+	background-color:#fff9e6;
+>>>>>>> 5caf0db6100f154084ddc706cb044fb8390be93b
 }
 
 main {

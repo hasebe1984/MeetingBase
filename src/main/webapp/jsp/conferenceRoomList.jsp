@@ -4,7 +4,7 @@
 <h1>会議室一覧</h1>
 <hr>
 <h2>会議室</h2>
-<table>
+<table class="table">
 	<tr>
 		<td>${"ID1"}</td>
 		<td>${"大会議室"}</td>
