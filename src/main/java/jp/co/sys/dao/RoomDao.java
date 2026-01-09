@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import jp.co.sys.bean.RoomBean;
 import jp.co.sys.util.DatabaseConnectionProvider;
@@ -13,7 +15,8 @@ public class RoomDao {
 	}
 
 	public static RoomBean findAll() {
-		RoomBean room = new RoomBean();
+		List<RoomBean> roomlist = new ArrayList<>();
+//		RoomBean room = new RoomBean();
 		String sql = "SELECT * FROM reservation";
 		try (Connection db = DatabaseConnectionProvider.getConnection();
 				PreparedStatement pstmt = db.prepareStatement(sql);
