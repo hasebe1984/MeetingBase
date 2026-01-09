@@ -1,5 +1,5 @@
 DROP USER IF EXISTS 'user'@'localhost';
--- aaaいれば消す
+-- いれば消す
 CREATE USER 'user'@'localhost' IDENTIFIED BY 'pass';
 GRANT ALL PRIVILEGES ON `meetingroomB`.* TO 'user'@'localhost';
 -- .*: ユーザー登録及び、そのデータベース内にあるすべてのテーブルへの権限付与
