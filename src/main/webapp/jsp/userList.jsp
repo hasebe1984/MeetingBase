@@ -1,16 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>会員一覧画面</title>
-</head>
-<body>
+	pageEncoding="UTF-8"%>
+<%@include file="../common/header.jsp"%>
 	<h1>会員一覧</h1>
 	<hr>
 	<h2>会員</h2>
-	<table border="1">
+	<table class="table" border="1">
 		<tr>
 			<td>${"id"}</td>
 			<td>${"password"}</td>
@@ -77,6 +71,4 @@
 			<input type="submit" value="会員追加">
 
 		</form>
-
-</body>
-</html>
+<%@include file="../common/footer.jsp"%>
