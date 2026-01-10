@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import jp.co.sys.bean.ReservationBean;
 import jp.co.sys.util.DatabaseConnectionProvider;
@@ -14,7 +16,7 @@ public class ReservationDao {
 
 	//	利用日の予約を検索します
 	public static java.util.List<ReservationBean> findByDate​(java.lang.String date) {
-		ReservationBean rb = new ReservationBean();
+		List<ReservationBean> list = new ArrayList<>();
 		String sql = "SELECT * FROM reservation WHERE  date = ?";
 
 		try (Connection conn = DatabaseConnectionProvider.getConnection();
@@ -25,20 +27,27 @@ public class ReservationDao {
 
 			try (ResultSet rs = pstmt.executeQuery()) {
 				while (rs.next()) {
-					ReservationBean rb = new ReservationBean();
 					// 値の取得
 					int id = rs.getInt("id");
 					String roomId = rs.getString("roomId");
-					date = rs.getString("date");
+					String date2 = rs.getString("date");
 					String start = rs.getString("start");
 					String end = rs.getString("end");
 					String userID = rs.getString("userID");
+					ReservationBean rb = new ReservationBean(id, roomId, date2, start, end, userID);
+					list.add(rb);
 				}
 			}
-		} catch (SQLException e) {
-			e.printStackTrace();
+		} catch (SQLException ex) {
+			ex.printStackTrace();
 		}
-		return rb;
+//	    // 空だったらnullを入れる
+//	    if (list.isEmpty()) {
+//	        return null;
+//	    }
+
+
+		return list;
 	}
 
 	//	予約を追加します
