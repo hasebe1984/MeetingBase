@@ -36,7 +36,7 @@ public class RoomDao {
 		String sql = "INSERT INTO room VALUES (?,?)";
 		try (Connection db = DatabaseConnectionProvider.getConnection();
 				PreparedStatement pstmt = db.prepareStatement(sql)) {
-			pstmt.setInt(1, 2222); //仮
+			pstmt.setInt(1, 1111); //仮
 			pstmt.setString(2, "仮会議室"); //仮
 			ret = pstmt.executeUpdate();
 		} catch (SQLException e) {
@@ -51,7 +51,7 @@ public class RoomDao {
 		try (Connection db = DatabaseConnectionProvider.getConnection();
 				PreparedStatement pstmt = db.prepareStatement(sql)) {
 			pstmt.setString(1, "変更できた会議室"); //仮
-			pstmt.setInt(2, 1111); //仮
+			pstmt.setInt(2,1111); //仮
 			ret = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
