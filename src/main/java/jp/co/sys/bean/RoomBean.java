@@ -1,8 +1,9 @@
 package jp.co.sys.bean;
 
 import java.io.Serializable;
-
-public class RoomBean implements Serializable {
+import java.util.ArrayList;
+//　web連携164みまねて、エクステンドしたらいけたけどいいの？？
+public class RoomBean extends ArrayList<RoomBean> implements Serializable{
 	private static final long serialVersionUID = 1L;
 	String id;
 	String name;
