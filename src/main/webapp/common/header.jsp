@@ -10,9 +10,14 @@
 </head>
 <body>
 <header>
-<div class="header_button">
-	<a href="../jsp/login.jsp">ログイン</a>
-	<a href="../jsp/login.jsp">ログアウト</a>
-</div>
+	<div class="header">
+		<a href="menu.jsp" class="header_logo">MRR</a>
+		<div class="header_button">
+			<a href="../jsp/login.jsp" class="button_small">ログイン</a>
+			<form action="<%=request.getContextPath()%>/LogoutServlet" method="post">
+				<input type="submit" value="ログアウト" class="button_small">
+			</form>
+		</div>
+	</div>
 </header>
 <main>

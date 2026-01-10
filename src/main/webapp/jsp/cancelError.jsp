@@ -4,28 +4,26 @@
 <h1>会議室予約キャンセル</h1>
 <hr>
 <h2>キャンセルエラー</h2>
-<p class="message">${"すでにキャンセルされています"}</p>
+<p class="message">${"エラーメッセージ"}</p>
 <table>
-	<tr>
-		<td>予約日</td>
-		<td>${"2025-01-31"}</td>
-	</tr>
-	<tr>
-		<td>会議室</td>
-		<td>${"大会議室"}</td>
-	</tr>
-	<tr>
-		<td>予約時刻</td>
-		<td>${"14:00～15:00"}</td>
-	</tr>
-	<tr>
-		<td>予約者</td>
-		<td>${"情報太郎"}</td>
-	</tr>
+	<tbody>
+		<tr>
+			<th>予約日</th>
+			<td>${"2025-01-31"}</td>
+		</tr>
+		<tr>
+			<th>会議室</th>
+			<td>${"大会議室"}</td>
+		</tr>
+		<tr>
+			<th>予約時刻</th>
+			<td>${"14:00～15:00"}</td>
+		</tr>
+		<tr>
+			<th>予約者</th>
+			<td>${"情報太郎"}</td>
+		</tr>
+	</tbody>
 </table>
-<hr>
-<form action="<%=request.getContextPath()%>/jsp/menu.jsp"
-	method="POST">
-	<input type="submit" value="確認">
-</form>
+<a href="menu.jsp"class="button_submit">メニューへ</a>
 <%@include file="../common/footer.jsp"%>

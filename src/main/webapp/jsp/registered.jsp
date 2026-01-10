@@ -5,25 +5,24 @@
 <hr>
 <h2>登録情報の完了</h2>
 <table>
-	<tr>
-		<th>利用者ID:</th>
-		<td>${"2600001"}</td>
-	</tr>
-	<tr>
-		<th>パスワード:</th>
-		<td>${"abcdef"}</td>
-	</tr>
-	<tr>
-		<th>氏名:</th>
-		<td>${"インテックス太郎"}</td>
-	</tr>
-	<tr>
-		<th>住所:</th>
-		<td>${"愛知県"}</td>
-	</tr>
+	<tbody>
+		<tr>
+			<th>利用者ID</th>
+			<td>${"2600001"}</td>
+		</tr>
+		<tr>
+			<th>パスワード</th>
+			<td>${"abcdef"}</td>
+		</tr>
+		<tr>
+			<th>氏名</th>
+			<td>${"インテックス太郎"}</td>
+		</tr>
+		<tr>
+			<th>住所</th>
+			<td>${"愛知県"}</td>
+		</tr>
+	</tbody>
 </table>
-<form action="<%=request.getContextPath()%>/jsp/menu.jsp"
-	method="post">
-	<input type="submit" value="完了">
-</form>
+<a href="menu.jsp"class="button_submit">メニューへ戻る</a>
 <%@include file="../common/footer.jsp"%>

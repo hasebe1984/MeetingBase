@@ -5,9 +5,15 @@
     <hr>
     <%-- 動的にパスを取得するため、プロジェクト名が変わっても修正不要です --%>
     <h2>ログイン</h2>
-    <form action="<%= request.getContextPath() %>/LoginServlet" method="POST">
-        利用者ID: <input type="text" name="userId" required><br>
-        パスワード: <input type="password" name="userPw" required><br>
-        <input type="submit" value="ログイン">
+    <form action="<%= request.getContextPath() %>/LoginServlet" method="post" class="form">
+	    <div class="input-wrap">
+	        <label for="userId">利用者ID</label>
+	        <input type="text" id="userId" name="userId" class="form_input" required>   
+	    </div>
+	      <div class="input-wrap">
+	        <label for="userPw">パスワード</label>
+	        <input type="password" id="userPw" name="userPw" class="form_input" required> 
+	    </div>
+        <input type="submit" value="ログイン" class="button_submit button_submit_large">
     </form>
 <%@include file="../common/footer.jsp"%>

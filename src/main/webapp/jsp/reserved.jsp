@@ -1,13 +1,18 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@include file="../common/header.jsp"%>
-    <h1>会議室予約</h1>
-    <hr>
-    <h2>予約完了</h2>
-    <table>
+<h1>会議室予約</h1>
+<hr>
+<h2>予約完了</h2>
+<table>
+	<tbody>
+		<tr>
+			<th>予約ID</th>
+			<td>${"4"}</td>
+		</tr>
 		<tr>
 			<th>予約日</th>
-			<td>${"2023-02-02"}</td>
+			<td>${"2025-01-31"}</td>
 		</tr>
 		<tr>
 			<th>会議室</th>
@@ -21,8 +26,7 @@
 			<th>予約者</th>
 			<td>${"情報太郎"}</td>
 		</tr>
-	</table>
-    <form action="<%= request.getContextPath() %>/SearchServlet" method="get">
-        <input type="submit" value="完了">
-    </form>
+	</tbody>
+</table>
+<a href="menu.jsp"class="button_submit">メニューへ戻る</a>
 <%@include file="../common/footer.jsp"%>

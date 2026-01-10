@@ -3,65 +3,102 @@
 <%@include file="../common/header.jsp"%>
 <h1>会議室一覧</h1>
 <hr>
-<h2>会議室</h2>
-<table class="table">
-	<tr>
-		<td>${"ID1"}</td>
-		<td>${"大会議室"}</td>
-		<td>
-			<form action="<%=request.getContextPath()%>/SearchServlet"
-				method="post">
-				<input type="submit" value="会議室情報編集">
-			</form>
-		</td>
-		<td>
-			<form action="<%=request.getContextPath()%>/SearchServlet"
-				method="post">
-				<input type="submit" value="会議室情報削除">
-			</form>
-		</td>
-
-	</tr>
-	<tr>
-		<td>${"ID2"}</td>
-		<td>${"小会議室"}</td>
-		<td>
-			<form action="<%=request.getContextPath()%>/SearchServlet"
-				method="post">
-				<input type="submit" value="会議室情報編集">
-			</form>
-		</td>
-		<td>
-			<form action="<%=request.getContextPath()%>/SearchServlet"
-				method="post">
-				<input type="submit" value="会議室情報削除">
-			</form>
-		</td>
-
-	</tr>
-	<tr>
-		<td>${"ID3"}</td>
-		<td>${"中会議室"}</td>
-		<td>
-			<form action="<%=request.getContextPath()%>/SearchServlet"
-				method="post">
-				<input type="submit" value="会議室情報編集">
-			</form>
-		</td>
-		<td>
-			<form action="<%=request.getContextPath()%>/SearchServlet"
-				method="post">
-				<input type="submit" value="会議室情報削除">
-			</form>
-		</td>
-
-	</tr>
+<table class="list_table">
+	<thead>
+		<tr>
+			<th>ID</th>
+			<th>会議室名</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>${"0501"}</td>
+			<td>${"大会議室"}</td>
+			<td class="list_td_small">
+				<form action="<%=request.getContextPath()%>/RoomEditServlet"
+					method="post">
+					<input type="submit" value="編集" class="button_list">
+				</form>
+			</td>
+			<td class="list_td_small">
+				<form action="<%=request.getContextPath()%>/RoomAdminServlet"
+					method="post">
+					<input type="submit" value="削除" class="button_list">
+				</form>
+			</td>
+		</tr>
+		<tr>
+			<td>${"0501"}</td>
+			<td>${"大会議室"}</td>
+			<td class="list_td_small">
+				<form action="<%=request.getContextPath()%>/RoomEditServlet"
+					method="post">
+					<input type="submit" value="編集" class="button_list">
+				</form>
+			</td>
+			<td class="list_td_small">
+				<form action="<%=request.getContextPath()%>/RoomAdminServlet"
+					method="post">
+					<input type="submit" value="削除" class="button_list">
+				</form>
+			</td>
+		</tr>
+		<tr>
+			<td>${"0501"}</td>
+			<td>${"大会議室"}</td>
+			<td class="list_td_small">
+				<form action="<%=request.getContextPath()%>/RoomEditServlet"
+					method="post">
+					<input type="submit" value="編集" class="button_list">
+				</form>
+			</td>
+			<td class="list_td_small">
+				<form action="<%=request.getContextPath()%>/RoomAdminServlet"
+					method="post">
+					<input type="submit" value="削除" class="button_list">
+				</form>
+			</td>
+		</tr>
+		<tr>
+			<td>${"0501"}</td>
+			<td>${"大会議室"}</td>
+			<td class="list_td_small">
+				<form action="<%=request.getContextPath()%>/RoomEditServlet"
+					method="post">
+					<input type="submit" value="編集" class="button_list">
+				</form>
+			</td>
+			<td class="list_td_small">
+				<form action="<%=request.getContextPath()%>/RoomAdminServlet"
+					method="post">
+					<input type="submit" value="削除" class="button_list">
+				</form>
+			</td>
+		</tr>
+		<tr>
+			<td>${"0501"}</td>
+			<td>${"大会議室"}</td>
+			<td class="list_td_small">
+				<form action="<%=request.getContextPath()%>/RoomEditServlet"
+					method="post">
+					<input type="submit" value="編集" class="button_list">
+				</form>
+			</td>
+			<td class="list_td_small">
+				<form action="<%=request.getContextPath()%>/RoomAdminServlet"
+					method="post">
+					<input type="submit" value="削除" class="button_list">
+				</form>
+			</td>
+		</tr>
+	</tbody>
 </table>
 <hr>
 <div class="button_row">
-	<a href="conferenceRoomList.jsp">戻る</a>
-	<form action="<%=request.getContextPath()%>/SearchServlet" method="post">
-		<input type="submit" value="会議室追加">
+	<a href="menu.jsp" class="button_submit">戻る</a>
+	<form action="<%=request.getContextPath()%>/RoomEditServlet"
+		method="post">
+		<input type="submit" value="追加" class="button_submit">
 	</form>
 </div>
 <%@include file="../common/footer.jsp"%>
