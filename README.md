@@ -39,6 +39,8 @@
 
 9:30 - 12:00、13:30 - 15:00まで。
 
+[レビュー管理一覧](https://docs.google.com/spreadsheets/d/1bRu3RzW5ACRM9MBjClZ21d5iOirod3eK/edit?gid=288139212#gid=288139212)
+
 ◍　1回目（1/7午前）
 
 顧客の要求している内容を検討し、不明点を解決するために行う。
