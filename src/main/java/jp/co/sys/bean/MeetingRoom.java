@@ -1,6 +1,8 @@
 package jp.co.sys.bean;
 
 import java.io.Serializable;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 import jp.co.sys.dao.RoomDao;
 import jp.co.sys.dao.UserDao;
@@ -15,17 +17,25 @@ public class MeetingRoom implements Serializable {
 	private UserBean user;
 	
 	//コンストラクタ
-	public MeetingRoom() {}
+	public MeetingRoom() {
+		this.rooms = RoomDao.findAll();
+		LocalDate currentDate = LocalDate.now();
+		DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+		this.date =currentDate.format(dateTimeFormatter); 
+	}
 	
 	//メソッド
 	public ReservationBean createReservation​(String roomId, String start) {
+		
+		ReservationBean reservation = new ReservationBean(roomId, date, start, end, userId);
+		
 		return ;
 	}
 	public String getDate() {
-		return ;
+		return date;
 	}
 	public void	setDate​(String date) {
-		
+		this.date = date;
 	}
 	public static String[] getPeriod() {
 		return ;
@@ -37,10 +47,15 @@ public class MeetingRoom implements Serializable {
 		return;
 	}
 	public RoomBean	getRoom​(String roomId) {
-		return ;
+		for(RoomBean room:rooms) {
+			if(room.getId().equals(roomId)) {
+				return room;
+			}
+		}
+		return null;
 	}
 	public RoomBean[] getRooms() {
-		return RoomDao.findAll();
+		return rooms;
 	}
 	public UserBean	getUser() {
 		return user;
