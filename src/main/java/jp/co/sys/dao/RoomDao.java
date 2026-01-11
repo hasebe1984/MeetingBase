@@ -8,13 +8,25 @@ import java.util.ArrayList;
 
 import jp.co.sys.bean.RoomBean;
 import jp.co.sys.util.DatabaseConnectionProvider;
+/**
+ * データベース「meetingroomb」のテーブル「room」を操作するクラスです。
+ * @author 池田喜一郎
+ * @version 1.0
+ */
 //web連携164みまねて、エクステンドしたらいけたけどいいの？？
 public class RoomDao extends ArrayList<RoomBean> {
+	/**
+	 * デフォルトコンストラクタ
+	 */
 	private RoomDao() {
 	}
 
-	public static ArrayList<RoomBean> findAll() {
-		ArrayList<RoomBean> roomlist = new ArrayList<RoomBean>();
+	/**
+	 * @return
+	 * @throws
+	 */
+	public static RoomBean[] findAll() {
+		ArrayList<RoomBean> list = new ArrayList<RoomBean>();
 		String sql = "SELECT * FROM room";
 		try (Connection db = DatabaseConnectionProvider.getConnection();
 				PreparedStatement pstmt = db.prepareStatement(sql);
@@ -23,15 +35,46 @@ public class RoomDao extends ArrayList<RoomBean> {
 				String roomid = rs.getString("id");
 				String roomname = rs.getString("name");
 				RoomBean rb = new RoomBean(roomid, roomname);
-				roomlist.add(rb);
+				list.add(rb);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		RoomBean[] roomlist = (RoomBean[])list.toArray();
 		return roomlist;
 	}
+//	https://qiita.com/j-work/items/d114bd9fcf7e5e88e659
+	
+//	public static RoomBean[] findAll() {
+//		String sql = "SELECT * FROM room";
+////		RoomBean[] roomlist;
+//		try (Connection db = DatabaseConnectionProvider.getConnection();
+//				PreparedStatement pstmt = db.prepareStatement(sql);
+//				ResultSet rs = pstmt.executeQuery()) {
+//			rs.last();
+//			int rowcount = rs.getRow();		
+//			RoomBean[] roomlist= new RoomBean[rowcount];
+//			String[] a = new String[rowcount];
+//			while (rs.next()) {
+//				String roomid = rs.getString("id");
+//				String roomname = rs.getString("name");
+//				for (int i = 0; i < rowcount; i++) {
+//					 a[i] = roomid;
+//					 a[i] = roomname;
+//				}
+//				roomlist = a;
+//				return roomlist;
+//			}
+//		} catch (SQLException e) {
+//			e.printStackTrace();
+//		}
+//	} https://tech.kurojica.com/archives/15721/
 
 	//	追加・削除・編集のメソッド　名前は仮で
+	/**
+	 * @param name　会議室名
+	 * @return　テーブル「room」へのデータ挿入真偽
+	 */
 	public static boolean insert(String name) {
 		int ret = -1;
 		String sql = "INSERT INTO room VALUES (?,?)";
@@ -46,6 +89,10 @@ public class RoomDao extends ArrayList<RoomBean> {
 		return ret != 0;
 	}
 
+	/**
+	 * @param name　会議室名
+	 * @return　テーブル「room」のデータ「name」のデータ変更真偽
+	 */
 	public static boolean update(String name) {
 		int ret = -1;
 		String sql = "UPDATE room SET name =? WHERE id =?";
@@ -60,6 +107,10 @@ public class RoomDao extends ArrayList<RoomBean> {
 		return ret != 0;
 	}
 	
+	/**
+	 * @param id　会議室ID
+	 * @return　テーブル「room」のデータ「id」のデータ削除真偽
+	 */
 	public static boolean delete(int id) {
 		int ret = -1;
 		String sql = "DELETE FROM room WHERE id=?";
