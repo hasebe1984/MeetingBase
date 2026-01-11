@@ -4,16 +4,17 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import jp.co.sys.bean.RoomBean;
 import jp.co.sys.util.DatabaseConnectionProvider;
-
-public class RoomDao {
+//web連携164みまねて、エクステンドしたらいけたけどいいの？？
+public class RoomDao extends ArrayList<RoomBean> {
 	private RoomDao() {
 	}
 
-	public static RoomBean findAll() {
-		RoomBean roomlist = new RoomBean();
+	public static ArrayList<RoomBean> findAll() {
+		ArrayList<RoomBean> roomlist = new ArrayList<RoomBean>();
 		String sql = "SELECT * FROM room";
 		try (Connection db = DatabaseConnectionProvider.getConnection();
 				PreparedStatement pstmt = db.prepareStatement(sql);
