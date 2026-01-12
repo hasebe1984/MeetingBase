@@ -2,6 +2,7 @@ package jp.co.sys.bean;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
 import jp.co.sys.dao.RoomDao;
@@ -11,7 +12,7 @@ public class MeetingRoom implements Serializable {
 	//フィールド
 	private static final long serialVersionUID = 1L;
 	private static int INTERVAL = 60;
-	private static String[] PERIOD;
+	private static String[] PERIOD = {"09:00", "10:00", "11:00", "12:00","13:00", "14:00", "15:00", "16:00"};
 	private String date;
 	private RoomBean[] rooms;
 	private UserBean user;
@@ -26,10 +27,12 @@ public class MeetingRoom implements Serializable {
 	
 	//メソッド
 	public ReservationBean createReservation​(String roomId, String start) {
-		
+		LocalTime startTime = LocalTime.parse(start);
+		LocalTime endTime = startTime.plusMinutes(INTERVAL);
+		String end = endTime.toString();
+		String userId = user.getId();//ここわからなさすぎるて
 		ReservationBean reservation = new ReservationBean(roomId, date, start, end, userId);
-		
-		return ;
+		return reservation;
 	}
 	public String getDate() {
 		return date;
@@ -61,8 +64,9 @@ public class MeetingRoom implements Serializable {
 		return user;
 	}
 	public boolean login​(String id, String password) {
-		user = UserDao.certificate​(id,password);
-		if(user != null) {
+		UserBean result = UserDao.certificate​(id,password);
+		if(result != null) {
+			this.user = result;
 			return true;
 		} else {
 			return false;
