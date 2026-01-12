@@ -2,6 +2,8 @@ package jp.co.sys.bean;
 
 import java.io.Serializable;
 
+//　通るけど、アレイリストで戻り値設定してない
+//　public class RoomBean extends ArrayList<RoomBean> implements Serializable{
 
 public class RoomBean implements Serializable {
 	private static final long serialVersionUID = 1L;

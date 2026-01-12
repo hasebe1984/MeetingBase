@@ -2,7 +2,6 @@ package jp.co.sys.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -25,26 +24,30 @@ public class RoomDao extends ArrayList<RoomBean> {
 	 * @return
 	 * @throws
 	 */
-	public static RoomBean[] findAll() {
-		ArrayList<RoomBean> list = new ArrayList<RoomBean>();
-		String sql = "SELECT * FROM room";
-		try (Connection db = DatabaseConnectionProvider.getConnection();
-				PreparedStatement pstmt = db.prepareStatement(sql);
-				ResultSet rs = pstmt.executeQuery()) {
-			while (rs.next()) {
-				String roomid = rs.getString("id");
-				String roomname = rs.getString("name");
-				RoomBean rb = new RoomBean(roomid, roomname);
-				list.add(rb);
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		RoomBean[] roomlist = (RoomBean[])list.toArray();
-		return roomlist;
-	}
-//	https://qiita.com/j-work/items/d114bd9fcf7e5e88e659
 	
+//	ストリング配列をルームビーン配列にキャストできない
+//	エラーでないけど、例外発生した
+//	public static RoomBean[] findAll() {
+//		ArrayList<RoomBean> list = new ArrayList<RoomBean>();
+//		String sql = "SELECT * FROM room";
+//		try (Connection db = DatabaseConnectionProvider.getConnection();
+//				PreparedStatement pstmt = db.prepareStatement(sql);
+//				ResultSet rs = pstmt.executeQuery()) {
+//			while (rs.next()) {
+//				String roomid = rs.getString("id");
+//				String roomname = rs.getString("name");
+//				RoomBean rb = new RoomBean(roomid, roomname);
+//				list.add(rb);
+//			}
+//		} catch (SQLException e) {
+//			e.printStackTrace();
+//		}
+//		RoomBean[] roomlist = (RoomBean[])list.toArray();
+//		return roomlist;
+//	}
+////	https://qiita.com/j-work/items/d114bd9fcf7e5e88e659
+	
+//	リザルトセットを配列にセットしていく方法を、やっぱ探す
 //	public static RoomBean[] findAll() {
 //		String sql = "SELECT * FROM room";
 ////		RoomBean[] roomlist;
@@ -70,6 +73,25 @@ public class RoomDao extends ArrayList<RoomBean> {
 //		}
 //	} https://tech.kurojica.com/archives/15721/
 
+//	通るけど、アレイリスト前提なのでNG
+//	public static RoomBean findAll() {
+//		RoomBean roomlist = new RoomBean();
+//		String sql = "SELECT * FROM room";
+//		try (Connection db = DatabaseConnectionProvider.getConnection();
+//				PreparedStatement pstmt = db.prepareStatement(sql);
+//				ResultSet rs = pstmt.executeQuery()) {
+//			while (rs.next()) {
+//				String roomid = rs.getString("id");
+//				String roomname = rs.getString("name");
+//				RoomBean rb = new RoomBean(roomid, roomname);
+//				roomlist.add(rb);
+//			}
+//		} catch (SQLException e) {
+//			e.printStackTrace();
+//		}
+//		return roomlist;
+//	}
+	
 	//	追加・削除・編集のメソッド　名前は仮で
 	/**
 	 * @param name　会議室名
