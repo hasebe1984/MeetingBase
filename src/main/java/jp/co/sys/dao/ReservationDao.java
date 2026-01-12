@@ -17,7 +17,7 @@ public class ReservationDao {
 	//	利用日の予約を検索します
 	public static List<ReservationBean> findByDate​(String date) {
 		List<ReservationBean> list = new ArrayList<>();
-		String sql = "SELECT id, roomId, date, start, end,userID FROM reservation WHERE date = ?";
+		String sql = "SELECT id, roomId, date, start, end,userID FROM reservation WHERE date = ? and isDeleted = 0";
 
 		try (Connection conn = DatabaseConnectionProvider.getConnection();
 				PreparedStatement pstmt = conn.prepareStatement(sql)) {
@@ -54,18 +54,17 @@ public class ReservationDao {
 
 	//	予約を追加します
 	public static boolean insert​(ReservationBean reservation) {
-		String sql = "INSERT INTO reservation (id,roomId,date,start,end,userID) VALUES(?, ?, ?, ?, ?, ?)";
-		//INSERT INTO reservation (id, roomId, date, start, end, userID) VALUES (7, "0302", "2026-01-10", "09:00:00", "10:00:00", "2500003");
+		String sql = "INSERT INTO reservation (roomId,date,start,end,userID) VALUES(?, ?, ?, ?, ?)";
+		//INSERT INTO reservation (roomId, date, start, end, userID) VALUES ("0302", "2026-01-10", "09:00:00", "10:00:00", "2500003");
 		// try-with-resources構文でリソースを自動的にクローズ
 		try (Connection conn = DatabaseConnectionProvider.getConnection();
 				PreparedStatement pstmt = conn.prepareStatement(sql)) {
 			// プレースホルダーに値を設定
-			pstmt.setInt(1, reservation.getId());
-			pstmt.setString(2, reservation.getRoomId());
-			pstmt.setString(3, reservation.getDate());
-			pstmt.setString(4, reservation.getStart());
-			pstmt.setString(5, reservation.getEnd());
-			pstmt.setString(6, reservation.getUserID());
+			pstmt.setString(1, reservation.getRoomId());
+			pstmt.setString(2, reservation.getDate());
+			pstmt.setString(3, reservation.getStart());
+			pstmt.setString(4, reservation.getEnd());
+			pstmt.setString(5, reservation.getUserID());
 			//更新クエリの実行
 			int ret = pstmt.executeUpdate();
 			return ret != 0;
@@ -78,8 +77,8 @@ public class ReservationDao {
 
 	//	予約を削除します
 	public static boolean delete​(ReservationBean reservation) {
-		String sql = "update reservation set isDeleted = 1 where roomId = ? and date = ? and start = ?";
-		//update reservation set isDeleted = 1 where roomId = "0302" and date = "2026-01-10" and start = "09:00:00";
+		String sql = "update reservation set isDeleted = 1 where roomId = ? and date = ? and start = ? and isDeleted = 0";
+		//update reservation set isDeleted = 1 where roomId = "0302" and date = "2026-01-10" and start = "09:00:00 and isDeleted = 0";
 		// try-with-resources構文でリソースを自動的にクローズ
 		try (Connection conn = DatabaseConnectionProvider.getConnection();
 				PreparedStatement pstmt = conn.prepareStatement(sql)) {
