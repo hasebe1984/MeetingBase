@@ -36,7 +36,8 @@ public class LoginServlet extends HttpServlet {
 		//        	if(meetingroom.getUser()!= null) {
 		//        	メニューJSPにページを飛ばす
 		//        nextPage=request.getContextPath()+"jsp/menu.jsp";
-		nextPage = request.getContextPath() + "/jsp/menu.jsp";
+//		nextPage = "/jsp/menu.jsp";
+		nextPage = "/jsp/login.jsp";
 		//        	セッションを行う
 		HttpSession session = request.getSession();
 		session.setAttribute("pass", pass);

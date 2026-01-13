@@ -15,16 +15,24 @@ public class UserDao {
 
 	//	利用者IdとPasswordの認証を行う
 
+	/**
+	 * 利用者IDとパスワードで利用者認証を行い，認証した利用者情報を返します。
+	 * @param id
+	 * @param password
+	 * @return
+	 */
 	public static UserBean certificate​(java.lang.String id, java.lang.String password) {
 		UserBean user = new UserBean();
 		//SQL文user_idを指定して、レコードを取得
-		String sql = "select * from user where id = ?";
+		String sql = "select * from user where id = ? AND password=? ";
 		//データベースへ接続
 		try (Connection db = DatabaseConnectionProvider.getConnection();
 				PreparedStatement pstmt = db.prepareStatement(sql)) {
 			//受け取ったIdをSQL文へ代入
 			pstmt.setString(1, id);
+			pstmt.setString(2, password);
 			try (ResultSet rs = pstmt.executeQuery()) {
+			
 				//			SQL文を実行して実行結果を取
 				while (rs.next()) {
 					//実行結果よりそれぞれのカラムの値を取得
@@ -33,7 +41,7 @@ public class UserDao {
 					String name = rs.getString("name");
 					String address = rs.getString("address");
 					//		String address, String id, String name, String password
-					user = new UserBean(address, id, name, password);
+					user = new UserBean(address, id, name, password,isDeleted,isAdmin);
 				}
 			}
 
