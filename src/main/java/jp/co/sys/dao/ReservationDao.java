@@ -25,7 +25,6 @@ public class ReservationDao {
 
 			try (ResultSet rs = pstmt.executeQuery()) {
 				while (rs.next()) {
-					ReservationBean rb = new ReservationBean();
 					// 値の取得
 					int id = rs.getInt("id");
 					String roomId = rs.getString("roomId");
