@@ -5,6 +5,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
+import jp.co.sys.dao.ReservationDao;
 import jp.co.sys.dao.RoomDao;
 import jp.co.sys.dao.UserDao;
 
@@ -41,7 +42,7 @@ public class MeetingRoom implements Serializable {
 		this.date = date;
 	}
 	public static String[] getPeriod() {
-		return ;
+		return PERIOD;
 	}
 	private int startPeriod​(String start) throws IndexOutOfBoundsException {
 		return ;
@@ -77,6 +78,10 @@ public class MeetingRoom implements Serializable {
 		return ;
 	}
 	public void	reserve​(ReservationBean reservation) throws Exception {
+		
+		if(ReservationDao.insert​(reservation)) {
+			
+		}
 		
 	}
 	public void cancel​(ReservationBean reservation) throws Exception {
