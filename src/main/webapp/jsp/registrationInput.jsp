@@ -2,22 +2,22 @@
 	pageEncoding="UTF-8"%>
 <%@include file="../common/header.jsp"%>
 <h1>会員登録入力</h1>
-<form action="registrationConfirm.jsp" method="post" class="form">
+<form action="${pageContext.request.contextPath}/RegistrationServlet" method="post" class="form">
 	<div class="input-wrap">
-		<label for="userId">パスワード</label>
-		<input type="password" name="userPw" class="form_input" required>
+		<label for="userPw">パスワード</label>
+		<input type="password" name="userPw" value="${user.password}" id="userPw" class="form_input" required>
 	</div>
 	<div class="input-wrap">
-		<label for="userId">氏名</label>
-		<input type="text" name="name" class="form_input" required>
+		<label for="userName">氏名</label>
+		<input type="text" name="userName" value="${user.name}" id="userName" class="form_input" required>
 	</div>
 	<div class="input-wrap">
-		<label for="userId">住所</label>
-		<input type="text" name="adress" class="form_input" required>
+		<label for="userAddress">住所</label>
+		<input type="text" name="userAddress" value="${user.address}" id="userAddress" class="form_input" required>
 	</div>
 	<div class="input-wrap input-wrap_check">
-		<label for="userId">管理者</label>
-		<input type="checkbox" name="userId" class="form_check" required>
+		<label for="userAdmin">管理者</label>
+		<input type="checkbox" name="userAdmin" id="userAdmin" class="form_check" ${checked}>
 	</div>
  	<div class="button_row">
 	    <a href="menu.jsp"class="button_submit">戻る</a>
