@@ -1,6 +1,8 @@
 package jp.co.sys.bean;
 
-public class ReservationBean {
+import java.io.Serializable;
+
+public class ReservationBean implements Serializable {
 	private String date;
 	private String end;
 	private int id;
@@ -8,12 +10,13 @@ public class ReservationBean {
 	private static final long serialVersionUID = 1L;
 	private String start;
 	private String userID;
+	private int isDeleted;
 
 	//	コンストラクタ
 	public ReservationBean() {
 	}
 
-	public ReservationBean(int id, String roomId, String date, String start, String end, String userID) {
+	public ReservationBean(int id, String roomId, String date, String start, String end, String userID, int isDeleted) {
 		super();
 		this.id = id;
 		this.roomId = roomId;
@@ -21,10 +24,11 @@ public class ReservationBean {
 		this.start = start;
 		this.end = end;
 		this.userID = userID;
+		this.isDeleted = isDeleted;
 	}
 
 	public ReservationBean(String roomId, String date, String start, String end, String userID) {
-		this(0, roomId, date, start, end, userID);
+		this(0, roomId, date, start, end, userID, 0);
 		this.roomId = roomId;
 		this.date = date;
 		this.start = start;
@@ -34,6 +38,10 @@ public class ReservationBean {
 
 	public int getId() {
 		return id;
+	}
+
+	public int getIsDeleted() {
+		return isDeleted;
 	}
 
 	public void setId(int id) {
