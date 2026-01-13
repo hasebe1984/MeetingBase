@@ -75,12 +75,12 @@ public class RoomDao{
 	 * @param id　会議室ID
 	 * @return　テーブル「room」のデータ「id」のデータ削除真偽
 	 */
-	public static boolean delete(int id) {
+	public static boolean delete(RoomBean deleteroom) {
 		int ret = -1;
 		String sql = "DELETE FROM room WHERE id=?";
 		try (Connection db = DatabaseConnectionProvider.getConnection();
 				PreparedStatement pstmt = db.prepareStatement(sql)) {
-			pstmt.setInt(1, 1111); //仮
+			pstmt.setString(1, deleteroom.getId()); //仮
 			ret = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
