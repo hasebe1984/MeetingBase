@@ -11,7 +11,7 @@
 <body>
 <header>
 	<div class="header">
-		<a href="menu.jsp" class="header_logo">MRR</a>
+		<a href="<%=request.getContextPath()%>/jsp/menu.jsp" class="header_logo">MRR</a>
 		<div class="header_button">
 			<a href="../jsp/login.jsp" class="button_small">ログイン</a>
 			<form action="<%=request.getContextPath()%>/LogoutServlet" method="post">
