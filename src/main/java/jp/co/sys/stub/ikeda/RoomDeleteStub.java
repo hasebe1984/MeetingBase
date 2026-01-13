@@ -1,4 +1,4 @@
-package jp.co.sys.stub;
+package jp.co.sys.stub.ikeda;
 
 import jp.co.sys.dao.RoomDao;
 

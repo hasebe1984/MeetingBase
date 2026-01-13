@@ -1,4 +1,4 @@
-package jp.co.sys.stub;
+package jp.co.sys.stub.ikeda;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
