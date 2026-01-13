@@ -16,8 +16,8 @@ CREATE TABLE user (
         password VARCHAR(255) NOT NULL,
         name VARCHAR(10),
         address VARCHAR(30),
-        isDeleted TINYINT(1) not null,
-        isAdmin TINYINT(1) not null
+        isDeleted TINYINT(1) not null DEFAULT 0,
+        isAdmin TINYINT(1) not null DEFAULT 0
 );
 
 CREATE TABLE room (
@@ -34,8 +34,8 @@ CREATE TABLE reservation (
         userId VARCHAR(7) NOT NULL,
         FOREIGN KEY(roomid) REFERENCES room(id),
         FOREIGN KEY(userid) REFERENCES user(id),
-        UNIQUE(roomId, date, start)
-        isDeleted TINYINT(1) not null,
+        UNIQUE(roomId, date, start),
+        isDeleted TINYINT(1) not null DEFAULT 0
 );
 
 
