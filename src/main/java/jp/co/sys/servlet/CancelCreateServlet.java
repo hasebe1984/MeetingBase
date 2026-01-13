@@ -10,13 +10,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import jp.co.sys.bean.MeetingRoom;
 import jp.co.sys.bean.ReservationBean;
-import jp.co.sys.bean.RoomBean;
+import jp.co.sys.stub.sasaki.MeetingRoom;
 
 /**
- * Servlet implementation class CancelCreateServlet
+ * キャンセルしたい予約情報を生成するサーブレットです。
  */
+
 @WebServlet("/CancelCreateServlet")
 public class CancelCreateServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -33,19 +33,17 @@ protected void doPost(HttpServletRequest request, HttpServletResponse response)
 		HttpSession session = request.getSession();
 /** 入力された情報取得 */
 		String roomId = request.getParameter("roomId");
-		String time = request.getParameter("time");
-/** 会議室管理システム取得 */		
-		MeetingRoom meetingRoom=(MeetingRoom) session.getAttribute(roomId);
-/** 取り消す予約 */
-		ReservationBean reservation = meetingRoom.createReservation(roomId,start");			
-				/** 取り消す予約（会議室ID、開始時間）をセッションにセットする */
-		
-		RoomBean room=(RoomBean)session.setAttribute("roomId", roomId);
-		ReservationBean reservation=session.setAttribute("time", time);
-/** 予約確認画面へフォワード */
+		String start = request.getParameter("time");
+		/** 会議室管理システム取得 */		
+		MeetingRoom meetingRoom=(MeetingRoom) session.getAttribute("meetingRoom");
+/** 取り消す予約情報を生成する */
+		ReservationBean reservation = meetingRoom.createReservation(roomId,start);
+/** 取り消す予約（会議室ID、開始時間）をセッションにセットする */
+		session.setAttribute("reservation",reservation);
+		session.setAttribute("room",meetingRoom.getRoom(roomId));
+		/** 予約確認画面へフォワード */
 		RequestDispatcher rd = request.getRequestDispatcher("/jsp/cancelConfirm.jsp");
 		rd.forward(request, response);
 		//		response.sendRedirect(request.getContextPath() + "/jsp/cancelConfirm.jsp");
 	}
 }
-	
