@@ -4,11 +4,11 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 
 import jp.co.sys.bean.ReservationBean;
 import jp.co.sys.util.DatabaseConnectionProvider;
+import jp.co.sys.util.ReservationList;
 
 public class ReservationDao {
 	private ReservationDao() {
@@ -16,8 +16,8 @@ public class ReservationDao {
 
 	//	利用日の予約を検索します
 	public static List<ReservationBean> findByDate​(String date) {
-		List<ReservationBean> list = new ArrayList<>();
-		String sql = "SELECT id, roomId, date, start, end,userID FROM reservation WHERE date = ? and isDeleted = 0";
+		ReservationList list = new ReservationList();
+		String sql = "SELECT id, roomId, date, start, end,userID,isDeleted FROM reservation WHERE date = ? and isDeleted = 0";
 
 		try (Connection conn = DatabaseConnectionProvider.getConnection();
 				PreparedStatement pstmt = conn.prepareStatement(sql)) {
@@ -37,7 +37,7 @@ public class ReservationDao {
 					//					ReservationBean rb = new ReservationBean(id, roomId, date2, start, end, userID);
 					ReservationBean rb = new ReservationBean(rs.getInt("id"), rs.getString("roomId"),
 							rs.getString("date"),
-							rs.getString("start"), rs.getString("end"), rs.getString("userID"));
+							rs.getString("start"), rs.getString("end"), rs.getString("userID"), rs.getInt("isDeleted"));
 					list.add(rb);
 				}
 			}
