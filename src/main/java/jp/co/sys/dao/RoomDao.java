@@ -15,12 +15,13 @@ import jp.co.sys.util.DatabaseConnectionProvider;
  * @author 池田喜一郎
  * @version 1.0
  */
-public class RoomDao{
+public class RoomDao {
 	public static List<RoomBean> findAll() {
 		List<RoomBean> roomlist = new ArrayList<>();
 		String sql = "SELECT * FROM room";
 		try (Connection db = DatabaseConnectionProvider.getConnection();
-				PreparedStatement pstmt = db.prepareStatement(sql);
+				PreparedStatement pstmt = db.prepareStatement(sql, ResultSet.TYPE_SCROLL_INSENSITIVE,
+						ResultSet.CONCUR_READ_ONLY);
 				ResultSet rs = pstmt.executeQuery()) {
 			while (rs.next()) {
 				String roomid = rs.getString("id");
@@ -39,7 +40,7 @@ public class RoomDao{
 	 * @param name　会議室名
 	 * @return　テーブル「room」へのデータ挿入真偽
 	 */
-	public static boolean insert(String name) {
+	public static boolean insert(RoomBean updateroom) {
 		int ret = -1;
 		String sql = "INSERT INTO room VALUES (?,?)";
 		try (Connection db = DatabaseConnectionProvider.getConnection();
@@ -57,7 +58,7 @@ public class RoomDao{
 	 * @param name　会議室名
 	 * @return　テーブル「room」のデータ「name」のデータ変更真偽
 	 */
-	public static boolean update(String name) {
+	public static boolean update(RoomBean updateroom) {
 		int ret = -1;
 		String sql = "UPDATE room SET name =? WHERE id =?";
 		try (Connection db = DatabaseConnectionProvider.getConnection();
