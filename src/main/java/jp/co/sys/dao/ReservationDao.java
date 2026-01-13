@@ -96,4 +96,8 @@ public class ReservationDao {
 		return false;
 	}
 
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 9cf6ccb42aa186ab01d82e7e4e6de9dbbe944e08
