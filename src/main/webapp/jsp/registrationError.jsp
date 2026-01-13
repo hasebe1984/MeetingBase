@@ -13,17 +13,21 @@
 		</tr>
 		<tr>
 			<th>パスワード</th>
-			<td>${"abcdef"}</td>
+			<td>${user.password}</td>
 		</tr>
 		<tr>
 			<th>氏名</th>
-			<td>${"インテックス太郎"}</td>
+			<td>${user.name}</td>
 		</tr>
 		<tr>
 			<th>住所</th>
-			<td>${"愛知県"}</td>
+			<td>${user.address}</td>
+		</tr>
+		<tr>
+			<th>会員区分</th>
+			<td>${user.admin}</td>
 		</tr>
 	</tbody>
 </table>
-<a href="menu.jsp"class="button_submit">メニューへ</a>
+<a href="<%=request.getContextPath()%>/jsp/menu.jsp" class="button_submit">メニューへ</a>
 <%@include file="../common/footer.jsp"%>

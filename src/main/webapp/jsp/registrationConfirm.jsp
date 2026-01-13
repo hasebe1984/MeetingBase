@@ -12,25 +12,32 @@
 		</tr>
 		<tr>
 			<th>パスワード</th>
-			<td>${"abcdef"}</td>
+			<td>${user.password}</td>
 		</tr>
 		<tr>
 			<th>氏名</th>
-			<td>${"インテックス太郎"}</td>
+			<td>${user.name}</td>
 		</tr>
 		<tr>
 			<th>住所</th>
-			<td>${"愛知県"}</td>
+			<td>${user.address}</td>
+		</tr>
+		<tr>
+			<th>会員区分</th>
+			<td>${user.admin}</td>
 		</tr>
 	</tbody>
 </table>
 <div class="button_row">
-	<form action="registrationInput.jsp" method="post">
-		<input type="submit" value="戻る" class="button_submit">
-	</form>
 	<form action="<%=request.getContextPath()%>/RegistrationServlet"
 		method="post">
-		<input type="submit" value="決定" class="button_submit">
+		<input type="hidden" name="userPw" value="${user.password}">
+		<input type="hidden" name="userName" value="${user.name}">
+		<input type="hidden" name="userAddress" value="${user.address}">
+		<input type="hidden" name="userAdmin" value="${user.admin}">
+		
+		<input type="submit" name="action" value="戻る" class="button_submit">
+		<input type="submit" name="action" value="決定" class="button_submit">
 	</form>
 </div>
 <%@include file="../common/footer.jsp"%>
