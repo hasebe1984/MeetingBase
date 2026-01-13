@@ -6,15 +6,12 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import jp.co.sys.bean.UserBean;
-import jp.co.sys.dao.UserDao;
 import jp.co.sys.util.DatabaseConnectionProvider;
 
 public class dummy {
-	public void test(){
-		UserDao("2500001","111111");
 
 	public static UserBean certificate​(java.lang.String id, java.lang.String password) {
-		UserBean user = new UserBean();
+		UserBean user = new UserBean("東京都","2500001","一般太郎","111111");
 		//SQL文user_idを指定して、レコードを取得
 		String sql = "select * from user where id = ? AND password=? ";
 		//データベースへ接続
@@ -33,7 +30,8 @@ public class dummy {
 					String name = rs.getString("name");
 					String address = rs.getString("address");
 					//		String address, String id, String name, String password
-					user = new UserBean(address, id, name, password, isDeleted, isAdmin);
+					user = new UserBean(address, id, name, password);
+					System.out.println(UserBean());
 				}
 			}
 
@@ -42,4 +40,9 @@ public class dummy {
 		}
 		return user;
 	}
-}}}
+
+	private static char[] UserBean() {
+		// TODO 自動生成されたメソッド・スタブ
+		return null;
+	}
+}

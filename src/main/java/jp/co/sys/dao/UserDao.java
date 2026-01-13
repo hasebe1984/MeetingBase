@@ -32,7 +32,7 @@ public class UserDao {
 			pstmt.setString(1, id);
 			pstmt.setString(2, password);
 			try (ResultSet rs = pstmt.executeQuery()) {
-			
+
 				//			SQL文を実行して実行結果を取
 				while (rs.next()) {
 					//実行結果よりそれぞれのカラムの値を取得
@@ -41,13 +41,14 @@ public class UserDao {
 					String name = rs.getString("name");
 					String address = rs.getString("address");
 					//		String address, String id, String name, String password
-					user = new UserBean(address, id, name, password,isDeleted,isAdmin);
+					user = new UserBean(address, id, name, password, isDeleted, isAdmin);
+					return user;
 				}
 			}
 
 		} catch (SQLException ex) {
 			ex.printStackTrace();
 		}
-		return user;
+		return null;
 	}
 }
