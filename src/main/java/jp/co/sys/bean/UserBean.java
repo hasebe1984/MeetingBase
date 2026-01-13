@@ -13,6 +13,14 @@ public class UserBean implements Serializable {
 	public UserBean() {
 	}
 
+	public UserBean(String address, String id, String name, String password) {
+		super();
+		this.address = address;
+		this.id = id;
+		this.name = name;
+		this.password = password;
+	}
+
 	public UserBean(String address, String id, String name, String password, String admin) {
 		super();
 		this.address = address;
