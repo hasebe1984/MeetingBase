@@ -40,13 +40,13 @@ public class RoomDao {
 	 * @param name　会議室名
 	 * @return　テーブル「room」へのデータ挿入真偽
 	 */
-	public static boolean insert(RoomBean updateroom) {
+	public static boolean insert(RoomBean insertroom) {
 		int ret = -1;
 		String sql = "INSERT INTO room VALUES (?,?)";
 		try (Connection db = DatabaseConnectionProvider.getConnection();
 				PreparedStatement pstmt = db.prepareStatement(sql)) {
-			pstmt.setInt(1, 1111); //仮
-			pstmt.setString(2, "仮会議室"); //仮
+			pstmt.setString(1, insertroom.getId());
+			pstmt.setString(2, insertroom.getName());
 			ret = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -63,8 +63,8 @@ public class RoomDao {
 		String sql = "UPDATE room SET name =? WHERE id =?";
 		try (Connection db = DatabaseConnectionProvider.getConnection();
 				PreparedStatement pstmt = db.prepareStatement(sql)) {
-			pstmt.setString(1, "変更できた会議室"); //仮
-			pstmt.setInt(2, 1111); //仮
+			pstmt.setString(1, updateroom.getName());
+			pstmt.setString(2, updateroom.getId());
 			ret = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -81,7 +81,7 @@ public class RoomDao {
 		String sql = "DELETE FROM room WHERE id=?";
 		try (Connection db = DatabaseConnectionProvider.getConnection();
 				PreparedStatement pstmt = db.prepareStatement(sql)) {
-			pstmt.setString(1, deleteroom.getId()); //仮
+			pstmt.setString(1, deleteroom.getId());
 			ret = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
