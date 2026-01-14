@@ -11,10 +11,10 @@
 <body>
 <header>
 	<div class="header">
-		<a href="<%=request.getContextPath()%>/jsp/menu.jsp" class="header_logo">MRR</a>
+		<a href="${pageContext.request.contextPath}/jsp/menu.jsp" class="header_logo">MRR</a>
 		<div class="header_button">
 			<a href="../jsp/login.jsp" class="button_small">ログイン</a>
-			<form action="<%=request.getContextPath()%>/LogoutServlet" method="post">
+			<form action="${pageContext.request.contextPath}/LogoutServlet" method="post">
 				<input type="submit" value="ログアウト" class="button_small">
 			</form>
 		</div>
