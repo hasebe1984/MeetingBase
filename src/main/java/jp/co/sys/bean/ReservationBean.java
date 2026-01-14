@@ -36,15 +36,6 @@ public class ReservationBean implements Serializable {
 		this.userID = userID;
 	}
 
-	public ReservationBean(String userID) {
-		this.userID = userID;
-	}
-	
-	public ReservationBean(String date) {
-		this.date = date;
-	}
-
-
 	public int getId() {
 		return id;
 	}
