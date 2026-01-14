@@ -2,6 +2,7 @@ package jp.co.sys.bean;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
@@ -78,6 +79,14 @@ public class MeetingRoom implements Serializable {
 		return ;
 	}
 	public void	reserve​(ReservationBean reservation) throws Exception {
+		LocalDateTime localDateTime = LocalDateTime.now();
+		LocalDate reserveDate = LocalDate.parse(reservation.getDate());
+		LocalTime reserveTime = LocalTime.parse(reservation.getStart());
+		LocalDateTime reserveDateTime = LocalDateTime.of(reserveDate, reserveTime);
+		
+		if(reserveDateTime.isAfter(localDateTime)) {
+			
+		}
 		
 		if(ReservationDao.insert​(reservation)) {
 			
