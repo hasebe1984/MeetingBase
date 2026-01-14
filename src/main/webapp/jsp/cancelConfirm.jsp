@@ -27,7 +27,7 @@
 </table>
 <hr>
 <div class="button_row">
-	<form action="<%=request.getContextPath()%>/jsp/cancelInput.jsp"
+	<form action="${pageContext.request.contextPath}/jsp/cancelInput.jsp"
 		method="post">
 		<input type="submit" value="戻る" class="button_submit">
 	</form>
