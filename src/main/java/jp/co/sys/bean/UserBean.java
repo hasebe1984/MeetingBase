@@ -58,6 +58,6 @@ public class UserBean implements Serializable {
 
 	@Override
 	public String toString() {
-		return id + " " + name + " " + password + " " + isAdmin + " " + address + " " + isDeleted;
+		return id + " " + name + " " + password + " " + isAdmin + " " + address + "　削除フラグ：" + isDeleted;
 	}
 }
