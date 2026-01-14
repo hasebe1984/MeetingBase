@@ -36,7 +36,7 @@ public class LoginServlet extends HttpServlet {
 		//        ユーザ情報がヌルじゃないか？
 		//        	if(meetingroom.getUser()!= null) {
 		//        	メニューJSPにページを飛ばす
-		nextPage = request.getContextPath() + "jsp/menu.jsp";
+		nextPage = request.getContextPath() + "/jsp/menu.jsp";
 		//        	セッションを行う
 		UserBean user = new UserBean();
 		password = null;
