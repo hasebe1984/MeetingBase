@@ -99,7 +99,6 @@ public class MeetingRoom implements Serializable {
 		ReservationBean reservation = new ReservationBean(roomId, date, start, end, userId);
 		return reservation;
 	}
-	@SuppressWarnings("unlikely-arg-type")
 	public void	reserve​(ReservationBean reservation) throws Exception {
 		String reservationDate = reservation.getDate();
 		String reservationStart = reservation.getStart();
