@@ -52,7 +52,7 @@ public class ReserveCreateServlet extends HttpServlet {
 			session.setAttribute("reservation", reservation);
 			//sessionに予約する会議室の情報をセット
 			session.setAttribute("room",meetingRoom.getRoom(roomId));
-		//情報確認用
+		// ===== コンソール確認用 =====
 			System.out.println("MeetingRoom.date = " + meetingRoom.getDate());
 			System.out.println("roomId = " + roomId);
 			System.out.println("start = " + start);
