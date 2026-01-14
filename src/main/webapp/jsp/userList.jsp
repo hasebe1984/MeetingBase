@@ -19,88 +19,12 @@
 			<td>${"仲野太賀"}</td>
 			<td class="list_td_large">${"愛知県名古屋市１０１−０３"}</td>
 			<td class="list_td_small">
-				<form action="editInput.jsp" method="post">
+				<form action="${pageContext.request.contextPath}/jsp/editInput.jsp" method="post">
 					<input type="submit" value="編集" class="button_list">
 				</form>
 			</td>
 			<td class="list_td_small">
-				<form action="<%=request.getContextPath()%>/AdminUserServlet"
-					method="post">
-					<input type="hidden" name="id" value="${'2584746'}">
-					<input
-						type="submit" value="削除" class="button_list">
-				</form>
-			</td>
-		</tr>
-		<tr>
-			<td class="list_td_middle">${"2584746"}</td>
-			<td class="list_td_middle">${"675frd"}</td>
-			<td>${"仲野太賀"}</td>
-			<td class="list_td_large">${"愛知県名古屋市１０１−０３"}</td>
-			<td class="list_td_small">
-				<form action="editInput.jsp" method="post">
-					<input type="submit" value="編集" class="button_list">
-				</form>
-			</td>
-			<td class="list_td_small">
-				<form action="<%=request.getContextPath()%>/AdminUserServlet"
-					method="post">
-					<input type="hidden" name="id" value="${'2584746'}">
-					<input
-						type="submit" value="削除" class="button_list">
-				</form>
-			</td>
-		</tr>
-		<tr>
-			<td class="list_td_middle">${"2584746"}</td>
-			<td class="list_td_middle">${"675frd"}</td>
-			<td>${"仲野太賀"}</td>
-			<td class="list_td_large">${"愛知県名古屋市１０１−０３"}</td>
-			<td class="list_td_small">
-				<form action="editInput.jsp" method="post">
-					<input type="submit" value="編集" class="button_list">
-				</form>
-			</td>
-			<td class="list_td_small">
-				<form action="<%=request.getContextPath()%>/AdminUserServlet"
-					method="post">
-					<input type="hidden" name="id" value="${'2584746'}">
-					<input
-						type="submit" value="削除" class="button_list">
-				</form>
-			</td>
-		</tr>
-		<tr>
-			<td class="list_td_middle">${"2584746"}</td>
-			<td class="list_td_middle">${"675frd"}</td>
-			<td>${"仲野太賀"}</td>
-			<td class="list_td_large">${"愛知県名古屋市１０１−０３"}</td>
-			<td class="list_td_small">
-				<form action="editInput.jsp" method="post">
-					<input type="submit" value="編集" class="button_list">
-				</form>
-			</td>
-			<td class="list_td_small">
-				<form action="<%=request.getContextPath()%>/AdminUserServlet"
-					method="post">
-					<input type="hidden" name="id" value="${'2584746'}">
-					<input
-						type="submit" value="削除" class="button_list">
-				</form>
-			</td>
-		</tr>
-		<tr>
-			<td class="list_td_middle">${"2584746"}</td>
-			<td class="list_td_middle">${"675frd"}</td>
-			<td>${"仲野太賀"}</td>
-			<td class="list_td_large">${"愛知県名古屋市１０１−０３"}</td>
-			<td class="list_td_small">
-				<form action="editInput.jsp" method="post">
-					<input type="submit" value="編集" class="button_list">
-				</form>
-			</td>
-			<td class="list_td_small">
-				<form action="<%=request.getContextPath()%>/AdminUserServlet"
+				<form action="${pageContext.request.contextPath}/AdminUserServletServlet"
 					method="post">
 					<input type="hidden" name="id" value="${'2584746'}">
 					<input

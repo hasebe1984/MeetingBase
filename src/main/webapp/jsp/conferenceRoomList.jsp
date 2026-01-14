@@ -15,79 +15,15 @@
 			<td>${"0501"}</td>
 			<td>${"大会議室"}</td>
 			<td class="list_td_small">
-				<form action="<%=request.getContextPath()%>/RoomEditServlet"
+				<form action="${pageContext.request.contextPath}/RoomEditServlet"
 					method="post">
-					<input type="submit" value="編集" class="button_list">
+					<input type="submit" name="action" value="編集" class="button_list">
 				</form>
 			</td>
 			<td class="list_td_small">
-				<form action="<%=request.getContextPath()%>/RoomAdminServlet"
+				<form action="${pageContext.request.contextPath}/RoomAdminServlet"
 					method="post">
-					<input type="submit" value="削除" class="button_list">
-				</form>
-			</td>
-		</tr>
-		<tr>
-			<td>${"0501"}</td>
-			<td>${"大会議室"}</td>
-			<td class="list_td_small">
-				<form action="<%=request.getContextPath()%>/RoomEditServlet"
-					method="post">
-					<input type="submit" value="編集" class="button_list">
-				</form>
-			</td>
-			<td class="list_td_small">
-				<form action="<%=request.getContextPath()%>/RoomAdminServlet"
-					method="post">
-					<input type="submit" value="削除" class="button_list">
-				</form>
-			</td>
-		</tr>
-		<tr>
-			<td>${"0501"}</td>
-			<td>${"大会議室"}</td>
-			<td class="list_td_small">
-				<form action="<%=request.getContextPath()%>/RoomEditServlet"
-					method="post">
-					<input type="submit" value="編集" class="button_list">
-				</form>
-			</td>
-			<td class="list_td_small">
-				<form action="<%=request.getContextPath()%>/RoomAdminServlet"
-					method="post">
-					<input type="submit" value="削除" class="button_list">
-				</form>
-			</td>
-		</tr>
-		<tr>
-			<td>${"0501"}</td>
-			<td>${"大会議室"}</td>
-			<td class="list_td_small">
-				<form action="<%=request.getContextPath()%>/RoomEditServlet"
-					method="post">
-					<input type="submit" value="編集" class="button_list">
-				</form>
-			</td>
-			<td class="list_td_small">
-				<form action="<%=request.getContextPath()%>/RoomAdminServlet"
-					method="post">
-					<input type="submit" value="削除" class="button_list">
-				</form>
-			</td>
-		</tr>
-		<tr>
-			<td>${"0501"}</td>
-			<td>${"大会議室"}</td>
-			<td class="list_td_small">
-				<form action="<%=request.getContextPath()%>/RoomEditServlet"
-					method="post">
-					<input type="submit" value="編集" class="button_list">
-				</form>
-			</td>
-			<td class="list_td_small">
-				<form action="<%=request.getContextPath()%>/RoomAdminServlet"
-					method="post">
-					<input type="submit" value="削除" class="button_list">
+					<input type="submit" name="action" value="削除" class="button_list">
 				</form>
 			</td>
 		</tr>
@@ -95,10 +31,10 @@
 </table>
 <hr>
 <div class="button_row">
-	<a href="menu.jsp" class="button_submit">戻る</a>
-	<form action="<%=request.getContextPath()%>/RoomEditServlet"
+	<a href="${pageContext.request.contextPath}/jsp/menu.jsp" class="button_submit">戻る</a>
+	<form action="${pageContext.request.contextPath}/RoomEditServlet"
 		method="post">
-		<input type="submit" value="追加" class="button_submit">
+		<input type="submit" name="action" value="追加" class="button_submit">
 	</form>
 </div>
 <%@include file="../common/footer.jsp"%>

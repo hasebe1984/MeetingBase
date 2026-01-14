@@ -29,7 +29,7 @@
 	</tbody>
 </table>
 <div class="button_row">
-	<form action="<%=request.getContextPath()%>/RegistrationServlet"
+	<form action="${pageContext.request.contextPath}/RegistrationServlet"
 		method="post">
 		<input type="hidden" name="userPw" value="${user.password}">
 		<input type="hidden" name="userName" value="${user.name}">
