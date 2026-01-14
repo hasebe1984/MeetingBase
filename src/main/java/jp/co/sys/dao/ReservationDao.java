@@ -14,8 +14,7 @@ public class ReservationDao {
 	}
 
 	//	利用日の予約を検索します
-	//String date
-	public static ReservationList findByDate​(ReservationBean reservation) {
+	public static ReservationList findByDate​(String date) {
 		ReservationList list = new ReservationList();
 		String sql = "SELECT * FROM reservation WHERE date = ? and isDeleted = 0";
 
@@ -23,7 +22,7 @@ public class ReservationDao {
 				PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
 			// プレースホルダに日付をセット
-			pstmt.setString(1, reservation.getDate());
+			pstmt.setString(1, date);
 
 			try (ResultSet rs = pstmt.executeQuery()) {
 				while (rs.next()) {
@@ -52,17 +51,15 @@ public class ReservationDao {
 		return list;
 	}
 
-	//int id
-//	idで予約を検索
-	public static ReservationList findById​(ReservationBean reservation) {
+	public static ReservationList findById​(int id) {
 		ReservationList list = new ReservationList();
 		String sql = "SELECT * FROM reservation WHERE id = ? and isDeleted = 0";
 
 		try (Connection conn = DatabaseConnectionProvider.getConnection();
 				PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
-			// プレースホルダにidをセット
-			pstmt.setInt(1, reservation.getId());
+			// プレースホルダに日付をセット
+			pstmt.setInt(1, id);
 
 			try (ResultSet rs = pstmt.executeQuery()) {
 				while (rs.next()) {
@@ -83,16 +80,15 @@ public class ReservationDao {
 		return list;
 	}
 
-	//	userIDで過去のデータ含め検索
-	//String userID
-	public static ReservationList finduserID(ReservationBean reservation) {
+	//	userID過去含め検索
+	public static ReservationList finduserID(String userID) {
 		ReservationList list = new ReservationList();
 		String sql = "SELECT * FROM reservation WHERE userID = ?";
 		try (Connection conn = DatabaseConnectionProvider.getConnection();
 				PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
 			// プレースホルダにuserIDをセット
-			pstmt.setString(1, reservation.getUserID());
+			pstmt.setString(1, userID);
 
 			try (ResultSet rs = pstmt.executeQuery()) {
 				while (rs.next()) {
@@ -116,7 +112,7 @@ public class ReservationDao {
 	//	全件検索
 	public static ReservationList findAll() {
 		ReservationList list = new ReservationList();
-		String sql = "SELECT * FROM Reservation where isDeleted =0";
+		String sql = "SELECT * FROM Reservation";
 		try (Connection db = DatabaseConnectionProvider.getConnection();
 				PreparedStatement pstmt = db.prepareStatement(sql, ResultSet.TYPE_SCROLL_INSENSITIVE,
 						ResultSet.CONCUR_READ_ONLY);

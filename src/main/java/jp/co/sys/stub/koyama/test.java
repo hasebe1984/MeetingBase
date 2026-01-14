@@ -23,7 +23,7 @@ public class test {
 
 		
 		ReservationBean huga = new ReservationBean("0302", "2026-01-10", "09:00:00", "10:00:00", "2500003");
-		ReservationList fc = fa.findByDate(fa);
+		ReservationList fc = huga.findByDate(huga);
 		System.out.println(fa);
 
 	}
