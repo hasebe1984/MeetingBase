@@ -10,8 +10,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import jp.co.sys.bean.MeetingRoom;
 import jp.co.sys.bean.ReservationBean;
+import jp.co.sys.stub.sasaki.MeetingRoom;
+/**
+ * 予約を削除し、予約成功時は予約完了画面に遷移し
+ * 例外を捕捉した場合は，例外メッセージをリクエスト属性に
+ * セットして予約エラー画面に遷移するサーブレットです。
+ */
 
 @WebServlet("/CancelServlet")
 public class CancelServlet extends HttpServlet {
@@ -28,20 +33,18 @@ public class CancelServlet extends HttpServlet {
 		/** セッション取得 */
 		HttpSession session = request.getSession();
 		/** 会議室管理システム取得 */
-		MeetingRoom meetingRoom = (MeetingRoom) session.getAttribute("roomId");
+		MeetingRoom meetingRoom=(MeetingRoom) session.getAttribute("meetingRoom");
 		/** DBに記録するキャンセル予約 */
-		ReservationBean reservation = (ReservationBean) session.getAttribute("roomId");
-		/** エラー理由をセット */
+		ReservationBean reservation = (ReservationBean) session.getAttribute("reservation");
+		/** キャンセル実行し、エラー発生する場合は理由をセット */
 		String errorReason=null;
-		if (meetingRoom==null) {
-			errorReason="すでにキャンセルされています。";
-		}else if (meetingRoom.equals("2")) {
-			errorReason="キャンセル可能時間を過ぎています。";	
-		}else if (meetingRoom.equals("3")) {
-			errorReason="原因不明エラー";	
+		try {
+			meetingRoom.cancel​(reservation);
+		} catch (Exception e) {
+			errorReason="すでにキャンセルされています。";//仮のキャンセル理由
 		}
 		request.setAttribute("errorReason", errorReason);
-		/** エラーなしの場合予約完了画面、エラーアリの場合エラー画面へフォワード */
+		/** エラーなしの場合予約完了画面、エラーありの場合エラー画面へフォワード */
 if (errorReason==null) {
 	RequestDispatcher rd = request.getRequestDispatcher("/jsp/canceled.jsp");
 	rd.forward(request, response);

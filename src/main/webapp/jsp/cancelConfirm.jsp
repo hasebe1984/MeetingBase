@@ -21,12 +21,13 @@
 		<tr>
 			<th>予約者</th>
 			<td>${"meetingRoom.user.name"}</td>
+			<!--  ミーティングルーム完成したら変える-->
 		</tr>
 	</tbody>
 </table>
 <hr>
 <div class="button_row">
-	<form action="cancelInput.jsp"
+	<form action="<%=request.getContextPath()%>/jsp/cancelInput.jsp"
 		method="post">
 		<input type="submit" value="戻る" class="button_submit">
 	</form>
