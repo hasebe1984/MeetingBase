@@ -21,19 +21,19 @@ public class RoomDao {
 		RoomList roomlist = new RoomList();
 		String sql = "SELECT * FROM room";
 		try (Connection db = DatabaseConnectionProvider.getConnection();
-				PreparedStatement pstmt = db.prepareStatement(sql, ResultSet.TYPE_SCROLL_INSENSITIVE,
-						ResultSet.CONCUR_READ_ONLY);
+				PreparedStatement pstmt = db.prepareStatement(sql);
 				ResultSet rs = pstmt.executeQuery()) {
 			while (rs.next()) {
 				String roomid = rs.getString("id");
 				String roomname = rs.getString("name");
 				RoomBean rb = new RoomBean(roomid, roomname);
 				roomlist.add(rb);
+				return roomlist;
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		return roomlist;
+		return null;
 	}
 
 	//	追加・削除・編集のメソッド　名前は仮で
@@ -88,5 +88,20 @@ public class RoomDao {
 			e.printStackTrace();
 		}
 		return ret != 0;
+	}
+
+	public static String findId(RoomBean findId) {
+		String sql = "SELECT name FROM room WHERE id=?";
+		try (Connection db = DatabaseConnectionProvider.getConnection();
+				PreparedStatement pstmt = db.prepareStatement(sql)) {
+			pstmt.setString(1, findId.getId());
+			ResultSet rs = pstmt.executeQuery();
+			rs.next();
+			String aa =rs.getString("name");
+			return aa;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 }
