@@ -29,31 +29,26 @@ public class UserDao {
 			//受け取ったIdをSQL文へ代入
 			pstmt.setString(1, certificate.getId());
 			pstmt.setString(2, certificate.getPassword());
-			try (ResultSet rs = pstmt.executeQuery()) {
-				//			SQL文を実行して実行結果を取
-				while (rs.next()) {
-					//実行結果よりそれぞれのカラムの値を取得
-					String password = rs.getString("password");
-					String id = rs.getString("id");
-					String name = rs.getString("name");
-					String address = rs.getString("address");
-					String isAdmin = rs.getString("admin");
-					String isDeleted = rs.getString("deleted");
-					
-					//		String address, String id, String name, String password
-					//					user = new UserBean(address, id, name, password, isDeleted, isAdmin);
-					UserBean ub = new UserBean(address, id, name, password,isAdmin,isDeleted);
-					ulist.add(ub);
-					return ulist;
-				}
+			ResultSet rs = pstmt.executeQuery();
+			//			SQL文を実行して実行結果を取
+			while (rs.next()) {
+				//実行結果よりそれぞれのカラムの値を取得
+				String password = rs.getString("password");
+				String id = rs.getString("id");
+				String name = rs.getString("name");
+				String address = rs.getString("address");
+				String isAdmin = rs.getString("isAdmin");
+				String isDeleted = rs.getString("isDeleted");
+				UserBean ub = new UserBean(address, id, name, password, isAdmin, isDeleted);
+				ulist.add(ub);
+				return ulist;
 			}
-
 		} catch (SQLException ex) {
 			ex.printStackTrace();
 		}
 		return null;
 	}
-
+}
 //	//	ユーザを追加します
 //	public static boolean insert​(UserBean userbean) {
 //		int ret = -1;
@@ -102,4 +97,3 @@ public class UserDao {
 //		}
 //		return false;
 //	}
-}
