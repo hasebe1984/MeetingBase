@@ -42,7 +42,7 @@ public class RegistrationServlet extends HttpServlet {
 
 		String nextPage = "jsp/registrationConfirm.jsp";
 		
-		UserBean user = new UserBean(userAddress, "id", userName, userPw, userAdmin);
+		UserBean user = new UserBean(userAddress, "id", userName, userPw, userAdmin,"0");
 		request.setAttribute("user", user);
 		request.setAttribute("checked", checked);
 		

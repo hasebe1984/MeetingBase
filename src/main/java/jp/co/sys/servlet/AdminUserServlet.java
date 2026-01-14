@@ -8,6 +8,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import jp.co.sys.stub.hasebe.UserDao;
+//import jp.co.sys.dao.UserDao;
+import jp.co.sys.util.UserList;
+
 /**
  * Servlet implementation class AdminUserServlet
  */
@@ -34,8 +38,28 @@ public class AdminUserServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+
+		request.setCharacterEncoding("UTF-8");
+		
+		String action = request.getParameter("action");
+		String nextPath = "/jsp/userList.jsp";
+		UserList list = UserDao.findAll();
+		String message = "";
+		
+		if ("削除".equals(action)) {
+			Boolean isSuccess = false;
+			
+			if(isSuccess) {
+				message = "削除しました。";
+			} else {
+				message = "削除できませんでした。";
+			}
+		}
+		
+		request.setAttribute("message", message);
+		request.setAttribute("list", list);
+		
+		request.getRequestDispatcher(nextPath).forward(request, response);
 	}
 
 }
