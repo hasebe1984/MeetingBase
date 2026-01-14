@@ -19,8 +19,8 @@
 <div class="button_row">
 	<form action="${pageContext.request.contextPath}/RoomEditServlet"
 		method="post">
-		<input type="hidden" name="userPw" value="${room.name}">
-		<input type="hidden" name="userPw" value="${room.id}">
+		<input type="hidden" name="roomName" value="${room.name}">
+		<input type="hidden" name="roomFloor" value="${room.id}">
 		<input type="hidden" name="title" value="${title}">
 		
 		<input type="submit" name="action" value="戻る" class="button_submit">
