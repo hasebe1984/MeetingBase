@@ -4,26 +4,26 @@
 <h1>会議室予約キャンセル</h1>
 <hr>
 <h2>キャンセルエラー</h2>
-<p class="message">${"エラーメッセージ"}</p>
+<p class="message">${errorReason}</p>
 <table>
 	<tbody>
 		<tr>
 			<th>予約日</th>
-			<td>${"2025-01-31"}</td>
+			<td>${reservation.date}</td>
 		</tr>
 		<tr>
 			<th>会議室</th>
-			<td>${"大会議室"}</td>
+			<td>${room.name}</td>
 		</tr>
 		<tr>
 			<th>予約時刻</th>
-			<td>${"14:00～15:00"}</td>
+			<td>${reservation.start}～${reservation.end}</td>
 		</tr>
 		<tr>
 			<th>予約者</th>
-			<td>${"情報太郎"}</td>
+			<td>${"meetingRoom.user.name"}</td>
 		</tr>
 	</tbody>
 </table>
-<a href="menu.jsp"class="button_submit">メニューへ</a>
+<a href="${pageContext.request.contextPath}/jsp/menu.jsp"class="button_submit">メニューへ</a>
 <%@include file="../common/footer.jsp"%>

@@ -4,7 +4,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.List;
 
 import jp.co.sys.bean.ReservationBean;
 import jp.co.sys.util.DatabaseConnectionProvider;
@@ -15,15 +14,16 @@ public class ReservationDao {
 	}
 
 	//	利用日の予約を検索します
-	public static List<ReservationBean> findByDate​(String date) {
+	//String date
+	public static ReservationList findByDate​(ReservationBean reservation) {
 		ReservationList list = new ReservationList();
-		String sql = "SELECT id, roomId, date, start, end,userID,isDeleted FROM reservation WHERE date = ? and isDeleted = 0";
+		String sql = "SELECT * FROM reservation WHERE date = ? and isDeleted = 0";
 
 		try (Connection conn = DatabaseConnectionProvider.getConnection();
 				PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
 			// プレースホルダに日付をセット
-			pstmt.setString(1, date);
+			pstmt.setString(1, reservation.getDate());
 
 			try (ResultSet rs = pstmt.executeQuery()) {
 				while (rs.next()) {
@@ -44,10 +44,96 @@ public class ReservationDao {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		//	    // 空だったらnullを入れる
-		//	    if (list.isEmpty()) {
-		//	        return null;
-		//	    }
+		// 空だったらnullを入れる
+		if (list.isEmpty()) {
+			return null;
+		}
+
+		return list;
+	}
+
+	//int id
+//	idで予約を検索
+	public static ReservationList findById​(ReservationBean reservation) {
+		ReservationList list = new ReservationList();
+		String sql = "SELECT * FROM reservation WHERE id = ? and isDeleted = 0";
+
+		try (Connection conn = DatabaseConnectionProvider.getConnection();
+				PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+			// プレースホルダにidをセット
+			pstmt.setInt(1, reservation.getId());
+
+			try (ResultSet rs = pstmt.executeQuery()) {
+				while (rs.next()) {
+					ReservationBean rb = new ReservationBean(rs.getInt("id"), rs.getString("roomId"),
+							rs.getString("date"),
+							rs.getString("start"), rs.getString("end"), rs.getString("userID"), rs.getInt("isDeleted"));
+					list.add(rb);
+				}
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		// 空だったらnullを入れる
+		if (list.isEmpty()) {
+			return null;
+		}
+
+		return list;
+	}
+
+	//	userIDで過去のデータ含め検索
+	//String userID
+	public static ReservationList finduserID(ReservationBean reservation) {
+		ReservationList list = new ReservationList();
+		String sql = "SELECT * FROM reservation WHERE userID = ?";
+		try (Connection conn = DatabaseConnectionProvider.getConnection();
+				PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+			// プレースホルダにuserIDをセット
+			pstmt.setString(1, reservation.getUserID());
+
+			try (ResultSet rs = pstmt.executeQuery()) {
+				while (rs.next()) {
+					ReservationBean rb = new ReservationBean(rs.getInt("id"), rs.getString("roomId"),
+							rs.getString("date"),
+							rs.getString("start"), rs.getString("end"), rs.getString("userID"), rs.getInt("isDeleted"));
+					list.add(rb);
+				}
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		// 空だったらnullを入れる
+		if (list.isEmpty()) {
+			return null;
+		}
+
+		return list;
+	}
+
+	//	全件検索
+	public static ReservationList findAll() {
+		ReservationList list = new ReservationList();
+		String sql = "SELECT * FROM Reservation where isDeleted =0";
+		try (Connection db = DatabaseConnectionProvider.getConnection();
+				PreparedStatement pstmt = db.prepareStatement(sql, ResultSet.TYPE_SCROLL_INSENSITIVE,
+						ResultSet.CONCUR_READ_ONLY);
+				ResultSet rs = pstmt.executeQuery()) {
+			while (rs.next()) {
+				ReservationBean rb = new ReservationBean(rs.getInt("id"), rs.getString("roomId"),
+						rs.getString("date"),
+						rs.getString("start"), rs.getString("end"), rs.getString("userID"), rs.getInt("isDeleted"));
+				list.add(rb);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		// 空だったらnullを入れる
+		if (list.isEmpty()) {
+			return null;
+		}
 
 		return list;
 	}

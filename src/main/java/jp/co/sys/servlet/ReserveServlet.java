@@ -9,8 +9,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import jp.co.sys.bean.MeetingRoom;
 import jp.co.sys.bean.ReservationBean;
+//テスト終わったら変える
+import jp.co.sys.stub.asano.MeetingRoom;
 
 /**
  * Servlet implementation class ReserveServlet
@@ -43,18 +44,37 @@ public class ReserveServlet extends HttpServlet {
 		HttpSession session = request.getSession();
 
 		//会議室管理システムの取得
-		MeetingRoom meetingRoom = (MeetingRoom) session.getAttribute("meetingroom");
+		MeetingRoom meetingRoom = (MeetingRoom) session.getAttribute("meetingRoom");
 
-		//DBに記録する予約のデータの取得
-		ReservationBean reservation = (ReservationBean) session.getAttribute("reservation");
-
+		
 		try {
-
-			//meetingroomに予約確定の依頼↓//外す
+			//DBに記録する予約情報のデータの取得
+			ReservationBean reservation = (ReservationBean) session.getAttribute("reservation");
 			
-			meetingRoom.reserve​("reservation");
-
-			//登録成功したら予約完了画面へ
+			//reservation:予約情報が nullかチェック
+            if (reservation == null) {
+                throw new Exception("reservation が session に存在しません");
+            }
+			
+         // ===== コンソール確認用 =====
+            System.out.println("=== 予約登録内容 ===");
+            System.out.println("日付: " + reservation.getDate());
+            System.out.println("部屋ID: " + reservation.getRoomId());
+            System.out.println("開始: " + reservation.getStart());
+            System.out.println("終了: " + reservation.getEnd());
+            System.out.println("ユーザー: testUser" );  
+            System.out.println("isDeleted:"+ reservation.getIsDeleted());
+            System.out.println("===================");
+            
+            //本来ここでmeetingroomに予約確定の依頼↓//外す
+			
+			//meetingRoom.reserve​("reservation");
+            
+            //登録に成功したらtrueを表示
+            session.setAttribute("reserved", true);
+            System.out.println("登録可否: "+ session.getAttribute("reserved"));
+            
+            //完了画面へ
 			request.getRequestDispatcher("/jsp/reserved.jsp")
 					.forward(request, response);
 
@@ -63,8 +83,8 @@ public class ReserveServlet extends HttpServlet {
 			//予約できなかった理由
 			
 			
-			//登録失敗したらエラーメッセージを保持して予約エラー画面へ
-			request.getRequestDispatcher("/jsp/reserveError.jsp" + e.getMessage())
+			//登録失敗したら予約エラー画面へ
+			request.getRequestDispatcher("/jsp/reserveError.jsp")
 					.forward(request, response);
 		}
 	}

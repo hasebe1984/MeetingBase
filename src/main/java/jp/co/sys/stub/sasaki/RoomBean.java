@@ -1,5 +1,5 @@
 package jp.co.sys.stub.sasaki;
-//テスト終わったら変える！！！！
+//TO DO テスト終わったら変える！！！！
 
 import java.io.Serializable;
 

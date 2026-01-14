@@ -54,15 +54,18 @@ public class MeetingRoom implements Serializable {
 	    }
 	//予約情報の生成をする
 	public ReservationBean createReservation(String roomId, String start) {
-
+		int id = 666;
 		String end = "仮の終了時間";
+		int isDeleted =0;
 		ReservationBean reservation = new ReservationBean(
-
+                
+				id,
 				roomId,
 				this.date,
 				start,
 				end,
-				"testUser");
+				"testUser",
+				isDeleted);
 		return reservation;
 
 	}

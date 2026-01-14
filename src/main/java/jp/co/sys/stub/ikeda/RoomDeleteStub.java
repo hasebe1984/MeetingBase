@@ -7,7 +7,7 @@ import jp.co.sys.dao.RoomDao;
 
 public class RoomDeleteStub {
 	public static void main(String[] args) {
-		RoomBean piyo = new RoomBean("1111", "変更できた会議室");
+		RoomBean piyo = new RoomBean("1111");
 		boolean passingstatus = RoomDao.delete(piyo);
 		System.out.println(passingstatus);
 		List<RoomBean> rb = RoomDao.findAll();
