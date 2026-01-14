@@ -1,5 +1,5 @@
 package jp.co.sys.stub.sasaki;
-//テスト終わったら変える！！！！
+//TO DO 単体テスト終わったら変える！！！！
 
 import java.io.Serializable;
 //
@@ -22,7 +22,6 @@ public class MeetingRoom implements Serializable {
 			new RoomBean("B", "会議室B"),
 			new RoomBean("C", "会議室C")
 	};
-
 	//メソッド
 	public void setDate(String date) {
 		this.date = date;
@@ -59,7 +58,7 @@ public class MeetingRoom implements Serializable {
 		ReservationBean reservation = new ReservationBean(
 
 				roomId,
-				this.date,
+				this.date="2026/01/30",
 				start,
 				end,
 				"testUser");
@@ -75,5 +74,20 @@ public class MeetingRoom implements Serializable {
 		}
 		return null;
 	}
+	class User {
+	    String name="テスト";
+	}
+	User user=new User();
+	
+	public void cancel​(ReservationBean reservation) throws Exception {
+		//例外処理入れてみたが働かず
+		if (reservation==null) {
+			throw new Exception("すでに、キャンセルされています。");
+		}else if (reservation.equals("2")) {
+			throw new Exception("キャンセル可能時間を過ぎています。");
+		}else if (reservation.equals("3")) {
+			throw new Exception("原因不明エラー");
+		}
+	}
 
-}
+}	
