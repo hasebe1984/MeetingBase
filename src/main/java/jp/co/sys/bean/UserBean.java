@@ -9,6 +9,7 @@ public class UserBean implements Serializable {
 	private String name;
 	private String password;
 	private String admin;
+	private String deleted;
 
 	public UserBean() {
 	}
@@ -21,13 +22,14 @@ public class UserBean implements Serializable {
 		this.password = password;
 	}
 
-	public UserBean(String address, String id, String name, String password, String admin) {
+	public UserBean(String address, String id, String name, String password, String admin, String deleted) {
 		super();
 		this.address = address;
 		this.id = id;
 		this.name = name;
 		this.password = password;
 		this.admin = admin;
+		this.deleted = deleted;
 	}
 
 	public String getId() {
@@ -37,22 +39,25 @@ public class UserBean implements Serializable {
 	public String getPassword() {
 		return password;
 	}
-	
+
 	public String getName() {
 		return name;
 	}
-	
+
 	public String getAddress() {
 		return address;
 	}
-	
+
 	public String getAdmin() {
 		return admin;
 	}
-	
+
+	public String getDeleted() {
+		return deleted;
+	}
+
 	@Override
 	public String toString() {
-		return super.toString();
-//		これ意味不明
+		return address + id + password+  name;
 	}
 }
