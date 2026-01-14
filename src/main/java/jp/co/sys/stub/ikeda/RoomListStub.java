@@ -17,6 +17,10 @@ public class RoomListStub {
 }
 
 //　ごり押しできた
+//try (Connection db = DatabaseConnectionProvider.getConnection();
+//		PreparedStatement pstmt = db.prepareStatement(sql, ResultSet.TYPE_SCROLL_INSENSITIVE,
+//				ResultSet.CONCUR_READ_ONLY);
+//		ResultSet rs = pstmt.executeQuery()) {
 //ResultSetMetaData rsmd = rs.getMetaData(); //ResultSet オブジェクトの列の型とプロパティに関する情報を取得する
 //int column = rsmd.getColumnCount(); //この ResultSet オブジェクトの列数を返します。
 //rs.last(); //カーソルをこのResultSetオブジェクト内の最終行に移動します。
