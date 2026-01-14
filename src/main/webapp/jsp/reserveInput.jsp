@@ -9,14 +9,14 @@
 <%@include file="../common/header.jsp"%>
 <h1>会議室予約</h1>
 <h2>利用日</h2>
-<form action="<%=request.getContextPath()%>/ChangeDateServlet"
+<form action="${pageContext.request.contextPath}/ChangeDateServlet"
 	method="post">
-	<input type="date" name="date" value="ミーティングルームから取得"> <input
+	<input type="date" name="date" value="${"disabled"}"> <input
 		type="submit" value="日付変更" class="button_submit button_submit_small">
 	<input type="hidden" name="page" value="reserveInput.jsp">
 </form>
 <h2>予約可能時間帯（名前取得：M.Rから）</h2>
-<form action="<%=request.getContextPath()%>/reserveCreateServlet"
+<form action="${pageContext.request.contextPath}/reserveCreateServlet"
 	method="post" class="input_table">
 	<table class="table">
 		<thead>
@@ -170,7 +170,7 @@ String[] period = meetingRoom.getPeriod();
 //本当はResevationBean型　予約情報の一覧
 String[][] reservations = meetingRoom.getReservations();
 %>
-<form action="<%=request.getContextPath()%>/ChangeDateServlet"
+<form action="${pageContext.request.contextPath}/ChangeDateServlet"
 	method="POST">
 	<h1>利用日</h1>
 	<input type="date" name="date" value="${meetingRoom.date}"> <input
@@ -206,7 +206,7 @@ String[][] reservations = meetingRoom.getReservations();
 			<%--配列の中身が〇だったらボタンを作る--%> <%
  if ("〇".equals(reservations[i][j])) {
  %>
-			<form action="<%=request.getContextPath()%>/reserveCreateServlet"
+			<form action="${pageContext.request.contextPath}/reserveCreateServlet"
 				method="post">
 				<input type="hidden" name="roomId" value="<%=rooms[i].getId()%>">
 				<%--後に"value=<%= period[j] %>"へ変更+name=timeも追加--%>
@@ -229,5 +229,5 @@ String[][] reservations = meetingRoom.getReservations();
 	%>
 </table>
 
-<a href="menu.jsp" class="button_submit">メニューへ</a>
+<a href="${pageContext.request.contextPath}/jsp/menu.jsp" class="button_submit">メニューへ</a>
 <%@include file="../common/footer.jsp"%>

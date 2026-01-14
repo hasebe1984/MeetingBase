@@ -26,11 +26,11 @@
 	</tbody>
 </table>
 <div class="button_row">
-	<form action="reserveInput.jsp"
+	<form action="${pageContext.request.contextPath}/jsp/reserveInput.jsp"
 		method="post">
 		<input type="submit" value="戻る" class="button_submit">
 	</form>
-	<form action="<%=request.getContextPath()%>/ReserveServlet"
+	<form action="${pageContext.request.contextPath}/ReserveServlet"
 		method="post">
 		<input type="submit" value="決定" class="button_submit">
 	</form>
