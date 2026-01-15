@@ -1,19 +1,22 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-	//テスト終わったら変える！！！！
-<%@ page import="jp.co.sys.stub.asano.MeetingRoom"%>
-<%@ page import="jp.co.sys.stub.asano.RoomBean"%>
+<%@ page import="jp.co.sys.bean.MeetingRoom"%>
+<%@ page import="jp.co.sys.bean.RoomBean"%>
+<%@ page import="jp.co.sys.bean.ReservationBean"%>
+<%@ page import="jp.co.sys.util.RoomList"%>
+String[] period = meetingRoom.getPeriod();
+    RoomList rooms  = meetingRoom.getRooms();
+    ReservationBean[][] reservations = meetingRoom.getReservations();
 
 
-	
 <%@include file="../common/header.jsp"%>
 <h1>会議室予約</h1>
 <h2>利用日</h2>
 <form action="${pageContext.request.contextPath}/ChangeDateServlet"
 	method="post">
-	<input type="date" name="date" value="${"disabled"}"> <input
-		type="submit" value="日付変更" class="button_submit button_submit_small">
-	<input type="hidden" name="page" value="reserveInput.jsp">
+	<input type="date" name="date" value=""> <input type="submit"
+		value="日付変更" class="button_submit button_submit_small"> <input
+		type="hidden" name="page" value="reserveInput.jsp">
 </form>
 <h2>予約可能時間帯（名前取得：M.Rから）</h2>
 <form action="${pageContext.request.contextPath}/reserveCreateServlet"
@@ -153,36 +156,41 @@
 	</table>
 </form>
 
+<%
+    // ===== サーブレットから受け取る =====
+    MeetingRoom meetingRoom = (MeetingRoom) session.getAttribute("meetingRoom");
+
+     //null対策（初回表示用）
+    if (meetingRoom == null) {
+        meetingRoom = new MeetingRoom();
+        session.setAttribute("meetingRoom", meetingRoom);
+    }
+    
+
+    String[] period = meetingRoom.getPeriod();
+    RoomList rooms  = meetingRoom.getRooms();
+    ReservationBean[][] reservations = meetingRoom.getReservations();
+%>
+
+
+
 <%--会議室for文バージョン間違ってた ら教えてください！！！！！！--%>
 
-<%
-//meetingRoomをセッションから取得
-MeetingRoom meetingRoom = (MeetingRoom) session.getAttribute("meetingRoom");
-//なければ作る
-if (meetingRoom == null) {
-	meetingRoom = new MeetingRoom();
-	session.setAttribute("meetingRoom", meetingRoom);
-}
-//部屋の一覧
-RoomBean[] rooms = meetingRoom.getRooms();
-//始まりの時間
-String[] period = meetingRoom.getPeriod();
-//本当はResevationBean型　予約情報の一覧
-String[][] reservations = meetingRoom.getReservations();
-%>
+
 <form action="${pageContext.request.contextPath}/ChangeDateServlet"
 	method="POST">
 	<h1>利用日</h1>
 	<input type="date" name="date" value="${meetingRoom.date}"> <input
-		type="submit" value="日付変更"><br> <input type="hidden"
+		type="submit" value="日付変更" class="button_submit button_submit_small"><br> <input type="hidden"
 		name="page" value="reserveInput.jsp">
 </form>
 
 <%--後で復活タグ<h1>予約可能時間帯${meetingRoom.user.name}</h1>--%>
 
-<table border="1">
-	<tr>
-		<th>会議室 / 時間</th>
+<table class="table">
+		<thead>
+			<tr>
+				<th>会議室/時間</th>
 		<%--始まりの時間を要素分取り出して順に表示--%>
 		<%
 		for (int j = 0; j < period.length; j++) {
@@ -192,31 +200,39 @@ String[][] reservations = meetingRoom.getReservations();
 		}
 		%>
 	</tr>
+	</thead>
 	<%--二重for文　i=会議室名の表示--%>
 	<%
-	for (int i = 0; i < rooms.length; i++) {
+	for (int i = 0; i < rooms.size(); i++) {
+		
 	%>
+	<tbody>
 	<tr>
-		<td><%=rooms[i].getName()%></td>
-		<%--二重for文　j=時間の表示（今は〇、×表示をここで判定）←これはどこがやるんだ？--%>
+		<td><%=rooms.get(i).getName()%></td>
+		<%--二重for文　j=時間の表示（今は〇、×表示をここで判定）--%>
 		<%
 		for (int j = 0; j < period.length; j++) {
 		%>
 		<td>
-			<%--配列の中身が〇だったらボタンを作る--%> <%
- if ("〇".equals(reservations[i][j])) {
- %>
+			<%--配列の中身が〇だったらボタンを作る--%> 
+			<%--MeetingRoom対応：if (reservations[i][j]==null)だったら予約の空きあり=〇表示)  ("〇".equals(reservations[i][j]))--%>
+			<%
+			if (reservations[i][j]==null) {
+			%>
 			<form action="${pageContext.request.contextPath}/reserveCreateServlet"
 				method="post">
-				<input type="hidden" name="roomId" value="<%=rooms[i].getId()%>">
-				<%--後に"value=<%= period[j] %>"へ変更+name=timeも追加--%>
-				<input type="submit" value="〇">
-				<%--仕様書にないから多分これはダメな設計 hiddenで送ってる仮の設定--%>
-				<input type="hidden" name="time" value="<%=period[j]%>">
+				<input type="hidden" name="roomId" value="<%=rooms.get(i).getName()%>">
 
+				<button 
+					class="button_submit button_submit_small button_submit_blue">〇</button>
+				<%--仕様書はsubmit送信ですが、〇×表示になったので hiddenで送ってます--%>
+				<input type="hidden" name="time" value="<%=period[j]%>">
 			</form> <%--配列の中身が×だったら×を直書き--%> <%
  } else {
- %> × <%
+ %>
+			<button 
+				class="button_submit button_submit_small button_submit_blue ${'button_submit_impossible'}"
+				${"disabled"}>×</button> <%
  }
  %>
 		</td>
@@ -227,7 +243,9 @@ String[][] reservations = meetingRoom.getReservations();
 	<%
 	}
 	%>
+	</tbody>
 </table>
 
-<a href="${pageContext.request.contextPath}/jsp/menu.jsp" class="button_submit">メニューへ</a>
+<a href="${pageContext.request.contextPath}/jsp/menu.jsp"
+	class="button_submit">メニューへ</a>
 <%@include file="../common/footer.jsp"%>
