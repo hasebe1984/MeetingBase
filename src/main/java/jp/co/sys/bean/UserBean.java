@@ -32,6 +32,12 @@ public class UserBean implements Serializable {
 		this.isDeleted = isDeleted;
 	}
 
+	public UserBean(String id, String password) {
+		super();
+		this.id = id;
+		this.password = password;
+	}
+
 	public String getId() {
 		return id;
 	}
