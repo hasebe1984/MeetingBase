@@ -4,6 +4,7 @@
 <%@ page import="jp.co.sys.bean.RoomBean"%>
 <%@ page import="jp.co.sys.bean.ReservationBean"%>
 <%@ page import="jp.co.sys.util.RoomList"%>
+<%@ page import="jp.co.sys.dao.UserDao"%>
 String[] period = meetingRoom.getPeriod();
     RoomList rooms  = meetingRoom.getRooms();
     ReservationBean[][] reservations = meetingRoom.getReservations();
@@ -163,6 +164,7 @@ String[] period = meetingRoom.getPeriod();
      //null対策（初回表示用）
     if (meetingRoom == null) {
         meetingRoom = new MeetingRoom();
+        
         session.setAttribute("meetingRoom", meetingRoom);
     }
     

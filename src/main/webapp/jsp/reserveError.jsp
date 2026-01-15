@@ -25,5 +25,5 @@
 		</tr>
 	</tbody>
 </table>
-<a href="menu.jsp"class="button_submit">メニューへ</a>
+<a href="${pageContext.request.contextPath}/jsp/menu.jsp"class="button_submit">メニューへ</a>
 <%@include file="../common/footer.jsp"%>
