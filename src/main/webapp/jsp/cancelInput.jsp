@@ -1,8 +1,10 @@
+<%@page import="jp.co.sys.bean.ReservationBean"%>
+<%@page import="jp.co.sys.util.RoomList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ page import="jp.co.sys.stub.sasaki.MeetingRoom"%>
-<%@ page import="jp.co.sys.stub.sasaki.RoomBean"%>
-<% 	//テスト終わったら変える %>	
+<%@ page import="jp.co.sys.bean.MeetingRoom"%>
+<%@ page import="jp.co.sys.bean.RoomBean"%>
+
 <%@include file="../common/header.jsp"%>
 <h1>会議室予約キャンセル</h1>
 <h2>利用日</h2>
@@ -111,6 +113,7 @@
 	</table>
 </form>
 <a href="menu.jsp" class="button_submit">メニューへ</a>
+
 <%
 //meetingRoomをセッションから取得
 MeetingRoom meetingRoom = (MeetingRoom) session.getAttribute("meetingRoom");
@@ -120,11 +123,11 @@ if (meetingRoom == null) {
 	session.setAttribute("meetingRoom", meetingRoom);
 }
 //部屋の一覧
-RoomBean[] rooms = meetingRoom.getRooms();
+RoomList rooms = meetingRoom.getRooms();
 //始まりの時間
 String[] period = meetingRoom.getPeriod();
-//本当はResevationBean型　予約情報の一覧
-String[][] reservations = meetingRoom.getReservations();
+//予約情報の一覧
+ReservationBean[][] reservations = meetingRoom.getReservations();
 %>
 <form action="${pageContext.request.contextPath}/ChangeDateServlet"
 	method="POST">
@@ -150,10 +153,10 @@ String[][] reservations = meetingRoom.getReservations();
 	</tr>
 	<%--二重for文　i=会議室名の表示--%>
 	<%
-	for (int i = 0; i < rooms.length; i++) {
+	for (int i = 0; i < rooms.size(); i++) {
 	%>
 	<tr>
-		<td><%=rooms[i].getName()%></td>
+		<td><%=i%></td>
 		<%--二重for文　j=時間の表示（今は〇、×表示をここで判定）←これはどこがやるんだ？--%>
 		<%
 		for (int j = 0; j < period.length; j++) {
@@ -164,7 +167,7 @@ String[][] reservations = meetingRoom.getReservations();
  %>
 			<form action="${pageContext.request.contextPath}/CancelCreateServlet"
 				method="post">
-				<input type="hidden" name="roomId" value="<%=rooms[i].getId()%>">
+				<input type="hidden" name="roomId" value="<%=i%>">
 				<%--後に"value=<%= period[j] %>"へ変更+name=timeも追加--%>
 				<input type="submit" value="〇">
 				<%--仕様書にないから多分これはダメな設計 hiddenで送ってる仮の設定--%>
@@ -184,4 +187,5 @@ String[][] reservations = meetingRoom.getReservations();
 	}
 	%>
 </table>
+
 <%@include file="../common/footer.jsp"%>
