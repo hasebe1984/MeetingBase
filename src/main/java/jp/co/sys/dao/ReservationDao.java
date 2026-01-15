@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.SQLIntegrityConstraintViolationException;
 
 import jp.co.sys.bean.ReservationBean;
 import jp.co.sys.util.DatabaseConnectionProvider;
@@ -144,6 +145,9 @@ public class ReservationDao {
 			//更新クエリの実行
 			int ret = pstmt.executeUpdate();
 			return ret != 0;
+		} catch (SQLIntegrityConstraintViolationException e) {
+			e.printStackTrace();
+			System.err.println("登録していないルームIDを入れているか日付や時間が重複しています。");
 		} catch (SQLException e) {
 			e.printStackTrace();
 			System.err.println("SQLに関するエラーです。");

@@ -8,15 +8,16 @@ import java.sql.SQLException;
 import jp.co.sys.bean.UserBean;
 import jp.co.sys.util.DatabaseConnectionProvider;
 
+/**
+ * ユーザ認証が出来たか出来てないかを｢MeetingRoom｣に返す
+ * @author 加藤博文
+ */
 public class UserDao {
-
-	//	利用者IdとPasswordの認証を行う
-
 	/**
 	 * 利用者IDとパスワードで利用者認証を行い，認証した利用者情報を返します。
 	 * @param id
 	 * @param password
-	 * @return
+	 * @return 
 	 */
 	public static UserBean certificate​(String id, String password) {
 		UserBean user = null;
@@ -28,27 +29,31 @@ public class UserDao {
 			//受け取ったIdをSQL文へ代入
 			pstmt.setString(1, id);
 			pstmt.setString(2, password);
-			try (ResultSet rs = pstmt.executeQuery()){
-				
-			//			SQL文を実行して実行結果を取
-			while (rs.next()) {
-				//実行結果よりそれぞれのカラムの値を取得
-				password = rs.getString("password");
-				id = rs.getString("id");
-				String name = rs.getString("name");
-				String address = rs.getString("address");
-				String isAdmin = rs.getString("isAdmin");
-				String isDeleted = rs.getString("isDeleted");
-				user = new UserBean(address, id, name, password, isAdmin, isDeleted);
+			try (ResultSet rs = pstmt.executeQuery()) {
+
+				//			SQL文を実行して実行結果を取
+				while (rs.next()) {
+					//実行結果よりそれぞれのカラムの値を取得
+					password = rs.getString("password");
+					id = rs.getString("id");
+					String name = rs.getString("name");
+					String address = rs.getString("address");
+					String isAdmin = rs.getString("isAdmin");
+					String isDeleted = rs.getString("isDeleted");
+					user = new UserBean(address, id, name, password, isAdmin, isDeleted);
+				}
 			}
-		}
 		} catch (SQLException ex) {
 			ex.printStackTrace();
 		}
 		return user;
 	}
 
-	//	ユーザを追加します
+	/**
+	 * ユーザを追加します
+	 * @param userbean
+	 * @return　ユーザテーブルにアカウント情報を追加
+	 */
 	public static boolean insert​(UserBean userbean) {
 		int ret = -1;
 		String sql = "INSERT INTO user (id,password,name, address ,isDeleted, isAdmin) VALUES(?, ?, ?, ?, ?,?)";
@@ -71,29 +76,33 @@ public class UserDao {
 		}
 		return ret != 0;
 	}
-
-	//	ユーザーに削除フラグ（論理削除）を実施します。
-	public static boolean delete​(UserBean userbean) {
+	
+	/**
+	 * ユーザーに削除フラグ（論理削除）を実施します。
+	 * @param id
+	 * @return　isDeletedが出来たらtrueをisDeletedが出来なければfalseを返す
+	 */
+	public static boolean delete​(String id) {
 		String sql = "update user set isDeleted = 1 where id  = ?";
 		//update user set isDeleted = '1' where id  = '2500001' ;
 		// try-with-user構文でリソースを自動的にクローズ
-		//		if(userbean.getDeleted()!= 1) {
-		try (Connection conn = DatabaseConnectionProvider.getConnection();
-				PreparedStatement pstmt = conn.prepareStatement(sql)) {
-			// プレースホルダーに値を設定
-			pstmt.setString(1, userbean.getId());
-			//更新クエリの実行
-			int ret = pstmt.executeUpdate();
-			return ret != 0;
+//		if (userbean.getDeleted() != 1) {
+			try (Connection conn = DatabaseConnectionProvider.getConnection();
+					PreparedStatement pstmt = conn.prepareStatement(sql)) {
+				// プレースホルダーに値を設定
+				pstmt.setString(1, id);
+				//更新クエリの実行
+				int ret = pstmt.executeUpdate();
+				return ret != 0;
 
-		} catch (SQLException e) {
-			e.printStackTrace();
-			System.err.println("SQLに関するエラーです。");
-			//		}else {
-			//			return null;
+			} catch (SQLException e) {
+				e.printStackTrace();
+				System.err.println("SQLに関するエラーです。");
 
-			//		}
-		}
+				//		}else {
+				//					return null;
+
+			}
 		return false;
-	}
+}
 }

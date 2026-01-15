@@ -28,8 +28,8 @@ public class RoomDao {
 				String roomname = rs.getString("name");
 				RoomBean rb = new RoomBean(roomid, roomname);
 				roomlist.add(rb);
-				return roomlist;
 			}
+			return roomlist;
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

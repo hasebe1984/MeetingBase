@@ -7,9 +7,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import jp.co.sys.dao.RoomDao;
+import jp.co.sys.util.RoomList;
 
 /**
  * 会議室の一覧表示および削除を制御するサーブレットです。
@@ -21,14 +21,50 @@ public class RoomAdminServlet extends HttpServlet {
 	public RoomAdminServlet() {
 		super();
 	}
+	
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		doPost(request, response);
+	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		/** セッション取得 */
-		HttpSession session = request.getSession();
-		/** 入力された情報取得 */
-		String roomid=request.getParameter("roomid");
-
-	RoomDao.findAll();
+		
+		request.setCharacterEncoding("UTF-8");
+		
+		String action = request.getParameter("action");
+		String nextPath = "/jsp/conferenceRoomList.jsp";
+		
+//		RoomList list = null;
+//		try {
+//			list = RoomDao.findAll();
+//			
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//			
+//		}
+		
+//		※ミーティングルームが作成できたら、差し替え。
+		RoomList list = RoomDao.findAll();
+//		RoomList list = MeetingRoom.findAll();
+		
+		String message = "";
+		
+		if ("削除".equals(action)) {
+			Boolean isSuccess = false;
+			
+			if(isSuccess) {
+				message = "削除しました。";
+			} else {
+				message = "削除できませんでした。";
+			}
+		}
+	
+		request.setAttribute("message", message);
+		request.setAttribute("list", list);
+		
+		request.getRequestDispatcher(nextPath).forward(request, response);
 	}
 }

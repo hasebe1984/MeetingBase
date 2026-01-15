@@ -11,9 +11,12 @@
 <body>
 <header>
 	<div class="header">
-		<a href="${pageContext.request.contextPath}/jsp/menu.jsp" class="header_logo">MRR</a>
+		<a href="${pageContext.request.contextPath}/jsp/menu.jsp">
+			<img src="${pageContext.request.contextPath}/images/logo.png" alt="MeetingBaseロゴ" class="header_logo">
+		</a>
 		<div class="header_button">
 			<a href="../jsp/login.jsp" class="button_small">ログイン</a>
+			<div>${session.name}さん</div>
 			<form action="${pageContext.request.contextPath}/LogoutServlet" method="post">
 				<input type="submit" value="ログアウト" class="button_small">
 			</form>

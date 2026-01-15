@@ -37,9 +37,9 @@
 			</td>
 		</tr>
 		<% 
-		UserList list = (UserList)request.getAttribute("list");
-		if (list != null) {
-		for (UserBean l : list) {
+			UserList list = (UserList)request.getAttribute("list");
+			if (list != null) {
+			for (UserBean l : list) {
 		%>
 			<tr>
 				<td class="list_td_small"><%= l.getId() %></td>
