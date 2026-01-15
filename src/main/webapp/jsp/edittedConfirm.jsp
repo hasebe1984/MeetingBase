@@ -38,7 +38,7 @@
 		<input type="hidden" name="userAdmin" value="${user.admin}">
 		
 		<input type="submit" name="action" value="戻る" class="button_submit">
-		<input type="submit" name="action" value="決定" class="button_submit">
+		<input type="submit" name="action" value="登録" class="button_submit">
 	</form>
 </div>
 <%@include file="../common/footer.jsp"%>
