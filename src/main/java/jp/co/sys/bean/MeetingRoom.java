@@ -11,6 +11,7 @@ import jp.co.sys.dao.ReservationDao;
 import jp.co.sys.dao.RoomDao;
 import jp.co.sys.dao.UserDao;
 import jp.co.sys.util.RoomList;
+import jp.co.sys.util.UserList;
 
 public class MeetingRoom implements Serializable {
 	//フィールド
@@ -180,7 +181,8 @@ public class MeetingRoom implements Serializable {
 		
 		List<ReservationBean> reserveList = ReservationDao.findByDate​(this.date);
 		for(ReservationBean rs:reserveList) {
-			if(rs.getStart().equals(reservation.getStart())&&rs.getIsDeleted()==0){
+			String reservedRoomId = rs.getRoomId();
+			if(reservedRoomId.equals(reservation.getRoomId())&&rs.getDate().equals(reservation.getStart())&&rs.getIsDeleted()==0){
 				throw new Exception("既に予約されています");
 			}
 		}
@@ -213,6 +215,22 @@ public class MeetingRoom implements Serializable {
 			
 		}
 		ReservationDao.delete​(reservation);	
+	}
+	public UserBean createUser(UserBean addUser) {
+		LocalDateTime now = LocalDateTime.now();
+		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yy");
+		String idNow = now.format(dtf);
+		UserList usersNowId = UserDao.getNowId(idNow);
+		int usersNowIdSize = usersNowId.size();
+		if(usersNowId != null) {
+			usersNowIdSize++;
+		}
+		String idSize = String.format("%05d",usersNowIdSize ) ;
+		String userId =idNow + idSize;
+		
+		addUser.setId(userId);
+		
+		return addUser;
 	}
 	/**
 	*このオブジェクトの文字列表現を返します。
