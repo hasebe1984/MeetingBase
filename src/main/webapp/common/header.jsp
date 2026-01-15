@@ -16,6 +16,7 @@
 		</a>
 		<div class="header_button">
 			<a href="../jsp/login.jsp" class="button_small">ログイン</a>
+			<div>${session.name}さん</div>
 			<form action="${pageContext.request.contextPath}/LogoutServlet" method="post">
 				<input type="submit" value="ログアウト" class="button_small">
 			</form>
