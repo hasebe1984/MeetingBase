@@ -13,7 +13,7 @@ import jp.co.sys.stub.hasebe.UserDao;
 import jp.co.sys.util.UserList;
 
 /**
- * Servlet implementation class AdminUserServlet
+ * 会員の一覧表示および削除を制御するサーブレットです。
  */
 @WebServlet("/AdminUserServlet")
 public class AdminUserServlet extends HttpServlet {
