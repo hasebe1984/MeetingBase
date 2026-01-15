@@ -10,6 +10,7 @@ import java.util.List;
 import jp.co.sys.dao.ReservationDao;
 import jp.co.sys.dao.RoomDao;
 import jp.co.sys.dao.UserDao;
+import jp.co.sys.util.ReservationList;
 import jp.co.sys.util.RoomList;
 
 public class MeetingRoom implements Serializable {
@@ -74,7 +75,7 @@ public class MeetingRoom implements Serializable {
 	public ReservationBean[][] getReservations(){
 		int roomSize = rooms.size();
 		ReservationBean reservations[][] = new ReservationBean [roomSize][7];
-		List<ReservationBean> reserveList = ReservationDao.findByDate​(date);
+		List<ReservationBean> reserveList = ReservationDao.findByDate​(this.date);
 		for(ReservationBean reserve:reserveList) {
 			int roomInd = roomIndex​(reserve.getRoomId());
 			int startInd = startPeriod​(reserve.getStart());
@@ -100,23 +101,20 @@ public class MeetingRoom implements Serializable {
 		return reservation;
 	}
 	public void	reserve​(ReservationBean reservation) throws Exception {
-		String reservationDate = reservation.getDate();
-		String reservationStart = reservation.getStart();
-		
 		LocalDateTime localDateTime = LocalDateTime.now();
 		
-		LocalDate reserveDate = LocalDate.parse(reservationDate);
-		LocalTime reserveTime = LocalTime.parse(reservationStart);
+		LocalDate reserveDate = LocalDate.parse(reservation.getDate());
+		LocalTime reserveTime = LocalTime.parse(reservation.getStart());
 		
 		LocalDateTime reserveDateTime = LocalDateTime.of(reserveDate, reserveTime);
 		
-		if(reserveDateTime.isAfter(localDateTime)) {
+		if(reserveDateTime.isBefore(localDateTime)) {
 			throw new Exception("時刻が過ぎているため予約できません");
 		}
 		
-		List<ReservationBean> reserveList = ReservationDao.findByDate​(date);
+		List<ReservationBean> reserveList = ReservationDao.findByDate​(this.date);
 		for(ReservationBean rs:reserveList) {
-			if(rs.getStart().equals(reservationStart)&&rs.getIsDeleted()==0){
+			if(rs.getStart().equals(reservation.getStart())&&rs.getIsDeleted()==0){
 				throw new Exception("既に予約されています");
 			}
 		}
@@ -124,23 +122,20 @@ public class MeetingRoom implements Serializable {
 		ReservationDao.insert​(reservation);	
 	}
 	public void cancel​(ReservationBean reservation) throws Exception {
-		String reservationDate = reservation.getDate();
-		String reservationStart = reservation.getStart();
-		
 		LocalDateTime localDateTime = LocalDateTime.now();
 		
-		LocalDate reserveDate = LocalDate.parse(reservationDate);
-		LocalTime reserveTime = LocalTime.parse(reservationStart);
+		LocalDate reserveDate = LocalDate.parse(reservation.getDate());
+		LocalTime reserveTime = LocalTime.parse(reservation.getStart());
 		
 		LocalDateTime reserveDateTime = LocalDateTime.of(reserveDate, reserveTime);
 		
-		if(reserveDateTime.isAfter(localDateTime)) {
+		if(reserveDateTime.isBefore(localDateTime)) {
 			throw new Exception("時刻が過ぎているためキャンセルできません");
 		}
 		
-		List<ReservationBean> reserveList = ReservationDao.findByDate​(date);
-		for(ReservationBean rs:reserveList) {
-			if(rs.getStart().equals(reservationStart)&&rs.getIsDeleted()==1){
+		ReservationList cancelReserve = ReservationDao.findById​(reservation.getId());
+		for(ReservationBean crs:cancelReserve) {
+			if(crs.getIsDeleted()==1){
 			throw new Exception("既にキャンセルされています");
 			}
 		}
@@ -148,6 +143,6 @@ public class MeetingRoom implements Serializable {
 	}
 	
 	public String toString() {
-		return user.toString()+rooms.toString()+date;
+		return user.toString()+rooms.toString()+this.date;
 	}
 }
