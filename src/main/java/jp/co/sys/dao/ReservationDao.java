@@ -51,33 +51,27 @@ public class ReservationDao {
 		return list;
 	}
 
-	public static ReservationList findById​(int id) {
-		ReservationList list = new ReservationList();
+	public static ReservationBean findById​(int id) {
+		ReservationBean rb = null;
 		String sql = "SELECT * FROM reservation WHERE id = ? and isDeleted = 0";
 
 		try (Connection conn = DatabaseConnectionProvider.getConnection();
 				PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
-			// プレースホルダに日付をセット
+			// プレースホルダにidをセット
 			pstmt.setInt(1, id);
 
 			try (ResultSet rs = pstmt.executeQuery()) {
 				while (rs.next()) {
-					ReservationBean rb = new ReservationBean(rs.getInt("id"), rs.getString("roomId"),
+					rb = new ReservationBean(rs.getInt("id"), rs.getString("roomId"),
 							rs.getString("date"),
 							rs.getString("start"), rs.getString("end"), rs.getString("userID"), rs.getInt("isDeleted"));
-					list.add(rb);
 				}
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		// 空だったらnullを入れる
-		if (list.isEmpty()) {
-			return null;
-		}
-
-		return list;
+		return rb;
 	}
 
 	//	userID過去含め検索
@@ -109,7 +103,7 @@ public class ReservationDao {
 		return list;
 	}
 
-	//	全件検索
+	//	全件検索(削除フラグ1も含めてすべて)
 	public static ReservationList findAll() {
 		ReservationList list = new ReservationList();
 		String sql = "SELECT * FROM Reservation";
