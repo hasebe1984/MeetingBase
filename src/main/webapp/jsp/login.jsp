@@ -5,7 +5,7 @@
     <hr>
     <%-- 動的にパスを取得するため、プロジェクト名が変わっても修正不要です --%>
     <h2>ログイン</h2>
-    <form action="<%= request.getContextPath() %>/LoginServlet" method="post" class="form">
+    <form action="${pageContext.request.contextPath}/LoginServlet" method="post" class="form">
 	    <div class="input-wrap">
 	        <label for="userId">利用者ID</label>
 	        <input type="text" id="userId" name="userId" class="form_input" required>   
