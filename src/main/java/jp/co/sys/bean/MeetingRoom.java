@@ -83,7 +83,7 @@ public class MeetingRoom implements Serializable {
 		}
 		return reservations;
 	}
-	public boolean login​(String id, String password) {
+	public  boolean login​(String id, String password) {
 		UserBean result = UserDao.certificate​(id,password);
 		if(result != null) {
 			this.user = result;
