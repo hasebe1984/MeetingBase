@@ -9,9 +9,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import jp.co.sys.bean.MeetingRoom;
 import jp.co.sys.bean.ReservationBean;
-//テスト終わったら変える！！！！
-import jp.co.sys.stub.asano.MeetingRoom;
+
 
 /**
  * 会議室予約を生成するサーブレットです
@@ -54,9 +54,17 @@ public class ReserveCreateServlet extends HttpServlet {
 
 		//sessionからmeetingRoomを取得
 		MeetingRoom meetingRoom = (MeetingRoom) session.getAttribute("meetingRoom");
+		
+		// セッション切れ or ログインしていなければログイン画面へ
+		if (meetingRoom == null) {
+		    
+		    response.sendRedirect(request.getContextPath() + "/jsp/login.jsp");
+		    return;
+		}
+
 
 		//Meetingroomに予約情報の生成を依頼する
-		ReservationBean reservation = meetingRoom.createReservation(roomId, start);
+		ReservationBean reservation = meetingRoom.createReservation​(roomId, start);
 		
 		try {
 			//reservation:予約情報が nullかチェック
@@ -68,7 +76,7 @@ public class ReserveCreateServlet extends HttpServlet {
 		//sessionに戻す
 		session.setAttribute("reservation", reservation);
 		//sessionに予約する会議室の情報をセット
-		session.setAttribute("room", meetingRoom.getRoom(roomId));
+		session.setAttribute("room", meetingRoom.getRoom​(roomId));
 		// ===== コンソール確認用 =====
 		System.out.println("MeetingRoom.date = " + meetingRoom.getDate());
 		System.out.println("roomId = " + roomId);
