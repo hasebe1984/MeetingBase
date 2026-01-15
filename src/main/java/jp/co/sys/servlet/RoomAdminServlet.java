@@ -37,14 +37,18 @@ public class RoomAdminServlet extends HttpServlet {
 		String action = request.getParameter("action");
 		String nextPath = "/jsp/conferenceRoomList.jsp";
 		
-		RoomList list = null;
-		try {
-			list = RoomDao.findAll();
-			
-		} catch (Exception e) {
-			e.printStackTrace();
-			
-		}
+//		RoomList list = null;
+//		try {
+//			list = RoomDao.findAll();
+//			
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//			
+//		}
+		
+//		※ミーティングルームが作成できたら、差し替え。
+		RoomList list = RoomDao.findAll();
+//		RoomList list = MeetingRoom.findAll();
 		
 		String message = "";
 		
@@ -57,7 +61,6 @@ public class RoomAdminServlet extends HttpServlet {
 				message = "削除できませんでした。";
 			}
 		}
-	
 	
 		request.setAttribute("message", message);
 		request.setAttribute("list", list);
