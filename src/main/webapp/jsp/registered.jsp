@@ -24,7 +24,7 @@
 		</tr>
 		<tr>
 			<th>会員区分</th>
-			<td>${user.admin}</td>
+			<td>${user.isAdmin}</td>
 		</tr>
 	</tbody>
 </table>

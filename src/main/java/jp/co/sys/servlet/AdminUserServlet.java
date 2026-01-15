@@ -43,7 +43,14 @@ public class AdminUserServlet extends HttpServlet {
 		
 		String action = request.getParameter("action");
 		String nextPath = "/jsp/userList.jsp";
-		UserList list = UserDao.findAll();
+		
+		UserList list = null;
+		try {
+			list = UserDao.findAll();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
 		String message = "";
 		
 		if ("削除".equals(action)) {
