@@ -17,9 +17,9 @@ public class RoomBean implements Serializable {
 		this.name = name;
 	}
 	
-	public RoomBean(String id) {
+	public RoomBean(String name) {
 		super();
-		this.id = id;
+		this.name = name;
 	}
 
 	public String getId() {

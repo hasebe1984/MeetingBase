@@ -6,8 +6,7 @@ import jp.co.sys.dao.RoomDao;
 public class RoomFindIdStub {
 
 	public static void main(String[] args) {
-		RoomBean piyo = new RoomBean("0201");
-		String name = RoomDao.findId(piyo);
+		RoomBean name = RoomDao.findId("0201");
 		System.out.println(name);
 		System.out.println(name.getClass().getName()); //変数のデータ型を確認する
 	}
