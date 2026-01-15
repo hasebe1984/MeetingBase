@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ page import="jp.co.sys.bean.RoomBean"%>
 <%@ page import="jp.co.sys.util.RoomList"%>
+<%@ page import="jp.co.sys.dao.RoomDao"%>
 <%@include file="../common/header.jsp"%>
 <h1>会議室一覧</h1>
 <hr>
@@ -36,8 +37,8 @@
 			for (RoomBean l : list) {
 		%>
 		<tr>
-			<td><%= l.id %></td>
-			<td><%= l.name %></td>
+			<td><%= l.getId() %></td>
+			<td><%= l.getName() %></td>
 			<td class="list_td_small">
 				<form action="${pageContext.request.contextPath}/RoomEditServlet"
 					method="post">
