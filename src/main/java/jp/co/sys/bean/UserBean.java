@@ -8,8 +8,8 @@ public class UserBean implements Serializable {
 	private String id;
 	private String name;
 	private String password;
-	private String admin;
-	private String deleted;
+	private String isAdmin;
+	private String isDeleted;
 
 	public UserBean() {
 	}
@@ -22,14 +22,14 @@ public class UserBean implements Serializable {
 		this.password = password;
 	}
 
-	public UserBean(String address, String id, String name, String password, String admin, String deleted) {
+	public UserBean(String address, String id, String name, String password, String isAdmin, String isDeleted) {
 		super();
 		this.address = address;
 		this.id = id;
 		this.name = name;
 		this.password = password;
-		this.admin = admin;
-		this.deleted = deleted;
+		this.isAdmin = isAdmin;
+		this.isDeleted = isDeleted;
 	}
 
 	public String getId() {
@@ -48,16 +48,16 @@ public class UserBean implements Serializable {
 		return address;
 	}
 
-	public String getAdmin() {
-		return admin;
+	public String getIsAdmin() {
+		return isAdmin;
 	}
 
-	public String getDeleted() {
-		return deleted;
+	public String getIsDeleted() {
+		return isDeleted;
 	}
 
 	@Override
 	public String toString() {
-		return address + id + password+  name;
+		return id + " " + name + " " + password + " " + isAdmin + " " + address + "　削除フラグ：" + isDeleted;
 	}
 }

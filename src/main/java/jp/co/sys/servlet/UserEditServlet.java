@@ -51,26 +51,28 @@ public class UserEditServlet extends HttpServlet {
 		String nextPage = "jsp/edittedConfirm.jsp";
 		
 //		UserBean user = new UserBean(userAddress, session.userId, userName, userPw, userAdmin);
-		UserBean user = new UserBean(userAddress, "id", userName, userPw, userAdmin);
+		UserBean user = new UserBean(userAddress, "id", userName, userPw, userAdmin,"0");
 		request.setAttribute("user", user);
 		request.setAttribute("checked", checked);
 		
 		
-		
 		if ("決定".equals(action)) {
 			
-//			if (UserDao.registration(user)) {
-//				nextPage = "jsp/registered.jsp";
-//				
-//			} else {
-//				nextPage = "jsp/registrationError.jsp";
-//				
-//			}
-			nextPage = "jsp/editted.jsp";
 			
 		} else if ("戻る".equals(action)) {
 			nextPage = "jsp/editInput.jsp";
 			
+		} else if ("登録".equals(action)) {
+			Boolean isSuccess = false; 
+//			Boolean isSuccess =  UserDao.; 
+			
+			if (isSuccess) {
+				nextPage = "jsp/registered.jsp";
+				
+			} else {
+				nextPage = "jsp/registrationError.jsp";
+				
+			}
 		}
 
 		request.getRequestDispatcher(nextPage).forward(request, response);

@@ -29,15 +29,26 @@ public class RoomEditServlet extends HttpServlet {
 
 		request.setCharacterEncoding("UTF-8");
 		
-		String roomNameDefault = "roomDAOでＩＤから取得";
-		String roomFloorDefault = "一覧からＩＤを取得";
-		RoomBean roomDefault = new RoomBean(roomFloorDefault, roomNameDefault);
+		String roomNameDefault = "";
+		String roomFloorDefault = "";
+		
+//		String id = request.getParameter("id");
+		String id = "0302";
+		String roomName = request.getParameter("roomName");
+		String roomFloor = request.getParameter("roomFloor");
+		RoomBean room = new RoomBean(roomFloor, roomName);
 		
 		String action = request.getParameter("action");
-		String nextPage = "";
 		String title = request.getParameter("title");
+		String nextPage = "";
 		
 		if ("編集".equals(action)) {
+			roomNameDefault = "roomDAOでＩＤから取得";
+//			roomNameDefault = RoomDao.findId(room);
+			roomFloorDefault = id.substring(0, 2);
+			if(roomFloorDefault.startsWith("0")) {
+				roomFloorDefault = roomFloorDefault.substring(1);
+			}
 			title = "会議室編集";
 			nextPage = "/jsp/conferenceRoomInput.jsp";
 			
@@ -46,10 +57,7 @@ public class RoomEditServlet extends HttpServlet {
 			nextPage = "/jsp/conferenceRoomInput.jsp";
 			
 		}
-		
-		String roomName = request.getParameter("roomName");
-		String roomFloor = request.getParameter("roomFloor");
-		RoomBean room = new RoomBean(roomFloor, roomName);
+		RoomBean roomDefault = new RoomBean(roomFloorDefault, roomNameDefault);
 				
 		if ("決定".equals(action)) {
 			nextPage = "/jsp/conferenceRoomConfirm.jsp";	
