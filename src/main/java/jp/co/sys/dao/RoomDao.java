@@ -30,6 +30,7 @@ public class RoomDao {
 				roomlist.add(rb);
 				return roomlist;
 			}
+			return roomlist;
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
