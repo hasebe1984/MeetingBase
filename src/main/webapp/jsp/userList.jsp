@@ -46,7 +46,7 @@
 				<td class="list_td_middle"><%= l.getPassword() %></td>
 				<td><%= l.getName() %></td>
 				<td class="list_td_large"><%= l.getAddress() %></td>
-				<td class="list_td_small"><%= l.getAdmin() %></td>
+				<td class="list_td_small"><%= l.getIsAdmin() %></td>
 				<td class="list_td_small">
 					<form action="${pageContext.request.contextPath}/jsp/editInput.jsp" method="post">
 						<input type="hidden" name="id" value="<%= l.getId() %>">

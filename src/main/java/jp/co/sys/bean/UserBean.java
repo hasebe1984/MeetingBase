@@ -22,6 +22,15 @@ public class UserBean implements Serializable {
 		this.password = password;
 	}
 
+	public UserBean(String address, String id, String name, String password, String isAdmin) {
+		super();
+		this.address = address;
+		this.id = id;
+		this.name = name;
+		this.password = password;
+		this.isAdmin = isAdmin;
+	}
+	
 	public UserBean(String address, String id, String name, String password, String isAdmin, String isDeleted) {
 		super();
 		this.address = address;

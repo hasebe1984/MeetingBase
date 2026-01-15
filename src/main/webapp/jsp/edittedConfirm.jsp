@@ -24,7 +24,7 @@
 		</tr>
 		<tr>
 			<th>会員区分</th>
-			<td>${user.admin}</td>
+			<td>${user.isAdmin}</td>
 		</tr>
 	</tbody>
 </table>
@@ -35,7 +35,7 @@
 		<input type="hidden" name="userPw" value="${user.password}">
 		<input type="hidden" name="userName" value="${user.name}">
 		<input type="hidden" name="userAddress" value="${user.address}">
-		<input type="hidden" name="userAdmin" value="${user.admin}">
+		<input type="hidden" name="userAdmin" value="${user.isAdmin}">
 		
 		<input type="submit" name="action" value="戻る" class="button_submit">
 		<input type="submit" name="action" value="登録" class="button_submit">
