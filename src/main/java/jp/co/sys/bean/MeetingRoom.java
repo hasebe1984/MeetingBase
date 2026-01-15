@@ -119,7 +119,7 @@ public class MeetingRoom implements Serializable {
 	*/
 	public ReservationBean[][] getReservations(){
 		int roomSize = rooms.size();
-		ReservationBean reservations[][] = new ReservationBean [roomSize][7];
+		ReservationBean reservations[][] = new ReservationBean [roomSize][PERIOD.length];
 		List<ReservationBean> reserveList = ReservationDao.findByDate​(this.date);
 		for(ReservationBean reserve:reserveList) {
 			int roomInd = roomIndex​(reserve.getRoomId());
