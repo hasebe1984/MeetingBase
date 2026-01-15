@@ -1,8 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ page import="jp.co.sys.bean.RoomBean"%>
+<%@ page import="jp.co.sys.util.RoomList"%>
 <%@include file="../common/header.jsp"%>
 <h1>会議室一覧</h1>
 <hr>
+<p class="message">${message}</p>
 <table class="list_table">
 	<thead>
 		<tr>
@@ -27,6 +30,28 @@
 				</form>
 			</td>
 		</tr>
+		<% 
+			RoomList list = (RoomList)request.getAttribute("list");
+			if (list != null) {
+			for (RoomBean l : list) {
+		%>
+		<tr>
+			<td><%= l.id %></td>
+			<td><%= l.name %></td>
+			<td class="list_td_small">
+				<form action="${pageContext.request.contextPath}/RoomEditServlet"
+					method="post">
+					<input type="submit" name="action" value="編集" class="button_list">
+				</form>
+			</td>
+			<td class="list_td_small">
+				<form action="${pageContext.request.contextPath}/RoomAdminServlet"
+					method="post">
+					<input type="submit" name="action" value="削除" class="button_list">
+				</form>
+			</td>
+		</tr>
+		<% }} %>
 	</tbody>
 </table>
 <hr>
