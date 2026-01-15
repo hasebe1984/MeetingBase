@@ -1,11 +1,11 @@
-//package jp.co.sys.stub.kato;
-//
-//import jp.co.sys.bean.UserBean;
-//import jp.co.sys.dao.UserDao;
-//
-//public class test {
-//	public static void main(String[] args) {
-//
+package jp.co.sys.stub.kato;
+
+import jp.co.sys.bean.UserBean;
+import jp.co.sys.dao.UserDao;
+
+public class test {
+	public static void main(String[] args) {
+
 //		//		List<ReservationBean> rb = ReservationDao.findByDate​("2026-01-01");
 //		//		System.out.println(rb);
 //
@@ -19,10 +19,12 @@
 ////				System.out.println(dl);
 ////				System.out.println();
 ////				UserBean huga = new UserBean( "2500008", "111111");
-//				UserBean bl = UserDao.certificate​("2500008", "111111"); 
-//				System.out.println(bl);
-//				System.out.println();
-//
-//	}
-//
-//}
+//				UserBean hoge =  new UserBean("2500001", "111111");
+//				boolean bl= UserDao.certificate​(null, null);
+				UserBean bl=UserDao.certificate​("2500001", "111111");
+				System.out.println(bl);
+				System.out.println();
+
+	}
+
+}
