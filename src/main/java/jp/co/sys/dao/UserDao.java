@@ -19,16 +19,17 @@ public class UserDao {
 	 * @return
 	 */
 	public static UserBean certificate​(String id, String password) {
-		UserBean userbean = new UserBean();
+		UserBean user = null;
 		//SQL文user_idを指定して、レコードを取得
 		String sql = "select * from user where id = ? AND password=? ";
 		//データベースへ接続
 		try (Connection db = DatabaseConnectionProvider.getConnection();
 				PreparedStatement pstmt = db.prepareStatement(sql)) {
 			//受け取ったIdをSQL文へ代入
-			pstmt.setString(1, userbean.getId());
-			pstmt.setString(2, userbean.getPassword());
-			ResultSet rs = pstmt.executeQuery();
+			pstmt.setString(1, id);
+			pstmt.setString(2, password);
+			try (ResultSet rs = pstmt.executeQuery()){
+				
 			//			SQL文を実行して実行結果を取
 			while (rs.next()) {
 				//実行結果よりそれぞれのカラムの値を取得
@@ -38,13 +39,13 @@ public class UserDao {
 				String address = rs.getString("address");
 				String isAdmin = rs.getString("isAdmin");
 				String isDeleted = rs.getString("isDeleted");
-				UserBean user = new UserBean(address, id, name, password, isAdmin, isDeleted);
-				return user;
+				user = new UserBean(address, id, name, password, isAdmin, isDeleted);
 			}
+		}
 		} catch (SQLException ex) {
 			ex.printStackTrace();
 		}
-		return null;
+		return user;
 	}
 
 	//	ユーザを追加します
