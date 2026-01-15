@@ -9,8 +9,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-//テスト終わったら変える！！！！
-import jp.co.sys.stub.asano.MeetingRoom;
+import jp.co.sys.bean.MeetingRoom;
+
+
 
 /**
  * Servlet implementation class ChangeDateServlet
@@ -41,11 +42,18 @@ public class ChangeDateServlet extends HttpServlet {
 		
 		//ログイン時に作られたmeetingRoomをsessionから取得
 		MeetingRoom meetingRoom =(MeetingRoom)session.getAttribute("meetingRoom");
+
+		// meetingRoomがnulか チェック
+		if (meetingRoom == null) {
+		    // ログイン画面へ戻す
+		    response.sendRedirect(request.getContextPath() + "/jsp/login.jsp");
+		    return;
+		}
 		
 		//利用日がYYYY-MM-DDに一致しているかをチェックする
 		if(date !=null &&date.matches("\\d{4}-\\d{2}-\\d{2}"))
  {
-			meetingRoom.setDate(date);
+			meetingRoom.setDate​(date);
 			//値が取れているかの確認
 			System.out.println("MeetingRoom.date = " + meetingRoom.getDate());
 						

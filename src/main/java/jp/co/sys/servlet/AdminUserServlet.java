@@ -13,7 +13,7 @@ import jp.co.sys.stub.hasebe.UserDao;
 import jp.co.sys.util.UserList;
 
 /**
- * Servlet implementation class AdminUserServlet
+ * 会員の一覧表示および削除を制御するサーブレットです。
  */
 @WebServlet("/AdminUserServlet")
 public class AdminUserServlet extends HttpServlet {
@@ -43,7 +43,14 @@ public class AdminUserServlet extends HttpServlet {
 		
 		String action = request.getParameter("action");
 		String nextPath = "/jsp/userList.jsp";
-		UserList list = UserDao.findAll();
+		
+		UserList list = null;
+		try {
+			list = UserDao.findAll();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
 		String message = "";
 		
 		if ("削除".equals(action)) {

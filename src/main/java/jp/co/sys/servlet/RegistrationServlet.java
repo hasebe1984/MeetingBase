@@ -57,7 +57,8 @@ public class RegistrationServlet extends HttpServlet {
 //				nextPage = "jsp/registrationError.jsp";
 //				
 //			}
-			nextPage = "jsp/registered.jsp";
+//			nextPage = "jsp/registered.jsp";
+			nextPage = "jsp/registrationError.jsp";
 			
 		} else if ("戻る".equals(action)) {
 			nextPage = "jsp/registrationInput.jsp";

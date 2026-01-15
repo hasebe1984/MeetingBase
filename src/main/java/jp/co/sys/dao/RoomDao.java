@@ -90,15 +90,15 @@ public class RoomDao {
 		return ret != 0;
 	}
 
-	public static String findId(RoomBean findId) {
-		String sql = "SELECT name FROM room WHERE id=?";
+	public static RoomBean findId(String id) {
+		String sql = "SELECT * FROM room WHERE id=?";
 		try (Connection db = DatabaseConnectionProvider.getConnection();
 				PreparedStatement pstmt = db.prepareStatement(sql)) {
-			pstmt.setString(1, findId.getId());
+			pstmt.setString(1, id);
 			ResultSet rs = pstmt.executeQuery();
 			rs.next();
-			String aa =rs.getString("name");
-			return aa;
+			RoomBean rb = new RoomBean(rs.getString("id"), rs.getString("name"));
+			return rb;
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

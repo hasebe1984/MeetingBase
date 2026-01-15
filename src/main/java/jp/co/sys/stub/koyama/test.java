@@ -20,18 +20,13 @@ public class test {
 //		System.out.println(rb);
 
 		
-				ReservationBean hoge = new ReservationBean("0302", "2026-01-10", "09:00:00", "10:00:00", "2500003");
-				boolean bl = ReservationDao.insert​(hoge);
-				System.out.println(bl);
+//				ReservationBean hoge = new ReservationBean("0302", "2026-01-11", "09:00:00", "10:00:00", "2500003");
+//				boolean bl = ReservationDao.insert​(hoge);
+//				System.out.println(bl);
 		//
-		//		ReservationBean huga = new ReservationBean("0302", "2026-01-10", "09:00:00", "10:00:00", "2500003");
-		//		boolean dl = ReservationDao.delete​(huga);
-		//		System.out.println(dl);
-
-		//		ReservationList fa = ReservationDao.findAll();
-		//		System.out.println(fa);
-
-		
+				ReservationBean huga = new ReservationBean("0201", "2026-01-11", "09:00:00", "10:00:00", "2500003");
+				boolean dl = ReservationDao.delete​(huga);
+				System.out.println(dl);
 
 	}
 }
