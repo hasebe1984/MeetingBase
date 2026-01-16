@@ -90,16 +90,11 @@ public class MeetingRoom implements Serializable {
 	*@return int 配列の添字
 	*@throws java.lang.IndexOutOfBoundsException 会議室が存在しない場合
 	*/
-	@SuppressWarnings("unlikely-arg-type")
 	private int	roomIndex​(String roomId) throws IndexOutOfBoundsException {
 		for(int i=0;i<rooms.size();i++) {
-			if(rooms.get(i).getId()==roomId) {
-				
+			if(rooms.get(i).getId().equals(roomId)) {
+				return i;
 			}
-		}
-		if (rooms.contains(roomId)) {
-			int roomIndexNum = rooms.indexOf(roomId);
-		return roomIndexNum;
 		}
 		throw new IndexOutOfBoundsException();
 	}
