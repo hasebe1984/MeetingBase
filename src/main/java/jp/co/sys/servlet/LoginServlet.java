@@ -10,7 +10,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import jp.co.sys.bean.MeetingRoom;
-import jp.co.sys.bean.UserBean;
 
 @WebServlet("/LoginServlet")
 public class LoginServlet extends HttpServlet {
@@ -30,22 +29,36 @@ public class LoginServlet extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		String id = request.getParameter("userId");
 		String password = request.getParameter("userPw");
+		
+		
 		String nextPage;
-		MeetingRoom rm = new MeetingRoom();
-		boolean login = rm.login​(id, password);
+		HttpSession session = request.getSession();
+		MeetingRoom meetingRoom = new MeetingRoom();
+		
+		boolean login = meetingRoom.login​(id, password);
+		
 		//        ミーティングルームのメソッドを呼び込む
 		//		public boolean login​(String id, String password)
 		//       ユーザ情報がヌルじゃないか？
 
-		if (login) {
+		if (login==true) {
 			//        	メニューJSPにページを飛ばす
-			nextPage = request.getContextPath() + "/jsp/menu.jsp";
-			//        	セッションを行う
-			UserBean user = new UserBean();
-			password = null;
-			HttpSession session = request.getSession();
-			session.setAttribute("user", user);
+			
+			//UserBean user =  meetingRoom.getUser();
+		
+			session.setAttribute("meetingRoom", meetingRoom);
+			// ===== コンソール確認用 =====
+			System.out.println("=== 予約登録内容 ===");
+			System.out.println("日付: " + meetingRoom.getDate());
+			System.out.println("部屋ID: " + meetingRoom.getUser());
+			//System.out.println("開始: " + reservation.getStart());
+			//System.out.println("終了: " + reservation.getEnd());
+			//System.out.println("ユーザー");
+			//System.out.println("isDeleted:" + reservation.getIsDeleted());
+			//System.out.println("===================");
 
+			nextPage = request.getContextPath() + "/jsp/menu.jsp";
+			//        	セッションを行
 		} else {
 			//        		ログインJSPに飛ばす
 			nextPage = request.getContextPath() + "/jsp/login.jsp";
