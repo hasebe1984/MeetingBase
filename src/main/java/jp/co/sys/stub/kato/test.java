@@ -30,12 +30,13 @@ public class test {
 
 		//		ユーザテーブル全検索するテスト
 		UserList huga = UserDao.findAll();
+		System.out.println("戻値型：" + huga.getClass().getName());
 		for (UserBean pika : huga) {
-			System.out.print(pika.getId()+" ");
-			System.out.print(pika.getName()+" ");
-			System.out.print(pika.getPassword()+" ");
-			System.out.print(pika.getAddress()+" ");
-			System.out.print("管" + pika.getIsAdmin()+" ");
+			System.out.print(pika.getId() + " ");
+			System.out.print(pika.getName() + " ");
+			System.out.print(pika.getPassword() + " ");
+			System.out.print(pika.getAddress() + " ");
+			System.out.print("管" + pika.getIsAdmin() + " ");
 			System.out.println("削" + pika.getIsDeleted());
 		}
 
