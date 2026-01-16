@@ -16,7 +16,7 @@ public class RoomBean implements Serializable {
 		this.id = id;
 		this.name = name;
 	}
-	
+
 	public RoomBean(String name) {
 		super();
 		this.name = name;
@@ -32,6 +32,6 @@ public class RoomBean implements Serializable {
 
 	@Override
 	public String toString() {
-		return id + " " + name;
+		return id + " " + name + "\n";
 	}
 }
