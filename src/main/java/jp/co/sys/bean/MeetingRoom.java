@@ -250,7 +250,7 @@ public class MeetingRoom implements Serializable {
 				}
 			}
 		}
-		
+		UserDao.insert​(userAdd);
 	}
 	/**
 	*このオブジェクトの文字列表現を返します。
