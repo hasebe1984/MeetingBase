@@ -7,8 +7,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
-import jp.co.sys.dao.RoomDao;
+import jp.co.sys.stub.hasebe.MeetingRoom2;
 import jp.co.sys.util.RoomList;
 
 /**
@@ -47,9 +48,15 @@ public class RoomAdminServlet extends HttpServlet {
 //		}
 		
 //		※ミーティングルームが作成できたら、差し替え。
-		RoomList list = RoomDao.findAll();
-//		RoomList list = MeetingRoom.findAll();
+//		RoomList list = RoomDao.findAll();
+		HttpSession session = request.getSession();
+		MeetingRoom2 mr = (MeetingRoom2) session.getAttribute("meetingRoom");
+		RoomList list = null;
 		
+		if (mr != null) {
+		    list = mr.getRoomList();
+		}
+
 		String message = "";
 		
 		if ("削除".equals(action)) {
