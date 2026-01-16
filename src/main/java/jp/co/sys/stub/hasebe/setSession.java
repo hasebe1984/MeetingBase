@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import jp.co.sys.bean.MeetingRoom;
+
 /**
  * Servlet implementation class setSession
  */
@@ -27,11 +29,11 @@ public class setSession extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 	    HttpSession session = request.getSession();
-	    MeetingRoom2 meetingRoom = null;
+	    MeetingRoom meetingRoom = null;
 
 	    try {
 	        // ここで DAO (findAll) が走るため、失敗すると catch へ
-	        meetingRoom = new MeetingRoom2(); 
+	        meetingRoom = new MeetingRoom(); 
 	    } catch (Exception e) {
 	        // エラーが出ても止まらないようにログだけ出す
 	        e.printStackTrace();

@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import jp.co.sys.stub.hasebe.MeetingRoom2;
+import jp.co.sys.bean.MeetingRoom;
 import jp.co.sys.util.RoomList;
 
 /**
@@ -38,23 +38,13 @@ public class RoomAdminServlet extends HttpServlet {
 		String action = request.getParameter("action");
 		String nextPath = "/jsp/conferenceRoomList.jsp";
 		
-//		RoomList list = null;
-//		try {
-//			list = RoomDao.findAll();
-//			
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//			
-//		}
 		
-//		※ミーティングルームが作成できたら、差し替え。
-//		RoomList list = RoomDao.findAll();
 		HttpSession session = request.getSession();
-		MeetingRoom2 mr = (MeetingRoom2) session.getAttribute("meetingRoom");
+		MeetingRoom mr = (MeetingRoom) session.getAttribute("meetingRoom");
 		RoomList list = null;
 		
 		if (mr != null) {
-		    list = mr.getRoomList();
+		    list = mr.getRooms();
 		}
 
 		String message = "";
