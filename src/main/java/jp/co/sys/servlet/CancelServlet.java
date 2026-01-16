@@ -38,12 +38,12 @@ public class CancelServlet extends HttpServlet {
 		ReservationBean reservation = (ReservationBean) session.getAttribute("reservation");
 		/** キャンセル実行し、エラー発生する場合は理由をセット */
 		String errorReason=null;
-		try {
-			meetingRoom.cancel​(reservation);
-		} catch (Exception e) {
-			errorReason="すでにキャンセルされています。";//仮のキャンセル理由
-		}
-		request.setAttribute("errorReason", errorReason);
+			try {
+				meetingRoom.cancel​(reservation);
+			} catch (Exception e) {
+				errorReason=e.getMessage();
+				request.setAttribute("errorReason", errorReason);
+			}
 		/** エラーなしの場合予約完了画面、エラーありの場合エラー画面へフォワード */
 if (errorReason==null) {
 	RequestDispatcher rd = request.getRequestDispatcher("/jsp/canceled.jsp");

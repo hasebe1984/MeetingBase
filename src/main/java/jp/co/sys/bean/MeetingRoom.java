@@ -5,11 +5,11 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
-import java.util.List;
 
 import jp.co.sys.dao.ReservationDao;
 import jp.co.sys.dao.RoomDao;
 import jp.co.sys.dao.UserDao;
+import jp.co.sys.util.ReservationList;
 import jp.co.sys.util.RoomList;
 import jp.co.sys.util.UserList;
 
@@ -121,7 +121,7 @@ public class MeetingRoom implements Serializable {
 	public ReservationBean[][] getReservations(){
 		int roomSize = rooms.size();
 		ReservationBean reservations[][] = new ReservationBean [roomSize][PERIOD.length];
-		List<ReservationBean> reserveList = ReservationDao.findByDate​(this.date);	
+		ReservationList reserveList = ReservationDao.findByDate​(this.date);	
 		if(reserveList==null) {
 			return reservations;
 		}
@@ -182,7 +182,7 @@ public class MeetingRoom implements Serializable {
 			throw new Exception("時刻が過ぎているため予約できません");
 		}
 		
-		List<ReservationBean> reserveList = ReservationDao.findByDate​(this.date);
+		ReservationList reserveList = ReservationDao.findByDate​(this.date);
 		if(reserveList !=null) {
 			for(ReservationBean rs:reserveList) {
 				String reservedRoomId = rs.getRoomId();
@@ -240,8 +240,17 @@ public class MeetingRoom implements Serializable {
 		
 		return addUser;
 	}
-	public void userAdd(UserBean userAdd) {
-		
+	public void userAdd(UserBean userAdd) throws Exception {
+		UserList allUser = UserDao.findAll();
+		if(allUser!=null) {
+			for(UserBean us:allUser) {
+				String usId=us.getId();
+				if(usId.equals(userAdd.getId())) {
+					throw new Exception("既に登録されています");
+				}
+			}
+		}
+		UserDao.insert​(userAdd);
 	}
 	/**
 	*このオブジェクトの文字列表現を返します。
