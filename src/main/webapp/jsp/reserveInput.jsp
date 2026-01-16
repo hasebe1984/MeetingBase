@@ -226,7 +226,7 @@
 			%>
 			<form action="${pageContext.request.contextPath}/reserveCreateServlet"
 				method="post">
-				<input type="hidden" name="roomId" value="<%=rooms.get(i).getName()%>">
+				<input type="hidden" name="roomId" value="<%=rooms.get(i).getId()%>">
 
 				<button 
 					class="button_submit button_submit_small button_submit_blue">〇</button>
