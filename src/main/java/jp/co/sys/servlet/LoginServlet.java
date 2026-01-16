@@ -46,6 +46,7 @@ public class LoginServlet extends HttpServlet {
 			
 			//UserBean user =  meetingRoom.getUser();
 		
+			//        	セッションを行う
 			session.setAttribute("meetingRoom", meetingRoom);
 			// ===== コンソール確認用 =====
 			System.out.println("=== 予約登録内容 ===");
@@ -58,7 +59,6 @@ public class LoginServlet extends HttpServlet {
 			//System.out.println("===================");
 
 			nextPage = request.getContextPath() + "/jsp/menu.jsp";
-			//        	セッションを行
 		} else {
 			//        		ログインJSPに飛ばす
 			nextPage = request.getContextPath() + "/jsp/login.jsp";
