@@ -7,7 +7,7 @@ import java.sql.SQLException;
 
 import jp.co.sys.util.DatabaseConnectionProvider;
 
-public class DBtestDriver {
+public class DBtestDrivera {
 
 	public static void main(String[] args) {
 		try (Connection db = DatabaseConnectionProvider.getConnection()) {
