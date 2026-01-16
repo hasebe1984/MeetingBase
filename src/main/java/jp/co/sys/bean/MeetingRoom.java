@@ -92,6 +92,11 @@ public class MeetingRoom implements Serializable {
 	*/
 	@SuppressWarnings("unlikely-arg-type")
 	private int	roomIndex​(String roomId) throws IndexOutOfBoundsException {
+		for(int i=0;i<rooms.size();i++) {
+			if(rooms.get(i).getId()==roomId) {
+				
+			}
+		}
 		if (rooms.contains(roomId)) {
 			int roomIndexNum = rooms.indexOf(roomId);
 		return roomIndexNum;
