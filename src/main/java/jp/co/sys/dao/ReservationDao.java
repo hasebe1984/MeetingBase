@@ -46,7 +46,7 @@ public class ReservationDao {
 		}
 		// 空だったらnullを入れる
 		if (list.isEmpty()) {
-			return null;
+			return list;
 		}
 
 		return list;
@@ -98,7 +98,7 @@ public class ReservationDao {
 		}
 		// 空だったらnullを入れる
 		if (list.isEmpty()) {
-			return null;
+			return list;
 		}
 
 		return list;

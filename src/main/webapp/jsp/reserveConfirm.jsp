@@ -12,7 +12,7 @@
 		</tr>
 		<tr>
 			<th>会議室</th>
-			<td>${room.name}</td>
+			<td>${reservation.roomId}</td>
 		</tr>
 		<tr>
 			<th>予約時刻</th>
@@ -20,8 +20,8 @@
 		</tr>
 		<tr>
 			<th>予約者</th>
-			<%--後に${meetingRoom.user.name}--%>
-			<td>${"情報太郎"}</td>
+			
+			<td>${meetingRoom.user.name}</td>
 		</tr>
 	</tbody>
 </table>

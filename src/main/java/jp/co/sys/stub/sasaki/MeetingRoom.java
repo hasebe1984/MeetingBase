@@ -1,6 +1,3 @@
-package jp.co.sys.stub.sasaki;
-//TO DO 単体テスト終わったら変える！！！！
-
 import java.io.Serializable;
 //
 
