@@ -5,9 +5,28 @@
 <%@ page import="jp.co.sys.bean.ReservationBean"%>
 <%@ page import="jp.co.sys.util.RoomList"%>
 <%@ page import="jp.co.sys.dao.UserDao"%>
-String[] period = meetingRoom.getPeriod();
+
+   
+
+    
+    <%
+    // ===== サーブレットから受け取る =====
+    MeetingRoom meetingRoom = (MeetingRoom) session.getAttribute("meetingRoom");
+
+     //null対策（初回表示用）
+    if (meetingRoom == null) {
+        meetingRoom = new MeetingRoom();
+        
+        session.setAttribute("meetingRoom", meetingRoom);
+    }
+    
+
+    String[] period = meetingRoom.getPeriod();
     RoomList rooms  = meetingRoom.getRooms();
     ReservationBean[][] reservations = meetingRoom.getReservations();
+%>
+
+    
 
 
 <%@include file="../common/header.jsp"%>
@@ -157,35 +176,19 @@ String[] period = meetingRoom.getPeriod();
 	</table>
 </form>
 
-<%
-    // ===== サーブレットから受け取る =====
-    MeetingRoom meetingRoom = (MeetingRoom) session.getAttribute("meetingRoom");
-
-     //null対策（初回表示用）
-    if (meetingRoom == null) {
-        meetingRoom = new MeetingRoom();
-        
-        session.setAttribute("meetingRoom", meetingRoom);
-    }
-    
-
-    String[] period = meetingRoom.getPeriod();
-    RoomList rooms  = meetingRoom.getRooms();
-    ReservationBean[][] reservations = meetingRoom.getReservations();
-%>
-
 
 
 <%--会議室for文バージョン間違ってた ら教えてください！！！！！！--%>
-
-
+<h1>会議室予約</h1>
+<h2>利用日</h2>
 <form action="${pageContext.request.contextPath}/ChangeDateServlet"
-	method="POST">
-	<h1>利用日</h1>
-	<input type="date" name="date" value="${meetingRoom.date}"> <input
+	method="POST" class="input_table">
+	
+	<input type="date" name="date"  value="${meetingRoom.date}"> <input
 		type="submit" value="日付変更" class="button_submit button_submit_small"><br> <input type="hidden"
 		name="page" value="reserveInput.jsp">
 </form>
+<h2>予約可能時間帯 &nbsp;&nbsp;&nbsp; ${meetingRoom.user.name} さん</h2>
 
 <%--後で復活タグ<h1>予約可能時間帯${meetingRoom.user.name}</h1>--%>
 
@@ -217,7 +220,7 @@ String[] period = meetingRoom.getPeriod();
 		%>
 		<td>
 			<%--配列の中身が〇だったらボタンを作る--%> 
-			<%--MeetingRoom対応：if (reservations[i][j]==null)だったら予約の空きあり=〇表示)  ("〇".equals(reservations[i][j]))--%>
+			<%--MeetingRoom対応：if (reservations[i][j]==null)だったら予約の空きあり=〇表示) --%>
 			<%
 			if (reservations[i][j]==null) {
 			%>
@@ -230,13 +233,13 @@ String[] period = meetingRoom.getPeriod();
 				<%--仕様書はsubmit送信ですが、〇×表示になったので hiddenで送ってます--%>
 				<input type="hidden" name="time" value="<%=period[j]%>">
 			</form> <%--配列の中身が×だったら×を直書き--%> <%
- } else {
- %>
+ 			} else {
+          %>
 			<button 
 				class="button_submit button_submit_small button_submit_blue ${'button_submit_impossible'}"
 				${"disabled"}>×</button> <%
- }
- %>
+           }
+           %>
 		</td>
 		<%
 		}
