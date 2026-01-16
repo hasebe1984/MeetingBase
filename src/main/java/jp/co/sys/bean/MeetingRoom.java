@@ -121,7 +121,10 @@ public class MeetingRoom implements Serializable {
 	public ReservationBean[][] getReservations(){
 		int roomSize = rooms.size();
 		ReservationBean reservations[][] = new ReservationBean [roomSize][PERIOD.length];
-		List<ReservationBean> reserveList = ReservationDao.findByDate​(this.date);
+		List<ReservationBean> reserveList = ReservationDao.findByDate​(this.date);	
+		if(reserveList==null) {
+			return reservations;
+		}
 		for(ReservationBean reserve:reserveList) {
 			int roomInd = roomIndex​(reserve.getRoomId());
 			int startInd = startPeriod​(reserve.getStart());
@@ -180,13 +183,14 @@ public class MeetingRoom implements Serializable {
 		}
 		
 		List<ReservationBean> reserveList = ReservationDao.findByDate​(this.date);
-		for(ReservationBean rs:reserveList) {
-			String reservedRoomId = rs.getRoomId();
-			if(reservedRoomId.equals(reservation.getRoomId())&&rs.getDate().equals(reservation.getStart())&&rs.getIsDeleted()==0){
-				throw new Exception("既に予約されています");
+		if(reserveList !=null) {
+			for(ReservationBean rs:reserveList) {
+				String reservedRoomId = rs.getRoomId();
+				if(reservedRoomId.equals(reservation.getRoomId())&&rs.getDate().equals(reservation.getStart())&&rs.getIsDeleted()==0){
+					throw new Exception("既に予約されています");
+				}
 			}
-		}
-				
+		}		
 		ReservationDao.insert​(reservation);	
 	}
 	/**
@@ -208,19 +212,23 @@ public class MeetingRoom implements Serializable {
 		if(reserveDateTime.isBefore(localDateTime)) {
 			throw new Exception("時刻が過ぎているためキャンセルできません");
 		}
-		
 		ReservationBean cancelReserve = ReservationDao.findById​(reservation.getId());
-			if(cancelReserve.getIsDeleted()==1){
+		if(cancelReserve.getIsDeleted()==1){
 			throw new Exception("既にキャンセルされています");
-			
 		}
 		ReservationDao.delete​(reservation);	
 	}
+	/**
+	*利用者登録生成
+	*登録情報がセットされた利用者情報にIDを追加して利用者登録情報として完成させる。
+	*@param UserBean 利用者情報
+	*@return UserBean 利用者情報
+	*/
 	public UserBean createUser(UserBean addUser) {
 		LocalDateTime now = LocalDateTime.now();
 		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yy");
 		String idNow = now.format(dtf);
-		UserList usersNowId = UserDao.getNowId(idNow);
+		UserList usersNowId = UserDao.getNowId(idNow);//DAOからuserNowIdでid検索する
 		int usersNowIdSize = usersNowId.size();
 		if(usersNowId != null) {
 			usersNowIdSize++;
@@ -231,6 +239,9 @@ public class MeetingRoom implements Serializable {
 		addUser.setId(userId);
 		
 		return addUser;
+	}
+	public void userAdd(UserBean userAdd) {
+		
 	}
 	/**
 	*このオブジェクトの文字列表現を返します。
