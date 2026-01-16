@@ -1,8 +1,5 @@
 package jp.co.sys.stub.kato;
 
-import jp.co.sys.dao.UserDao;
-import jp.co.sys.util.UserList;
-
 public class test {
 	public static void main(String[] args) {
 
@@ -23,9 +20,13 @@ public class test {
 		//		UserBean bl=UserDao.certificate​("2500001", "111111");
 		//		System.out.println(bl);
 
-		//		ユーザ削除フラグテスト
-		UserList huga = UserDao.getNowId("2500");
-		System.out.println(huga);
+		//		NowIdだけで検索するテスト
+		//		UserList huga = UserDao.getNowId("2500001");
+		//		System.out.println(huga);
+
+		//		ユーザテーブル全検索するテスト
+		//		UserList huga = UserDao.findAll();
+		//		System.out.println(huga);
 
 	}
 

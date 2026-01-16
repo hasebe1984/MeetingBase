@@ -24,7 +24,7 @@
 			</form>
 		</div>
 		<div class="header_button">
-			<div>${session.name}さん</div>
+			<div>${meetingRoom.user.getName}さん</div>
 			<form action="${pageContext.request.contextPath}/LogoutServlet" method="post">
 				<input type="submit" value="ログアウト" class="button_small">
 			</form>

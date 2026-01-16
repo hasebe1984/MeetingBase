@@ -4,7 +4,7 @@
 <h1>会議室予約</h1>
 <hr>
 <h2>予約エラー</h2>
-<p class="message">${"エラーメッセージ"}</p>
+<p class="message">${errorReason}</p>
 <table>
 	<tbody>
 		<tr>
@@ -13,7 +13,7 @@
 		</tr>
 		<tr>
 			<th>会議室</th>
-			<td>${room.name}</td>
+			<td>${reservation.roomId}</td>
 		</tr>
 		<tr>
 			<th>予約時刻</th>
@@ -21,7 +21,7 @@
 		</tr>
 		<tr>
 			<th>予約者</th>
-			<td>${"meetingRoom.user.name"}</td>
+			<td>${meetingRoom.user.name}</td>
 		</tr>
 	</tbody>
 </table>
