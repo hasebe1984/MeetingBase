@@ -7,6 +7,7 @@ import java.sql.SQLException;
 
 import jp.co.sys.bean.UserBean;
 import jp.co.sys.util.DatabaseConnectionProvider;
+import jp.co.sys.util.UserList;
 
 /**
  * ユーザ認証が出来たか出来てないかを｢MeetingRoom｣に返す
@@ -76,7 +77,7 @@ public class UserDao {
 		}
 		return ret != 0;
 	}
-	
+
 	/**
 	 * ユーザーに削除フラグ（論理削除）を実施します。
 	 * @param id
@@ -86,23 +87,50 @@ public class UserDao {
 		String sql = "update user set isDeleted = 1 where id  = ?";
 		//update user set isDeleted = '1' where id  = '2500001' ;
 		// try-with-user構文でリソースを自動的にクローズ
-//		if (userbean.getDeleted() != 1) {
-			try (Connection conn = DatabaseConnectionProvider.getConnection();
-					PreparedStatement pstmt = conn.prepareStatement(sql)) {
-				// プレースホルダーに値を設定
-				pstmt.setString(1, id);
-				//更新クエリの実行
-				int ret = pstmt.executeUpdate();
-				return ret != 0;
+		//		if (userbean.getDeleted() != 1) {
+		try (Connection conn = DatabaseConnectionProvider.getConnection();
+				PreparedStatement pstmt = conn.prepareStatement(sql)) {
+			// プレースホルダーに値を設定
+			pstmt.setString(1, id);
+			//更新クエリの実行
+			int ret = pstmt.executeUpdate();
+			return ret != 0;
 
-			} catch (SQLException e) {
-				e.printStackTrace();
-				System.err.println("SQLに関するエラーです。");
+		} catch (SQLException e) {
+			e.printStackTrace();
+			System.err.println("SQLに関するエラーです。");
 
-				//		}else {
-				//					return null;
+			//		}else {
+			//					return null;
 
-			}
+		}
 		return false;
-}
+	}
+
+	//UserList getNowId(String idNow) ※where id like 'idNow%' のように引数idNowから始まるid検索
+	public static UserList getNowId(String idNow) {
+		UserList uid = null;
+		//SQL文user_idを指定して、レコードを取得
+		String sql = "select * from user where id like ? ";
+		//データベースへ接続
+		try (Connection db = DatabaseConnectionProvider.getConnection();
+				PreparedStatement pstmt = db.prepareStatement(sql)) {
+			//受け取ったIdをSQL文へ代入
+			pstmt.setString(1, idNow + "%");
+			try (ResultSet rs = pstmt.executeQuery()) {
+
+				//			SQL文を実行して実行結果を取
+				while (rs.next()) {
+					//実行結果よりそれぞれのカラムの値を取得
+					String id1 = rs.getString("id");
+
+					uid = new UserList(id1);
+				}
+			}
+		} catch (SQLException ex) {
+			ex.printStackTrace();
+		}
+		return uid;
+
+	}
 }
