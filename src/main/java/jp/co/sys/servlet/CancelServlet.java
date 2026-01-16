@@ -10,8 +10,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import jp.co.sys.bean.MeetingRoom;
 import jp.co.sys.bean.ReservationBean;
-import jp.co.sys.stub.sasaki.MeetingRoom;
 /**
  * 予約を削除し、予約成功時は予約完了画面に遷移し
  * 例外を捕捉した場合は，例外メッセージをリクエスト属性に

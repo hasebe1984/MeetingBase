@@ -21,7 +21,6 @@
 		<tr>
 			<th>予約者</th>
 			<td>${"meetingRoom.user.name"}</td>
-			<!--  ミーティングルーム完成したら変える-->
 		</tr>
 	</tbody>
 </table>
