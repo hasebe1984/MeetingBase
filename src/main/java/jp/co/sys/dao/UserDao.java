@@ -109,7 +109,7 @@ public class UserDao {
 
 	//UserList getNowId(String idNow) ※where id like 'idNow%' のように引数idNowから始まるid検索
 	public static UserList getNowId(String idNow) {
-		UserList uid = null;
+		UserList userlist = new UserList();
 		//SQL文user_idを指定して、レコードを取得
 		String sql = "select * from user where id like ? ";
 		//データベースへ接続
@@ -122,15 +122,50 @@ public class UserDao {
 				//			SQL文を実行して実行結果を取
 				while (rs.next()) {
 					//実行結果よりそれぞれのカラムの値を取得
-					String id1 = rs.getString("id");
-
-					uid = new UserList(id1);
+					String id = rs.getString("id");
+					String address = rs.getString("address");
+					String name = rs.getString("name");
+					String password = rs.getString("password");
+					String isAdmin = rs.getString("isAdmin");
+					String isDeleted = rs.getString("isDeleted");
+					UserBean ub = new UserBean(id, address, name, password, isAdmin, isDeleted);
+					userlist.add(ub);
 				}
 			}
 		} catch (SQLException ex) {
 			ex.printStackTrace();
 		}
-		return uid;
+		return userlist;
 
+	}
+
+	public static UserList findAll() {
+		UserList userlist=new UserList();
+		//SQL文user_idを指定して、レコードを取得
+		String sql = "select * from user where id ";
+		//データベースへ接続
+		try (Connection db = DatabaseConnectionProvider.getConnection();
+				PreparedStatement pstmt = db.prepareStatement(sql)) {
+			//受け取ったIdをSQL文へ代入
+
+			try (ResultSet rs = pstmt.executeQuery()) {
+
+				//			SQL文を実行して実行結果を取
+				while (rs.next()) {
+					//実行結果よりそれぞれのカラムの値を取得
+					String id = rs.getString("id");
+					String address = rs.getString("address");
+					String name = rs.getString("name");
+					String password = rs.getString("password");
+					String isAdmin = rs.getString("isAdmin");
+					String isDeleted = rs.getString("isDeleted");
+					UserBean ub = new UserBean(id, address, name, password, isAdmin, isDeleted);
+					userlist.add(ub);
+				}
+			}
+		} catch (SQLException ex) {
+			ex.printStackTrace();
+		}
+		return userlist;
 	}
 }

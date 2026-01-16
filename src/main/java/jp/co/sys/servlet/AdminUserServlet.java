@@ -7,10 +7,10 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
-import jp.co.sys.stub.hasebe.UserDao;
-//import jp.co.sys.dao.UserDao;
-import jp.co.sys.util.UserList;
+import jp.co.sys.bean.MeetingRoom;
+import jp.co.sys.bean.UserBean;
 
 /**
  * 会員の一覧表示および削除を制御するサーブレットです。
@@ -34,9 +34,6 @@ public class AdminUserServlet extends HttpServlet {
 		doPost(request, response);
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		request.setCharacterEncoding("UTF-8");
@@ -44,11 +41,12 @@ public class AdminUserServlet extends HttpServlet {
 		String action = request.getParameter("action");
 		String nextPath = "/jsp/userList.jsp";
 		
-		UserList list = null;
-		try {
-			list = UserDao.findAll();
-		} catch (Exception e) {
-			e.printStackTrace();
+		HttpSession session = request.getSession();
+		MeetingRoom mr = (MeetingRoom)session.getAttribute("meetingRoom");
+		UserBean list = null;
+		
+		if (mr != null) {
+			list = mr.getUser();
 		}
 		
 		String message = "";
