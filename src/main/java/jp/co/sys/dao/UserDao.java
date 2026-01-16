@@ -142,7 +142,7 @@ public class UserDao {
 	public static UserList findAll() {
 		UserList userlist=new UserList();
 		//SQL文user_idを指定して、レコードを取得
-		String sql = "select * from user where id ";
+		String sql = "select * from user where id AND isDeleted != 1";
 		//データベースへ接続
 		try (Connection db = DatabaseConnectionProvider.getConnection();
 				PreparedStatement pstmt = db.prepareStatement(sql)) {

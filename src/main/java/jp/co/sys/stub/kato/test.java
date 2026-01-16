@@ -1,5 +1,9 @@
 package jp.co.sys.stub.kato;
 
+import jp.co.sys.bean.UserBean;
+import jp.co.sys.dao.UserDao;
+import jp.co.sys.util.UserList;
+
 public class test {
 	public static void main(String[] args) {
 
@@ -25,8 +29,15 @@ public class test {
 		//		System.out.println(huga);
 
 		//		ユーザテーブル全検索するテスト
-		//		UserList huga = UserDao.findAll();
-		//		System.out.println(huga);
+		UserList huga = UserDao.findAll();
+		for (UserBean pika : huga) {
+			System.out.print(pika.getId()+" ");
+			System.out.print(pika.getName()+" ");
+			System.out.print(pika.getPassword()+" ");
+			System.out.print(pika.getAddress()+" ");
+			System.out.print("管" + pika.getIsAdmin()+" ");
+			System.out.println("削" + pika.getIsDeleted());
+		}
 
 	}
 
