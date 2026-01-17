@@ -21,7 +21,7 @@
 	</div>
  	<div class="button_row">
 	    <a href="${pageContext.request.contextPath}/jsp/menu.jsp" class="button_submit">戻る</a>
-	    <input type="submit" value="登録" class="button_submit">
+	    <input type="submit" name="action" value="決定" class="button_submit">
     </div>
 </form>
 <%@include file="../common/footer.jsp"%>

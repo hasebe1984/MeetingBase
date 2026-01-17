@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import jp.co.sys.bean.MeetingRoom;
+import jp.co.sys.bean.RoomBean;
 import jp.co.sys.util.RoomList;
 
 /**
@@ -23,9 +24,6 @@ public class RoomAdminServlet extends HttpServlet {
 		super();
 	}
 	
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doPost(request, response);
 	}
@@ -35,29 +33,36 @@ public class RoomAdminServlet extends HttpServlet {
 		
 		request.setCharacterEncoding("UTF-8");
 		
+		HttpSession session = request.getSession();
+		MeetingRoom mr = (MeetingRoom) session.getAttribute("meetingRoom");	
+		
+		String roomId = request.getParameter("roomId");
+		String roomName = request.getParameter("roomName");
+		RoomBean room = new RoomBean(roomId, roomName);
+		
 		String action = request.getParameter("action");
 		String nextPath = "/jsp/conferenceRoomList.jsp";
 		
-		
-		HttpSession session = request.getSession();
-		MeetingRoom mr = (MeetingRoom) session.getAttribute("meetingRoom");
-		RoomList list = null;
-		
-		if (mr != null) {
-		    list = mr.getRooms();
-		}
-
+//		会議室の削除
 		String message = "";
-		
+
 		if ("削除".equals(action)) {
 			Boolean isSuccess = false;
+			try {
+				isSuccess = mr.deleteRoom(room);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 			
 			if(isSuccess) {
 				message = "削除しました。";
+				mr = new MeetingRoom();
+				session.setAttribute("meetingRoom", mr);
 			} else {
 				message = "削除できませんでした。";
 			}
-		}
+			}
+		RoomList list = mr.getRooms();
 	
 		request.setAttribute("message", message);
 		request.setAttribute("list", list);

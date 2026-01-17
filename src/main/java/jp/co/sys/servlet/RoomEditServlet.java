@@ -7,7 +7,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
+import jp.co.sys.bean.MeetingRoom;
 import jp.co.sys.bean.RoomBean;
 
 /**
@@ -29,26 +31,24 @@ public class RoomEditServlet extends HttpServlet {
 
 		request.setCharacterEncoding("UTF-8");
 		
-		String roomNameDefault = "";
-		String roomFloorDefault = "";
-		
-//		String id = request.getParameter("id");
-		String id = "0302";
-		String roomName = request.getParameter("roomName");
-		String roomFloor = request.getParameter("roomFloor");
-		RoomBean room = new RoomBean(roomFloor, roomName);
+		HttpSession session = request.getSession();
+		MeetingRoom mr = (MeetingRoom)session.getAttribute("meetingRoom");
 		
 		String action = request.getParameter("action");
 		String title = request.getParameter("title");
-		String nextPage = "";
 		
+		String roomId = request.getParameter("roomId");
+		String roomName = request.getParameter("roomName");
+		String roomFloor = request.getParameter("roomFloor");
+		
+		RoomBean room = new RoomBean(roomId, roomName);
+		RoomBean addRoom = new RoomBean(roomFloor, roomName);
+		
+	    String nextPage = "";
+		String message = "";
+
+//		入力画面
 		if ("編集".equals(action)) {
-			roomNameDefault = "roomDAOでＩＤから取得";
-//			roomNameDefault = RoomDao.findId(room);
-			roomFloorDefault = id.substring(0, 2);
-			if(roomFloorDefault.startsWith("0")) {
-				roomFloorDefault = roomFloorDefault.substring(1);
-			}
 			title = "会議室編集";
 			nextPage = "/jsp/conferenceRoomInput.jsp";
 			
@@ -56,10 +56,7 @@ public class RoomEditServlet extends HttpServlet {
 			title = "会議室登録";
 			nextPage = "/jsp/conferenceRoomInput.jsp";
 			
-		}
-		RoomBean roomDefault = new RoomBean(roomFloorDefault, roomNameDefault);
-				
-		if ("決定".equals(action)) {
+		} else if ("決定".equals(action)) {
 			nextPage = "/jsp/conferenceRoomConfirm.jsp";	
 			
 		} else if ("戻る".equals(action)) {
@@ -67,29 +64,39 @@ public class RoomEditServlet extends HttpServlet {
 			
 		} else if ("登録".equals(action)) {
 			Boolean isSuccess = false;
-			
+
 			if("会議室編集".equals(title)) {
-//				isSuccess = RoomDao.update(room);
-				isSuccess = true;
+				try {
+					isSuccess = mr.editRoom(room);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
 				
 			} else if ("会議室登録".equals(title)) {
-//				isSuccess = RoomDao.insert(room);
-				isSuccess = true;
-				
+				try {
+					isSuccess = mr.addRoom(addRoom);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
 			}
 			
 			if (isSuccess) {
 				nextPage = "/jsp/conferenceRoomed.jsp";
-				
+				mr = new MeetingRoom();
+				session.setAttribute("meetingRoom", mr);
 			} else {
 				nextPage = "/jsp/conferenceRoomError.jsp";	
-			
+				message = "エラーメッセージ";
 			}
+			
+		} else if ("一覧へ".equals(action)) {
+			nextPage = "/jsp/conferenceRoomList.jsp";	
 		}
 		
 		request.setAttribute("room", room);
-		request.setAttribute("roomDefault", roomDefault);
+		request.setAttribute("addRoom", addRoom);
 		request.setAttribute("title", title);
+		request.setAttribute("message", message);
 
 		request.getRequestDispatcher(nextPage).forward(request, response);
 	

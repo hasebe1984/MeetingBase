@@ -4,7 +4,7 @@
 <html>
 <head>
 	<meta charset="UTF-8">
-	<title></title>
+	<title>${tab}</title>
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/css/reset.css">
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
 </head>
@@ -24,7 +24,7 @@
 			</form>
 		</div>
 		<div class="header_button">
-			<div>${meetingRoom.user.getName}さん</div>
+			<div>${user.name}さん</div>
 			<form action="${pageContext.request.contextPath}/LogoutServlet" method="post">
 				<input type="submit" value="ログアウト" class="button_small">
 			</form>

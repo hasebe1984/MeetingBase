@@ -10,11 +10,14 @@
 			<th>会議室名</th>
 			<td>${room.name}</td>
 		</tr>
-		<tr>
+ 		<tr class="${title == '会議室編集' ? 'hidden' : ''}">
 			<th>会議室階</th>
-			<td>${room.id}</td>
+			<td>${addRoom.id}</td>
 		</tr>
 	</tbody>
 </table>
-<a href="${pageContext.request.contextPath}/jsp/menu.jsp"class="button_submit">メニューへ</a>
+<form action="${pageContext.request.contextPath}/RoomAdminServlet"
+	method="post">
+	<input type="submit" name="action" value="一覧へ" class="button_submit">
+</form>
 <%@include file="../common/footer.jsp"%>

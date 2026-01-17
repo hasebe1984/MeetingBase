@@ -31,6 +31,7 @@ public class RoomDao {
 			}
 			return roomlist;
 		} catch (SQLException e) {
+			System.out.println("★DAOエラー発生！"); // これを追加
 			e.printStackTrace();
 		}
 		return null;
@@ -82,7 +83,7 @@ public class RoomDao {
 		String sql = "DELETE FROM room WHERE id=?";
 		try (Connection db = DatabaseConnectionProvider.getConnection();
 				PreparedStatement pstmt = db.prepareStatement(sql)) {
-			pstmt.setString(1, deleteroom.getId());
+			pstmt.setString(1, deleteroom.getId().trim());
 			ret = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -105,3 +106,5 @@ public class RoomDao {
 		return null;
 	}
 }
+
+

@@ -13,6 +13,7 @@ import jp.co.sys.util.ReservationList;
 import jp.co.sys.util.RoomList;
 import jp.co.sys.util.UserList;
 
+
 public class MeetingRoom implements Serializable {
 	//フィールド
 	private static final long serialVersionUID = 1L;
@@ -21,6 +22,8 @@ public class MeetingRoom implements Serializable {
 	private String date;
 	private RoomList rooms;
 	private UserBean user;
+	private UserList users;
+	private RoomBean room;
 	
 	//コンストラクタ
 	public MeetingRoom() {
@@ -252,11 +255,113 @@ public class MeetingRoom implements Serializable {
 		}
 		UserDao.insert​(userAdd);
 	}
+	
+	
+	
+	
+	
+	
+//	==========
+//	長谷部作成
 	/**
-	*このオブジェクトの文字列表現を返します。
-	*デバッグ用
-	*@return String 会議室予約システムの文字列表現
+	*RoomBeanの取得
+	*会議室の編集画面の入力の初期値表示の為。
+	*@return RoomBean
 	*/
+	public UserList getUsers() {
+		this.users = UserDao.findAll();
+		return users;
+	}
+	
+	/**
+	*RoomBeanの取得
+	*会議室の編集画面の入力の初期値表示の為。
+	*@return RoomBean
+	*/
+	public RoomBean getRoom() {
+		return room;
+	}
+	/**
+	* UserListの取得
+	*
+	*@return UserList
+	*/
+//	public UserList	getUsers() {
+//		return users;
+//	}
+	
+	/**
+	*RoomBeanの内容をDBに追加する
+	*会議室の追加処理。
+	*@param room
+	*@return DBに追加できたらtrue、失敗したらfalse 
+	*@throws Exception
+	*/
+	public boolean addRoom(RoomBean room) throws Exception {
+		boolean isSuccess = RoomDao.insert(room);
+		return isSuccess;
+	}
+	
+	/**
+	*RoomBeanの内容でDBを変更する
+	*会議室の編集処理。
+	*@param room
+	*@return DBに追加できたらtrue、失敗したらfalse 
+	*@throws Exception
+	*/
+	public boolean editRoom(RoomBean room) throws Exception {
+		boolean isSuccess = RoomDao.update(room);
+		return isSuccess;
+	}
+	
+	/**
+	 *RoomBeanの内容でDBを変更する
+	 *会議室の編集処理。
+	 *@param room
+	 *@return DBに追加できたらtrue、失敗したらfalse 
+	 *@throws Exception
+	 */
+	public boolean deleteRoom(RoomBean room) throws Exception {
+		boolean isSuccess = RoomDao.delete(room);
+		return isSuccess;
+	}
+	
+	/**
+	*RoomBeanの内容をDBに追加する
+	*会議室の追加処理。
+	*@param room
+	*@return DBに追加できたらtrue、失敗したらfalse 
+	*@throws Exception
+	*/
+	public boolean addUser(UserBean user) throws Exception {
+		boolean isSuccess = UserDao.insert​(user);
+		return isSuccess;
+	}
+	
+	/**
+	*RoomBeanの内容でDBを変更する
+	*会議室の編集処理。
+	*@param room
+	*@return DBに追加できたらtrue、失敗したらfalse 
+	*@throws Exception
+	*/
+	public boolean editUser(UserBean user) throws Exception {
+		boolean isSuccess = UserDao.update(user);
+		return isSuccess;
+	}
+	
+	/**
+	 *RoomBeanの内容でDBを変更する
+	 *会議室の編集処理。
+	 *@param room
+	 *@return DBに追加できたらtrue、失敗したらfalse 
+	 *@throws Exception
+	 */
+	public boolean deleteUser(UserBean user) throws Exception {
+		boolean isSuccess = UserDao.delete​(user);
+		return isSuccess;
+	}
+	
 	
 	public String toString() {
 		return user.toString()+rooms.toString()+this.date;
