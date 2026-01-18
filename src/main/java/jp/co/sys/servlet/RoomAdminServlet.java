@@ -56,8 +56,8 @@ public class RoomAdminServlet extends HttpServlet {
 			
 			if(isSuccess) {
 				message = "削除しました。";
-				mr = new MeetingRoom();
-				session.setAttribute("meetingRoom", mr);
+				mr.reloadRooms();
+
 			} else {
 				message = "削除できませんでした。";
 			}

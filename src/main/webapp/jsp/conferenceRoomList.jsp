@@ -36,7 +36,7 @@
 					method="post">
 					<input type="hidden" name="roomId" value="<%= l.getId() %>" class="button_list">
 					<input type="hidden" name="roomName" value="<%= l.getName() %>" class="button_list">
-					<input type="submit" name="action" value="削除" class="button_list">
+					<input type="submit" name="action" value="削除" class="button_list" onclick="return confirm('本当に削除してよろしいですか？');">
 				</form>
 			</td>
 		</tr>

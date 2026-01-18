@@ -23,7 +23,6 @@ public class MeetingRoom implements Serializable {
 	private RoomList rooms;
 	private UserBean user;
 	private UserList users;
-	private RoomBean room;
 	
 	//コンストラクタ
 	public MeetingRoom() {
@@ -264,36 +263,27 @@ public class MeetingRoom implements Serializable {
 //	==========
 //	長谷部作成
 	/**
-	*RoomBeanの取得
-	*会議室の編集画面の入力の初期値表示の為。
-	*@return RoomBean
+	*userテーブルの全データの取得（削除フラグが立っていないもの）
+	*会員一覧表示の為。
+	*@return UserList
 	*/
 	public UserList getUsers() {
 		this.users = UserDao.findAll();
 		return users;
 	}
-	
 	/**
-	*RoomBeanの取得
-	*会議室の編集画面の入力の初期値表示の為。
-	*@return RoomBean
+	*roomテーブルの全データの取得（削除フラグが立っていないもの）
+	*会議室一覧表示の為。（登録・編集・削除後に再取得する時に使用）
+	*@return RoomList
 	*/
-	public RoomBean getRoom() {
-		return room;
+	public void reloadRooms() {
+	    this.rooms = RoomDao.findAll();
 	}
-	/**
-	* UserListの取得
-	*
-	*@return UserList
-	*/
-//	public UserList	getUsers() {
-//		return users;
-//	}
 	
 	/**
 	*RoomBeanの内容をDBに追加する
-	*会議室の追加処理。
-	*@param room
+	*会議室の追加処理
+	*@param RoomBean
 	*@return DBに追加できたらtrue、失敗したらfalse 
 	*@throws Exception
 	*/
@@ -304,9 +294,9 @@ public class MeetingRoom implements Serializable {
 	
 	/**
 	*RoomBeanの内容でDBを変更する
-	*会議室の編集処理。
-	*@param room
-	*@return DBに追加できたらtrue、失敗したらfalse 
+	*会議室の編集処理
+	*@param RoomBean
+	*@return DBが更新できたらtrue、失敗したらfalse 
 	*@throws Exception
 	*/
 	public boolean editRoom(RoomBean room) throws Exception {
@@ -316,9 +306,9 @@ public class MeetingRoom implements Serializable {
 	
 	/**
 	 *RoomBeanの内容でDBを変更する
-	 *会議室の編集処理。
-	 *@param room
-	 *@return DBに追加できたらtrue、失敗したらfalse 
+	 *会議室の削除処理
+	 *@param RoomBean
+	 *@return DBで物理削除できたらtrue、失敗したらfalse 
 	 *@throws Exception
 	 */
 	public boolean deleteRoom(RoomBean room) throws Exception {
@@ -327,9 +317,9 @@ public class MeetingRoom implements Serializable {
 	}
 	
 	/**
-	*RoomBeanの内容をDBに追加する
-	*会議室の追加処理。
-	*@param room
+	*UserBeanの内容をDBに追加する
+	*会員の追加処理
+	*@param UserBean
 	*@return DBに追加できたらtrue、失敗したらfalse 
 	*@throws Exception
 	*/
@@ -339,10 +329,10 @@ public class MeetingRoom implements Serializable {
 	}
 	
 	/**
-	*RoomBeanの内容でDBを変更する
-	*会議室の編集処理。
-	*@param room
-	*@return DBに追加できたらtrue、失敗したらfalse 
+	*UserBeanの内容でDBを変更する
+	*会員の編集処理
+	*@param UserBean
+	*@return DBが更新できたらtrue、失敗したらfalse  
 	*@throws Exception
 	*/
 	public boolean editUser(UserBean user) throws Exception {
@@ -351,10 +341,10 @@ public class MeetingRoom implements Serializable {
 	}
 	
 	/**
-	 *RoomBeanの内容でDBを変更する
-	 *会議室の編集処理。
-	 *@param room
-	 *@return DBに追加できたらtrue、失敗したらfalse 
+	 *UserBeanのidを元に、isDeleteを1に変更する
+	 *会員の削除処理
+	 *@param UserBean
+	 *@return DBで論理削除できたらtrue、失敗したらfalse  
 	 *@throws Exception
 	 */
 	public boolean deleteUser(UserBean user) throws Exception {

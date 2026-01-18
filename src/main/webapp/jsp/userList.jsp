@@ -13,6 +13,7 @@
 			<th>パスワード</th>
 			<th>氏名</th>
 			<th>住所</th>
+			<th>区分</th>
 		</tr>
 	</thead>
 	<tbody>
@@ -26,7 +27,7 @@
 				<td class="list_td_middle"><%= l.getPassword() %></td>
 				<td><%= l.getName() %></td>
 				<td class="list_td_large"><%= l.getAddress() %></td>
-				<td class="list_td_small"><%= l.getIsAdmin() %></td>
+				<td class="list_td_small"><%= "0".equals(l.getIsAdmin()) ? "一般" : "管理者" %></td>				
 				<td class="list_td_small">
 					<form action="<%= request.getContextPath() %>/UserEditServlet" method="post">
 						<input type="hidden" name="userAddress" value="<%= l.getAddress() %>">
@@ -38,8 +39,7 @@
 					</form>
 				</td>
 				<td class="list_td_small">
-					<form action="<%= request.getContextPath() %>/AdminUserServletServlet"
-						method="post">
+					<form action="<%= request.getContextPath() %>/AdminUserServlet" method="post">
 						<input type="hidden" name="userAddress" value="<%= l.getAddress() %>">
 						<input type="hidden" name="userId" value="<%= l.getId() %>">
 						<input type="hidden" name="userName" value="<%= l.getName() %>">

@@ -1,0 +1,41 @@
+package jp.co.sys.util;
+
+import java.io.IOException;
+
+import javax.servlet.Filter;
+import javax.servlet.FilterChain;
+import javax.servlet.ServletException;
+import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
+import javax.servlet.annotation.WebFilter;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+@WebFilter("/*")
+public class LoginFilter implements Filter {
+
+    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
+            throws IOException, ServletException {
+
+        HttpServletRequest req = (HttpServletRequest) request;
+        HttpServletResponse res = (HttpServletResponse) response;
+        HttpSession session = req.getSession(false);
+
+        String uri = req.getRequestURI();
+        
+        boolean isLogin = uri.endsWith("login.jsp") || uri.endsWith("LoginServlet");
+        boolean isCss = uri.contains("/css/");
+        boolean isImages = uri.contains("/images/");
+
+        boolean loggedIn = (session != null && session.getAttribute("meetingRoom") != null);
+
+        if (loggedIn || isLogin || isCss || isImages) {
+            chain.doFilter(request, response);
+
+//        未ログインならログイン画面へ飛ばす
+        } else {
+            res.sendRedirect(req.getContextPath() + "/jsp/login.jsp");
+        }
+    }
+}

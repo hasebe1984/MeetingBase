@@ -68,8 +68,7 @@ public class RegistrationServlet extends HttpServlet {
 //			成功
 			if (isSuccess) {
 				nextPage = "jsp/registered.jsp";
-				mr = new MeetingRoom();
-				session.setAttribute("meetingRoom", mr);
+				mr.getUsers();
 			
 //			失敗
 			} else {

@@ -59,8 +59,8 @@ public class AdminUserServlet extends HttpServlet {
 			
 			if(isSuccess) {
 				message = "削除しました。";
-				mr = new MeetingRoom();
-				session.setAttribute("meetingRoom", mr);
+				mr.getUsers();
+
 			} else {
 				message = "削除できませんでした。";
 			}

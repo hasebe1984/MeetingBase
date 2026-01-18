@@ -82,8 +82,8 @@ public class RoomEditServlet extends HttpServlet {
 			
 			if (isSuccess) {
 				nextPage = "/jsp/conferenceRoomed.jsp";
-				mr = new MeetingRoom();
-				session.setAttribute("meetingRoom", mr);
+				mr.reloadRooms();
+				
 			} else {
 				nextPage = "/jsp/conferenceRoomError.jsp";	
 				message = "エラーメッセージ";
