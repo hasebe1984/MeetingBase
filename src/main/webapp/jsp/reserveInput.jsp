@@ -12,16 +12,9 @@
     <%
     // ===== サーブレットから受け取る =====
     MeetingRoom meetingRoom = (MeetingRoom) session.getAttribute("meetingRoom");
-
-     //null対策（初回表示用）
-    if (meetingRoom == null) {
-        meetingRoom = new MeetingRoom();
-        
         session.setAttribute("meetingRoom", meetingRoom);
-    }
-    
 
-    String[] period = meetingRoom.getPeriod();
+        String[] period = meetingRoom.getPeriod();
     RoomList rooms  = meetingRoom.getRooms();
     ReservationBean[][] reservations = meetingRoom.getReservations();
 %>
@@ -30,155 +23,6 @@
 
 
 <%@include file="../common/header.jsp"%>
-<h1>会議室予約</h1>
-<h2>利用日</h2>
-<form action="${pageContext.request.contextPath}/ChangeDateServlet"
-	method="post">
-	<input type="date" name="date" value=""> <input type="submit"
-		value="日付変更" class="button_submit button_submit_small"> <input
-		type="hidden" name="page" value="reserveInput.jsp">
-</form>
-<h2>予約可能時間帯（名前取得：M.Rから）</h2>
-<form action="${pageContext.request.contextPath}/reserveCreateServlet"
-	method="post" class="input_table">
-	<table class="table">
-		<thead>
-			<tr>
-				<th>会議室/時間</th>
-				<%
-				for (int i = 9; i <= 16; i++) {
-				%>
-				<th><%=i%>:00</th>
-				<%
-				}
-				%>
-			</tr>
-		</thead>
-		<%--会議室1 （後にfor文へ変更--%>
-		<tbody>
-			<tr>
-				<td>大会議室</td>
-				<td>
-					<button type="submit" name="time" value="09:00"
-						class="button_submit button_submit_small button_submit_blue">〇</button>
-				</td>
-				<td>
-					<button type="submit" name="time" value="09:00"
-						class="button_submit button_submit_small button_submit_blue">〇</button>
-				</td>
-				<td>
-					<button type="submit" name="time" value="09:00"
-						class="button_submit button_submit_small button_submit_blue ${'button_submit_impossible'}"
-						${"disabled"}>×</button>
-				</td>
-				<td>
-					<button type="submit" name="time" value="09:00"
-						class="button_submit button_submit_small button_submit_blue">〇</button>
-				</td>
-				<td>
-					<button type="submit" name="time" value="09:00"
-						class="button_submit button_submit_small button_submit_blue">〇</button>
-				</td>
-				<td>
-					<button type="submit" name="time" value="09:00"
-						class="button_submit button_submit_small button_submit_blue ${'button_submit_impossible'}"
-						${"disabled"}>×</button>
-				</td>
-				<td>
-					<button type="submit" name="time" value="09:00"
-						class="button_submit button_submit_small button_submit_blue">〇</button>
-				</td>
-				<td>
-					<button type="submit" name="time" value="09:00"
-						class="button_submit button_submit_small button_submit_blue ${'button_submit_impossible'}"
-						${"disabled"}>×</button>
-				</td>
-			</tr>
-			<%--3A会議室 （後にfor文へ変更--%>
-			<tr>
-				<td>3A会議室</td>
-				<td>
-					<button type="submit" name="time" value="09:00"
-						class="button_submit button_submit_small button_submit_blue">〇</button>
-				</td>
-				<td>
-					<button type="submit" name="time" value="09:00"
-						class="button_submit button_submit_small button_submit_blue">〇</button>
-				</td>
-				<td>
-					<button type="submit" name="time" value="09:00"
-						class="button_submit button_submit_small button_submit_blue ${'button_submit_impossible'}"
-						${"disabled"}>×</button>
-				</td>
-				<td>
-					<button type="submit" name="time" value="09:00"
-						class="button_submit button_submit_small button_submit_blue">〇</button>
-				</td>
-				<td>
-					<button type="submit" name="time" value="09:00"
-						class="button_submit button_submit_small button_submit_blue">〇</button>
-				</td>
-				<td>
-					<button type="submit" name="time" value="09:00"
-						class="button_submit button_submit_small button_submit_blue ${'button_submit_impossible'}"
-						${"disabled"}>×</button>
-				</td>
-				<td>
-					<button type="submit" name="time" value="09:00"
-						class="button_submit button_submit_small button_submit_blue">〇</button>
-				</td>
-				<td>
-					<button type="submit" name="time" value="09:00"
-						class="button_submit button_submit_small button_submit_blue ${'button_submit_impossible'}"
-						${"disabled"}>×</button>
-				</td>
-			</tr>
-			<%--3B会議室 （後にfor文へ変更--%>
-			<tr>
-				<td>3B会議室</td>
-				<td>
-					<button type="submit" name="time" value="09:00"
-						class="button_submit button_submit_small button_submit_blue">〇</button>
-				</td>
-				<td>
-					<button type="submit" name="time" value="09:00"
-						class="button_submit button_submit_small button_submit_blue">〇</button>
-				</td>
-				<td>
-					<button type="submit" name="time" value="09:00"
-						class="button_submit button_submit_small button_submit_blue ${'button_submit_impossible'}"
-						${"disabled"}>×</button>
-				</td>
-				<td>
-					<button type="submit" name="time" value="09:00"
-						class="button_submit button_submit_small button_submit_blue">〇</button>
-				</td>
-				<td>
-					<button type="submit" name="time" value="09:00"
-						class="button_submit button_submit_small button_submit_blue">〇</button>
-				</td>
-				<td>
-					<button type="submit" name="time" value="09:00"
-						class="button_submit button_submit_small button_submit_blue ${'button_submit_impossible'}"
-						${"disabled"}>×</button>
-				</td>
-				<td>
-					<button type="submit" name="time" value="09:00"
-						class="button_submit button_submit_small button_submit_blue">〇</button>
-				</td>
-				<td>
-					<button type="submit" name="time" value="09:00"
-						class="button_submit button_submit_small button_submit_blue ${'button_submit_impossible'}"
-						${"disabled"}>×</button>
-				</td>
-			</tr>
-		</tbody>
-	</table>
-</form>
-
-
-
-<%--会議室for文バージョン間違ってた ら教えてください！！！！！！--%>
 <h1>会議室予約</h1>
 <h2>利用日</h2>
 <form action="${pageContext.request.contextPath}/ChangeDateServlet"
@@ -252,5 +96,5 @@
 </table>
 
 <a href="${pageContext.request.contextPath}/jsp/menu.jsp"
-	class="button_submit">メニューへ</a>
+	class="button_submit">戻る</a>
 <%@include file="../common/footer.jsp"%>
