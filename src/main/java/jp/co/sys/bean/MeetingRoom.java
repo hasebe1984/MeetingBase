@@ -229,7 +229,7 @@ public class MeetingRoom implements Serializable {
 			throw new Exception("時刻が過ぎているためキャンセルできません");
 		}
 		ReservationBean cancelReserve = ReservationDao.findById​(reservation.getId());
-		if (cancelReserve.getIsDeleted() == 1) {
+		if (cancelReserve != null && cancelReserve.getIsDeleted() == 1) {
 			throw new Exception("既にキャンセルされています");
 		}
 		ReservationDao.delete​(reservation);
@@ -249,8 +249,9 @@ public class MeetingRoom implements Serializable {
 		String idNow = now.format(dtf);
 		UserList usersNowId = UserDao.getNowId(idNow);//DAOからuserNowIdでid検索する
 		int usersNowIdSize = usersNowId.size();
+		
 		if (usersNowId != null) {
-			usersNowIdSize++;
+			usersNowIdSize = 0;
 		}
 		String idSize = String.format("%05d", usersNowIdSize);
 		String userId = idNow + idSize;
@@ -277,14 +278,15 @@ public class MeetingRoom implements Serializable {
 	 *@throws Exception
 	 */
 	public boolean editUser(UserBean user) throws Exception {
-		UserBean userEdit = UserDao.findById(user.getId());
+		String editUserId = user.getId();
+		UserBean userEdit = UserDao.findById(editUserId);
 		if (userEdit==null) {
 			throw new Exception("存在しないユーザーです");
 		}
 		if (userEdit.getIsDeleted().equals(1)) {
 			throw new Exception("削除されたユーザーです");
 		}
-		if (user.getId() != this.user.getId() && this.user.getIsAdmin().equals(0)) {
+		if (editUserId.equals(this.user.getId()) && this.user.getIsAdmin().equals(0)) {
 			throw new Exception("変更できないユーザーです。");
 		}
 		boolean isSuccess = UserDao.update(user);
@@ -395,6 +397,22 @@ public class MeetingRoom implements Serializable {
 	 *@throws Exception
 	 */
 	public boolean deleteRoom(RoomBean room) throws Exception {
+		String deleteRoomId = room.getId();
+		if(RoomDao.findId(deleteRoomId)==null) {
+			throw new Exception("会議室が見つかりません");
+		}
+		ReservationList reserveList = ReservationDao.findRoomId(deleteRoomId);
+		if(reserveList !=null) {
+			LocalDateTime now = LocalDateTime.now();		
+			for(ReservationBean rs:reserveList) {
+				LocalDate rsDate = LocalDate.parse(rs.getDate());
+				LocalTime rsTime = LocalTime.parse(rs.getEnd());
+				LocalDateTime rsDateTime = LocalDateTime.of(rsDate, rsTime);
+				if (rsDateTime.isAfter(now)) {
+					throw new Exception("予約があるため削除できません");
+				}
+			}
+		}
 		boolean isSuccess = RoomDao.delete(room);
 		return isSuccess;
 	}
