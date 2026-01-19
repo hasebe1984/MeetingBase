@@ -137,7 +137,7 @@ public class UserDao {
 	}
 
 	public static UserList findAll() {
-		UserList userlist=new UserList();
+		UserList userlist = new UserList();
 		//SQL文user_idを指定して、レコードを取得
 		String sql = "select * from user where id AND isDeleted != 1";
 		//データベースへ接続
@@ -165,7 +165,27 @@ public class UserDao {
 		}
 		return userlist;
 	}
-	
+
+	public static UserBean findById(String id) {
+		String sql = "SELECT * FROM user WHERE id=?";
+		try (Connection db = DatabaseConnectionProvider.getConnection();
+				PreparedStatement pstmt = db.prepareStatement(sql)) {
+			pstmt.setString(1, id);
+			ResultSet rs = pstmt.executeQuery();
+			rs.next();
+			UserBean rb = new UserBean(
+					rs.getString("id"),
+					rs.getString("name"),
+					rs.getString("address"),
+					rs.getString("password"),
+					rs.getString("isAdmin"));
+			return rb;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
 	/**
 	 * @param userbean
 	 * @return
@@ -186,5 +206,5 @@ public class UserDao {
 		}
 		return ret != 0;
 	}
-			
+
 }
