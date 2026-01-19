@@ -395,6 +395,7 @@ public class MeetingRoom implements Serializable {
 	 *@throws Exception
 	 */
 	public boolean deleteRoom(RoomBean room) throws Exception {
+		
 		boolean isSuccess = RoomDao.delete(room);
 		return isSuccess;
 	}
