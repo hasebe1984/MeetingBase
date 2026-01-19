@@ -4,6 +4,7 @@
 <h1>会員情報編集</h1>
 <hr>
 <h2>入力</h2>
+<p class="message">${message}</p>
 <form action="${pageContext.request.contextPath}/UserEditServlet" method="post" class="form">
 	<div class="input-wrap">
 		<label for="userPw">パスワード</label>

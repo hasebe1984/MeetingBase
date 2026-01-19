@@ -61,7 +61,7 @@ public class UserEditServlet extends HttpServlet {
 		}
 		else if ("決定".equals(action)) {
 			
-			if (userPw.length() > 10 && userPw.length() < 6) {
+			if (userPw.length() > 10 || userPw.length() < 6) {
 				message += "パスワードは、6文字から10文字で入力してください。";
 				
 
@@ -80,7 +80,7 @@ public class UserEditServlet extends HttpServlet {
 				request.setAttribute("user", user);
 				request.setAttribute("checked", checked);
 				request.setAttribute("message", message);
-				request.getRequestDispatcher("/jsp/editInput.jsp").forward(request, response);
+				request.getRequestDispatcher(nextPage).forward(request, response);
 				return;
 			}
 			nextPage = "/jsp/edittedConfirm.jsp";
