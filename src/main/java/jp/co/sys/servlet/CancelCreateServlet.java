@@ -32,6 +32,8 @@ protected void doPost(HttpServletRequest request, HttpServletResponse response)
 /** セッション取得 */
 		HttpSession session = request.getSession();
 /** 入力された情報取得 */
+
+		request.setCharacterEncoding("UTF-8");
 		String roomId = request.getParameter("roomId");
 		String start = request.getParameter("time");
 		/** 会議室管理システム取得 */		
