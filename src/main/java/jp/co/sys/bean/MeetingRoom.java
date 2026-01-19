@@ -306,6 +306,9 @@ public class MeetingRoom implements Serializable {
 		if (deleteUser.getIsDeleted().equals(1)) {
 			throw new Exception("既に削除されています");
 		}
+		if (user.getId() != this.user.getId() && this.user.getIsAdmin().equals(0)) {
+			throw new Exception("削除できないユーザーです。");
+		}
 		ReservationList reserveList = ReservationDao.finduserID(user.getId());
 		if(reserveList !=null) {
 			LocalDateTime now = LocalDateTime.now();		
