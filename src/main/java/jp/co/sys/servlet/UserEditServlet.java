@@ -60,6 +60,29 @@ public class UserEditServlet extends HttpServlet {
 			
 		}
 		else if ("決定".equals(action)) {
+			
+			if (userPw.length() > 10 && userPw.length() < 6) {
+				message += "パスワードは、6文字から10文字で入力してください。";
+				
+
+			} 
+			
+			if (userName.length() > 10) {
+				message += "氏名は10文字以内で入力してください。";
+				
+			}
+			if (userAddress.length() > 30) {
+				message += "住所は30文字以内で入力してください。";
+				
+			}
+			
+			if (message != "") {
+				request.setAttribute("user", user);
+				request.setAttribute("checked", checked);
+				request.setAttribute("message", message);
+				request.getRequestDispatcher("/jsp/editInput.jsp").forward(request, response);
+				return;
+			}
 			nextPage = "/jsp/edittedConfirm.jsp";
 			
 		} else if ("戻る".equals(action)) {

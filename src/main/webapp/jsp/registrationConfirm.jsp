@@ -6,10 +6,6 @@
 <h2>登録情報の確認</h2>
 <table>
 	<tbody>
-<%-- 		<tr>
-			<th>利用者ID</th>
-			<td>${"2600001"}</td>
-		</tr> --%>
 		<tr>
 			<th>パスワード</th>
 			<td>${user.password}</td>

@@ -7,10 +7,6 @@
 <table>
 	<tbody>
 		<tr>
-			<th>利用者ID</th>
-			<td>${"2600001"}</td>
-		</tr>
-		<tr>
 			<th>パスワード</th>
 			<td>${user.password}</td>
 		</tr>
@@ -31,7 +27,7 @@
 <div class="button_row">
 	<form action="${pageContext.request.contextPath}/UserEditServlet"
 		method="post">
-		<input type="hidden" name="userPw" value="${user.id}">
+		<input type="hidden" name="userId" value="${user.id}">
 		<input type="hidden" name="userPw" value="${user.password}">
 		<input type="hidden" name="userName" value="${user.name}">
 		<input type="hidden" name="userAddress" value="${user.address}">

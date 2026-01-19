@@ -46,6 +46,7 @@ public class RoomEditServlet extends HttpServlet {
 		
 	    String nextPage = "";
 		String message = "";
+		
 
 //		入力画面
 		if ("編集".equals(action)) {
@@ -57,7 +58,29 @@ public class RoomEditServlet extends HttpServlet {
 			nextPage = "/jsp/conferenceRoomInput.jsp";
 			
 		} else if ("決定".equals(action)) {
-			nextPage = "/jsp/conferenceRoomConfirm.jsp";	
+			
+			if (roomName.length() > 20) {
+				message += "会議室名は20文字以内で入力してください。";
+				
+
+			} 
+			
+			if (roomFloor.length() > 2) {
+				message += "階数は2桁以内で入力してください。";
+				
+			}
+			
+			if (message != "") {
+				request.setAttribute("room", room);
+				request.setAttribute("addRoom", addRoom);
+				request.setAttribute("title", title);
+				request.setAttribute("message", message);
+				request.getRequestDispatcher("/jsp/conferenceRoomInput.jsp").forward(request, response);
+				return;
+			}
+			
+			nextPage = "/jsp/conferenceRoomConfirm.jsp";
+			
 			
 		} else if ("戻る".equals(action)) {
 			nextPage = "/jsp/conferenceRoomInput.jsp";
@@ -74,6 +97,8 @@ public class RoomEditServlet extends HttpServlet {
 				
 			} else if ("会議室登録".equals(title)) {
 				try {
+//					ミーティングルームでき次第、差し替える
+//					isSuccess = mr.createRoom(addRoom);
 					isSuccess = mr.addRoom(addRoom);
 				} catch (Exception e) {
 					e.printStackTrace();
