@@ -14,17 +14,7 @@ public class UserBean implements Serializable {
 
 	public UserBean() {
 	}
-//	① public setId(userId) 、②public UserBean(String address, String name, String password, String isAdmin)
 
-//	使ってない
-//	public UserBean(String address, String name, String password, String isAdmin) {
-//		super();
-//		this.address = address;
-//		this.name = name;
-//		this.password = password;
-//		this.isAdmin= isAdmin;
-//	}
-	
 	public UserBean(String address, String id, String name, String password, String isAdmin) {
 		super();
 		this.address = address;
@@ -33,9 +23,7 @@ public class UserBean implements Serializable {
 		this.password = password;
 		this.isAdmin = isAdmin;
 	}
-//		UserDao
-//		UserEditServlet
-//		RegistrationServlet
+
 	public UserBean(String address, String id, String name, String password, String isAdmin, String isDeleted) {
 		super();
 		this.address = address;
@@ -45,7 +33,8 @@ public class UserBean implements Serializable {
 		this.isAdmin = isAdmin;
 		this.isDeleted = isDeleted;
 	}
-//		UserDao
+
+	//		UserDao
 	public UserBean(String id, String password) {
 		super();
 		this.id = id;
@@ -75,11 +64,13 @@ public class UserBean implements Serializable {
 	public String getIsDeleted() {
 		return isDeleted;
 	}
-	public String getuserId(){
+
+	public String getuserId() {
 		return userId;
 	}
+
 	public void setId(String userId) {
-		this.userId=userId;
+		this.userId = userId;
 	}
 
 	@Override
