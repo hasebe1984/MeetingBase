@@ -1,12 +1,6 @@
 package jp.co.sys.dao;
 
 import java.sql.Connection;
-
-/**
- * データベース「meetingroomb」のテーブル「Reservation」を操作するクラスです。
- * @author 小山裕貴
- */
-
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -16,10 +10,19 @@ import jp.co.sys.bean.ReservationBean;
 import jp.co.sys.util.DatabaseConnectionProvider;
 import jp.co.sys.util.ReservationList;
 
+
+/**
+ * データベース「meetingroomb」のテーブル「reservation」を操作するクラスです。
+ * @author 小山裕貴
+ */
+
+
 public class ReservationDao {
 	private ReservationDao() {
 	}
-
+	/**
+	 * @return ReservationList型の利用日の予約データを返す。データがない場合は、nullを返す。
+	 */
 	//	利用日の予約を検索します
 	public static ReservationList findByDate​(String date) {
 		ReservationList list = new ReservationList();
@@ -57,7 +60,10 @@ public class ReservationDao {
 
 		return list;
 	}
-
+	
+	/**
+	 * @return ReservationBean型のidの予約データを返す。データがない場合は、nullを返す。
+	 */
 	public static ReservationBean findById​(int id) {
 		ReservationBean rb = null;
 		String sql = "SELECT * FROM reservation WHERE id = ? and isDeleted = 0";
@@ -81,6 +87,9 @@ public class ReservationDao {
 		return rb;
 	}
 
+	/**
+	 * @return ReservationList型のuserIDの予約データを返す。データがない場合は、nullを返す。
+	 */
 	//	userID過去含め検索
 	public static ReservationList finduserID(String userID) {
 		ReservationList list = new ReservationList();
@@ -109,7 +118,10 @@ public class ReservationDao {
 
 		return list;
 	}
-
+	
+	/**
+	 * @return ReservationList型の全ての予約データを返す(削除フラグ1も含めてすべて)。データがない場合は、nullを返す。
+	 */
 	//	全件検索(削除フラグ1も含めてすべて)
 	public static ReservationList findAll() {
 		ReservationList list = new ReservationList();
@@ -134,7 +146,11 @@ public class ReservationDao {
 
 		return list;
 	}
-
+	
+	/**
+	 * @param reservation　登録するデータ
+	 * @return テーブル「reservation」へのデータ登録の真偽値を返す
+	 */
 	//	予約を追加します
 	public static boolean insert​(ReservationBean reservation) {
 		String sql = "INSERT INTO reservation (roomId,date,start,end,userID) VALUES(?, ?, ?, ?, ?)";
@@ -161,6 +177,10 @@ public class ReservationDao {
 		return false;
 	}
 
+	/**
+	 * @param reservation　削除するデータ
+	 * @return テーブル「reservation」への削除フラグの真偽値を返す
+	 */
 	//	予約を削除します
 	public static boolean delete​(ReservationBean reservation) {
 		String sql = "update reservation set isDeleted = 1 where roomId = ? and date = ? and start = ? and isDeleted = 0";
