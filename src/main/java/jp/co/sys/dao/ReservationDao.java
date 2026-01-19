@@ -10,16 +10,15 @@ import jp.co.sys.bean.ReservationBean;
 import jp.co.sys.util.DatabaseConnectionProvider;
 import jp.co.sys.util.ReservationList;
 
-
 /**
  * データベース「meetingroomb」のテーブル「reservation」を操作するクラスです。
  * @author 小山裕貴
  */
 
-
 public class ReservationDao {
 	private ReservationDao() {
 	}
+
 	/**
 	 * @return ReservationList型の利用日の予約データを返す。データがない場合は、nullを返す。
 	 */
@@ -60,31 +59,51 @@ public class ReservationDao {
 
 		return list;
 	}
-	
+
 	/**
 	 * @return ReservationBean型のidの予約データを返す。データがない場合は、nullを返す。
+	 * @throws SQLException 
 	 */
-	public static ReservationBean findById​(int id) {
+	public static ReservationBean findById​(int id) throws SQLException {
 		ReservationBean rb = null;
 		String sql = "SELECT * FROM reservation WHERE id = ? and isDeleted = 0";
 
 		try (Connection conn = DatabaseConnectionProvider.getConnection();
 				PreparedStatement pstmt = conn.prepareStatement(sql)) {
-
-			// プレースホルダにidをセット
 			pstmt.setInt(1, id);
-
 			try (ResultSet rs = pstmt.executeQuery()) {
 				while (rs.next()) {
 					rb = new ReservationBean(rs.getInt("id"), rs.getString("roomId"),
 							rs.getString("date"),
 							rs.getString("start"), rs.getString("end"), rs.getString("userID"), rs.getInt("isDeleted"));
 				}
+			} catch (SQLException e) {
+				e.printStackTrace();
 			}
-		} catch (SQLException e) {
-			e.printStackTrace();
+			return rb;
 		}
-		return rb;
+	}
+
+	public static ReservationList findByRoomId​(String roomId) throws SQLException {
+		ReservationList list = new ReservationList();
+		String sql = "SELECT * FROM reservation WHERE roomId = ?"; // いるか確認 and isDeleted = 0
+
+		try (Connection conn = DatabaseConnectionProvider.getConnection();
+				PreparedStatement pstmt = conn.prepareStatement(sql)) {
+			pstmt.setString(1, roomId);
+			try (ResultSet rs = pstmt.executeQuery()) {
+				while (rs.next()) {
+					ReservationBean searchResult = new ReservationBean(rs.getInt("id"), rs.getString("roomId"),
+							rs.getString("date"),
+							rs.getString("start"), rs.getString("end"), rs.getString("userID"), rs.getInt("isDeleted"));
+					list.add(searchResult);
+					return list;
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			return null;
+		}
 	}
 
 	/**
@@ -93,7 +112,7 @@ public class ReservationDao {
 	//	userID過去含め検索
 	public static ReservationList finduserID(String userID) {
 		ReservationList list = new ReservationList();
-		String sql = "SELECT * FROM reservation WHERE userID = ?";
+		String sql = "SELECT * FROM reservation WHERE userId = ?";
 		try (Connection conn = DatabaseConnectionProvider.getConnection();
 				PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
@@ -118,7 +137,7 @@ public class ReservationDao {
 
 		return list;
 	}
-	
+
 	/**
 	 * @return ReservationList型の全ての予約データを返す(削除フラグ1も含めてすべて)。データがない場合は、nullを返す。
 	 */
@@ -146,7 +165,7 @@ public class ReservationDao {
 
 		return list;
 	}
-	
+
 	/**
 	 * @param reservation　登録するデータ
 	 * @return テーブル「reservation」へのデータ登録の真偽値を返す

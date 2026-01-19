@@ -40,7 +40,7 @@ public class UserDao {
 					String name = rs.getString("name");
 					String address = rs.getString("address");
 					String isAdmin = rs.getString("isAdmin");
-					String isDeleted = rs.getString("isDeleted");
+					int isDeleted = rs.getInt("isDeleted");
 					user = new UserBean(address, id, name, password, isAdmin, isDeleted);
 				}
 			}
@@ -67,7 +67,6 @@ public class UserDao {
 			pstmt.setString(2, userbean.getPassword());
 			pstmt.setString(3, userbean.getName());
 			pstmt.setString(4, userbean.getAddress());
-			pstmt.setString(5, userbean.getIsDeleted());
 			pstmt.setString(6, userbean.getIsAdmin());
 			//更新クエリの実行
 			ret = pstmt.executeUpdate();
@@ -124,7 +123,7 @@ public class UserDao {
 					String name = rs.getString("name");
 					String password = rs.getString("password");
 					String isAdmin = rs.getString("isAdmin");
-					String isDeleted = rs.getString("isDeleted");
+					int isDeleted = rs.getInt("isDeleted");
 					UserBean ub = new UserBean(id, address, name, password, isAdmin, isDeleted);
 					userlist.add(ub);
 				}
@@ -137,7 +136,7 @@ public class UserDao {
 	}
 
 	public static UserList findAll() {
-		UserList userlist=new UserList();
+		UserList userlist = new UserList();
 		//SQL文user_idを指定して、レコードを取得
 		String sql = "select * from user where id AND isDeleted != 1";
 		//データベースへ接続
@@ -155,7 +154,7 @@ public class UserDao {
 					String name = rs.getString("name");
 					String password = rs.getString("password");
 					String isAdmin = rs.getString("isAdmin");
-					String isDeleted = rs.getString("isDeleted");
+					int isDeleted = rs.getInt("isDeleted");
 					UserBean ub = new UserBean(id, address, name, password, isAdmin, isDeleted);
 					userlist.add(ub);
 				}
@@ -165,7 +164,27 @@ public class UserDao {
 		}
 		return userlist;
 	}
-	
+
+	public static UserBean findById(String id) {
+		String sql = "SELECT * FROM user WHERE id=?";
+		try (Connection db = DatabaseConnectionProvider.getConnection();
+				PreparedStatement pstmt = db.prepareStatement(sql)) {
+			pstmt.setString(1, id);
+			ResultSet rs = pstmt.executeQuery();
+			rs.next();
+			UserBean rb = new UserBean(
+					rs.getString("id"),
+					rs.getString("name"),
+					rs.getString("address"),
+					rs.getString("password"),
+					rs.getString("isAdmin"));
+			return rb;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
 	/**
 	 * @param userbean
 	 * @return
@@ -186,5 +205,5 @@ public class UserDao {
 		}
 		return ret != 0;
 	}
-			
+
 }
