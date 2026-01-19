@@ -30,6 +30,10 @@ public class RoomBean implements Serializable {
 		return name;
 	}
 
+	public void setId(String id) {
+		this.id = id;
+	}
+
 	@Override
 	public String toString() {
 		return id + " " + name + "\n";
