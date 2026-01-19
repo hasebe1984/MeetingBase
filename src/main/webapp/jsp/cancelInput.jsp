@@ -53,7 +53,7 @@ ReservationBean[][] reservations = meetingRoom.getReservations();
 		%>
 		<td>
 			<%--予約キャンセルできるデータに〇をつける--%> <%
- if (reservations[i][j].isDeleted==1) {
+ if (reservations[i][j]!=null) {
  %>
 			<form action="${pageContext.request.contextPath}/CancelCreateServlet"
 				method="post">
