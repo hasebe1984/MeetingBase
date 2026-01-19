@@ -243,7 +243,7 @@ public class MeetingRoom implements Serializable {
 	*@throws Exception
 	*/
 
-	public UserBean createUser(UserBean addUser) throws Exception {
+	public boolean addUser(UserBean addUser) throws Exception {
 		LocalDateTime now = LocalDateTime.now();
 		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yy");
 		String idNow = now.format(dtf);
@@ -265,8 +265,8 @@ public class MeetingRoom implements Serializable {
 				}
 			}
 		}
-		UserDao.insert​(addUser);
-		return addUser;
+		boolean isSuccess = UserDao.insert​(addUser);
+		return isSuccess;
 	}
 
 	/**
