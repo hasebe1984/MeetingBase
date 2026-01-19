@@ -129,7 +129,11 @@ public class MeetingRoom implements Serializable {
 		}
 		for(ReservationBean reserve:reserveList) {
 			int roomInd = roomIndex​(reserve.getRoomId());
-			int startInd = startPeriod​(reserve.getStart());
+			String ReserveStart = reserve.getStart();
+			LocalTime time = LocalTime.parse(ReserveStart);
+			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
+			String start = formatter.format(time);
+			int startInd = startPeriod​(start);
 			reservations[roomInd][startInd] = reserve;
 		}
 		return reservations;
@@ -280,6 +284,19 @@ public class MeetingRoom implements Serializable {
 	    this.rooms = RoomDao.findAll();
 	}
 	
+	
+	public RoomBean createRoom(String roomName,String roomNum) {
+		int num = Integer.parseInt(roomNum);
+		int count = RoomDao.findAll().size()+1;
+		String roomsNum = String.format("%02d",count );
+		String formatRoomNum = String.format("%02d",num );
+		String roomId = formatRoomNum + roomsNum;
+		
+		RoomBean createRoom = new RoomBean(roomId,roomName);
+		
+		return createRoom;
+		
+	}
 	/**
 	*RoomBeanの内容をDBに追加する
 	*会議室の追加処理
