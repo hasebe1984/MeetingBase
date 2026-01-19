@@ -13,7 +13,7 @@
 		</tr>
 		<tr>
 			<th>会議室</th>
-			<td>${reservation.roomId}</td>
+			<td>${room.name}</td>
 		</tr>
 		<tr>
 			<th>予約時刻</th>
@@ -25,5 +25,5 @@
 		</tr>
 	</tbody>
 </table>
-<a href="${pageContext.request.contextPath}/jsp/menu.jsp"class="button_submit">メニューへ</a>
+<a href="${pageContext.request.contextPath}/jsp/menu.jsp"class="button_submit">確認</a>
 <%@include file="../common/footer.jsp"%>

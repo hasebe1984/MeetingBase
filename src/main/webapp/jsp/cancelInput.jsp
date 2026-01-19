@@ -10,7 +10,7 @@
 <h2>利用日</h2>
 <form action="${pageContext.request.contextPath}/ChangeDateServlet"
 	method="post">
-	<input type="date" name="date" value="ミーティングルームから取得"> <input
+	<input type="date" name="date" value="${meetingRoom.date}"> <input
 		type="submit" value="日付変更" class="button_submit button_submit_small">
 	<input type="hidden" name="page" value="cancelInput.jsp">
 </form>
@@ -60,7 +60,7 @@ ReservationBean[][] reservations = meetingRoom.getReservations();
 					class="button_submit button_submit_small button_submit_blue">
 				<input type="hidden" name="time" value="<%=period[j]%>">
 
-				</sform>
+				</form>
 				<%--配列の中身が×だったら×を直書き--%>
 				<%
 				} else {
@@ -81,6 +81,6 @@ ReservationBean[][] reservations = meetingRoom.getReservations();
 	}
 	%>
 </table>
-<a href="jsp/menu.jsp" class="button_submit">戻る</a>
+<a href="menu.jsp" class="button_submit">戻る</a>
 
 <%@include file="../common/footer.jsp"%>
