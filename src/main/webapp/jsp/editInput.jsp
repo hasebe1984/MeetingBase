@@ -18,12 +18,13 @@
 		<label for="userAddress">住所</label>
 		<input type="text" name="userAddress" value="${user.address}" id="userAddress" class="form_input" required>
 	</div>
-	<div class="input-wrap input-wrap_check">
+	<div class="input-wrap input-wrap_check ${meetingRoom.user.isAdmin == '1' ? '' : 'hidden'}">
 		<label for="userAdmin">管理者</label>
 		<input type="checkbox" name="userAdmin" id="userAdmin" class="form_check" ${checked}>
 	</div>
     <div class="button_row">
 	    <a href="${pageContext.request.contextPath}/jsp/menu.jsp" class="button_submit">戻る</a>
+	    <input type="hidden" name="userId" value="${user.id}">
 	    <input type="submit" name="action" value="決定" class="button_submit">
     </div>
 </form>
