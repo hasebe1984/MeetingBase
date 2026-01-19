@@ -1,6 +1,12 @@
 package jp.co.sys.dao;
 
 import java.sql.Connection;
+
+/**
+ * データベース「meetingroomb」のテーブル「Reservation」を操作するクラスです。
+ * @author 小山裕貴
+ */
+
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;

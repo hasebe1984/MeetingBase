@@ -8,9 +8,10 @@
 <%@include file="../common/header.jsp"%>
 <h1>会議室予約キャンセル</h1>
 <h2>利用日</h2>
-<form action="${pageContext.request.contextPath}/ChangeDateServlet" method="post">
-	<input type="date" name="date" value="ミーティングルームから取得">
-	<input type="submit" value="日付変更"  class="button_submit button_submit_small">
+<form action="${pageContext.request.contextPath}/ChangeDateServlet"
+	method="post">
+	<input type="date" name="date" value="ミーティングルームから取得"> <input
+		type="submit" value="日付変更" class="button_submit button_submit_small">
 	<input type="hidden" name="page" value="cancelInput.jsp">
 </form>
 <h2>キャンセル可能時間帯（${meetingRoom.user.name}）</h2>
@@ -47,21 +48,22 @@ ReservationBean[][] reservations = meetingRoom.getReservations();
 	%>
 	<tr>
 		<th><%=rooms.get(i).getName()%></th>
-		<%--二重for文　j=時間の表示（今は〇、×表示をここで判定）←これはどこがやるんだ？--%>
 		<%
 		for (int j = 0; j < period.length; j++) {
 		%>
 		<td>
-			<%--配列の中身が〇だったらボタンを作る--%> <%
- if (reservations[i][j]==null) {
+			<%--予約キャンセルできるデータに〇をつける--%> <%
+ if (reservations[i][j]!=null) {
  %>
 			<form action="${pageContext.request.contextPath}/CancelCreateServlet"
 				method="post">
-				<input type="hidden" name="roomId" value="<%=rooms.get(i).getName()%>">
-				<input type="submit" value="〇" class="button_submit button_submit_small button_submit_blue">
+				<input type="hidden" name="roomId"
+					value="<%=rooms.get(i).getId()%>"> <input type="submit"
+					value="〇"
+					class="button_submit button_submit_small button_submit_blue">
 				<input type="hidden" name="time" value="<%=period[j]%>">
 
-			</form> <%--配列の中身が×だったら×を直書き--%> <%
+			</sform> <%--配列の中身が×だったら×を直書き--%> <%
  } else {
  %> × <%
  }
@@ -75,7 +77,6 @@ ReservationBean[][] reservations = meetingRoom.getReservations();
 	}
 	%>
 </table>
-
 <a href="menu.jsp" class="button_submit">メニューへ</a>
 
 <%@include file="../common/footer.jsp"%>

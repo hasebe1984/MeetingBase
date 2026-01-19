@@ -12,7 +12,7 @@
 		</tr>
 		<tr>
 			<th>会議室</th>
-			<td>${room.name}</td>
+			<td>${reservation.roomId}</td>
 		</tr>
 		<tr>
 			<th>予約時刻</th>
