@@ -49,22 +49,29 @@ public class UserEditServlet extends HttpServlet {
 		String nextPage = "/jsp/editInput.jsp";			
 		String message = "";
 		
-//		入力後の画面遷移
 		if ("会員情報編集".equals(action)) {
-//			nextPage = "/jsp/editInput.jsp";
-			user = mr.getUser();
+			userAddress = mr.getUser().getAddress();
+			userId = mr.getUser().getId();
+			userName = mr.getUser().getName();
+			userPw = mr.getUser().getPassword();
+			userAdmin = mr.getUser().getIsAdmin();
+			checked = "1".equals(userAdmin) ? "checked" : null;
+			userAdmin = "1".equals(userAdmin) ? "管理者" : "一般会員";
+			
+			user = new UserBean(userAddress, userId, userName, userPw, userAdmin);
 			
 		} else if ("編集".equals(action)) {
-//			nextPage = "/jsp/editInput.jsp";
-			user = mr.getUser();
+//			user = mr.getUser();
 			
 		}
-		else if ("決定".equals(action)) {
+		
+
+		
+		if ("決定".equals(action)) {
 			
 			if (userPw.length() > 10 || userPw.length() < 6) {
 				message += "パスワードは、6文字から10文字で入力してください。";
 				
-
 			} 
 			
 			if (userName.length() > 10) {
@@ -92,6 +99,7 @@ public class UserEditServlet extends HttpServlet {
 			Boolean isSuccess = false; 
 			try {
 				isSuccess = mr.editUser(user);
+				
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
