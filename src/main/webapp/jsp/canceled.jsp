@@ -25,5 +25,5 @@
 	</tbody>
 </table>
 <hr>
-<a href="${pageContext.request.contextPath}/jsp/menu.jsp" class="button_submit">メニューへ戻る</a>
+<a href="${pageContext.request.contextPath}/jsp/menu.jsp" class="button_submit">完了</a>
 <%@include file="../common/footer.jsp"%>
