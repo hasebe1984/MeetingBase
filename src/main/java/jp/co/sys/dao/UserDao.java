@@ -166,18 +166,20 @@ public class UserDao {
 		return userlist;
 	}
 	
-//	==========
 	/**
-	 * @param updateroom　修正するデータ
-	 * @return テーブル「room」のデータ「name」のデータ変更真偽
+	 * @param userbean
+	 * @return
 	 */
 	public static boolean update(UserBean userbean) {
 		int ret = -1;
-		String sql = "UPDATE room SET name =? WHERE id =?";
+		String sql = "UPDATE user SET name =?, address=?, password=?, isAdmin=? WHERE id=?";
 		try (Connection db = DatabaseConnectionProvider.getConnection();
 				PreparedStatement pstmt = db.prepareStatement(sql)) {
 			pstmt.setString(1, userbean.getName());
-			pstmt.setString(2, userbean.getId());
+			pstmt.setString(2, userbean.getAddress());
+			pstmt.setString(3, userbean.getPassword());
+			pstmt.setString(4, userbean.getIsAdmin());
+			pstmt.setString(5, userbean.getId());
 			ret = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
