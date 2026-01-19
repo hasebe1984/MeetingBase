@@ -13,29 +13,10 @@
 			<th>パスワード</th>
 			<th>氏名</th>
 			<th>住所</th>
+			<th>区分</th>
 		</tr>
 	</thead>
 	<tbody>
-		<tr>
-			<td class="list_td_small">${"2584746"}</td>
-			<td class="list_td_middle">${"675frd"}</td>
-			<td>${"仲野太賀"}</td>
-			<td class="list_td_large">${"愛知県名古屋市１０１−０３"}</td>
-			<td class="list_td_small">${"管理者"}</td>
-			<td class="list_td_small">
-				<form action="${pageContext.request.contextPath}/jsp/editInput.jsp" method="post">
-					<input type="hidden" name="id" value="${'2584746'}">
-					<input type="submit" value="編集" class="button_list">
-				</form>
-			</td>
-			<td class="list_td_small">
-				<form action="${pageContext.request.contextPath}/AdminUserServletServlet"
-					method="post">
-					<input type="hidden" name="id" value="${'2584746'}">
-					<input type="submit" name="action" value="削除" class="button_list" onclick="return confirm('本当に削除してよろしいですか？');">
-				</form>
-			</td>
-		</tr>
 		<% 
 			UserList list = (UserList)request.getAttribute("list");
 			if (list != null) {
@@ -46,17 +27,24 @@
 				<td class="list_td_middle"><%= l.getPassword() %></td>
 				<td><%= l.getName() %></td>
 				<td class="list_td_large"><%= l.getAddress() %></td>
-				<td class="list_td_small"><%= l.getIsAdmin() %></td>
+				<td class="list_td_small"><%= "0".equals(l.getIsAdmin()) ? "一般" : "管理者" %></td>				
 				<td class="list_td_small">
-					<form action="${pageContext.request.contextPath}/jsp/editInput.jsp" method="post">
-						<input type="hidden" name="id" value="<%= l.getId() %>">
+					<form action="<%= request.getContextPath() %>/UserEditServlet" method="post">
+						<input type="hidden" name="userAddress" value="<%= l.getAddress() %>">
+						<input type="hidden" name="userId" value="<%= l.getId() %>">
+						<input type="hidden" name="userName" value="<%= l.getName() %>">
+						<input type="hidden" name="userPw" value="<%= l.getPassword() %>">
+						<input type="hidden" name="userAdmin" value="<%= l.getIsAdmin() %>">
 						<input type="submit" value="編集" class="button_list">
 					</form>
 				</td>
 				<td class="list_td_small">
-					<form action="${pageContext.request.contextPath}/AdminUserServletServlet"
-						method="post">
-						<input type="hidden" name="id" value="<%= l.getId() %>">
+					<form action="<%= request.getContextPath() %>/AdminUserServlet" method="post">
+						<input type="hidden" name="userAddress" value="<%= l.getAddress() %>">
+						<input type="hidden" name="userId" value="<%= l.getId() %>">
+						<input type="hidden" name="userName" value="<%= l.getName() %>">
+						<input type="hidden" name="userPw" value="<%= l.getPassword() %>">
+						<input type="hidden" name="userAdmin" value="<%= l.getIsAdmin() %>">
 						<input type="submit" name="action" value="削除" class="button_list" onclick="return confirm('本当に削除してよろしいですか？');">
 					</form>
 				</td>
@@ -65,7 +53,7 @@
 	</tbody>
 </table>
 <div class="button_row">
-	<a href="${pageContext.request.contextPath}/jsp/menu.jsp" class="button_submit">メニューへ</a>
+	<a href="${pageContext.request.contextPath}/jsp/menu.jsp" class="button_submit">戻る</a>
 	<a href="${pageContext.request.contextPath}/jsp/registrationInput.jsp" class="button_submit">会員追加</a>
 </div>
 <%@include file="../common/footer.jsp"%>

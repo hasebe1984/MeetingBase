@@ -83,7 +83,7 @@ public class UserDao {
 	 * @param id
 	 * @return　isDeletedが出来たらtrueをisDeletedが出来なければfalseを返す
 	 */
-	public static boolean delete​(String id) {
+	public static boolean delete​(UserBean userbean) {
 		String sql = "update user set isDeleted = 1 where id  = ?";
 		//update user set isDeleted = '1' where id  = '2500001' ;
 		// try-with-user構文でリソースを自動的にクローズ
@@ -91,7 +91,7 @@ public class UserDao {
 		try (Connection conn = DatabaseConnectionProvider.getConnection();
 				PreparedStatement pstmt = conn.prepareStatement(sql)) {
 			// プレースホルダーに値を設定
-			pstmt.setString(1, id);
+			pstmt.setString(1, userbean.getId());
 			//更新クエリの実行
 			int ret = pstmt.executeUpdate();
 			return ret != 0;
@@ -99,9 +99,6 @@ public class UserDao {
 		} catch (SQLException e) {
 			e.printStackTrace();
 			System.err.println("SQLに関するエラーです。");
-
-			//		}else {
-			//					return null;
 
 		}
 		return false;
@@ -142,7 +139,7 @@ public class UserDao {
 	public static UserList findAll() {
 		UserList userlist=new UserList();
 		//SQL文user_idを指定して、レコードを取得
-		String sql = "select * from user where id ";
+		String sql = "select * from user where id AND isDeleted != 1";
 		//データベースへ接続
 		try (Connection db = DatabaseConnectionProvider.getConnection();
 				PreparedStatement pstmt = db.prepareStatement(sql)) {
@@ -168,4 +165,24 @@ public class UserDao {
 		}
 		return userlist;
 	}
+	
+//	==========
+	/**
+	 * @param updateroom　修正するデータ
+	 * @return テーブル「room」のデータ「name」のデータ変更真偽
+	 */
+	public static boolean update(UserBean userbean) {
+		int ret = -1;
+		String sql = "UPDATE room SET name =? WHERE id =?";
+		try (Connection db = DatabaseConnectionProvider.getConnection();
+				PreparedStatement pstmt = db.prepareStatement(sql)) {
+			pstmt.setString(1, userbean.getName());
+			pstmt.setString(2, userbean.getId());
+			ret = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return ret != 0;
+	}
+			
 }

@@ -11,6 +11,7 @@ import javax.servlet.http.HttpSession;
 
 import jp.co.sys.bean.MeetingRoom;
 import jp.co.sys.bean.UserBean;
+import jp.co.sys.util.UserList;
 
 /**
  * 会員の一覧表示および削除を制御するサーブレットです。
@@ -19,17 +20,10 @@ import jp.co.sys.bean.UserBean;
 public class AdminUserServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
     public AdminUserServlet() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doPost(request, response);
 	}
@@ -38,28 +32,40 @@ public class AdminUserServlet extends HttpServlet {
 
 		request.setCharacterEncoding("UTF-8");
 		
+		HttpSession session = request.getSession();
+		MeetingRoom mr = (MeetingRoom)session.getAttribute("meetingRoom");
+		
+		String userAddress = request.getParameter("userAddress");
+		String userId = request.getParameter("userId");
+		String userName = request.getParameter("userName");
+		String userPw = request.getParameter("userPw");
+		String userAdmin = request.getParameter("userAdmin");
+		UserBean user = new UserBean(userAddress, userId, userName, userPw, userAdmin);
+		
 		String action = request.getParameter("action");
 		String nextPath = "/jsp/userList.jsp";
 		
-		HttpSession session = request.getSession();
-		MeetingRoom mr = (MeetingRoom)session.getAttribute("meetingRoom");
-		UserBean list = null;
-		
-		if (mr != null) {
-			list = mr.getUser();
-		}
-		
+//		会議室の削除
 		String message = "";
 		
 		if ("削除".equals(action)) {
 			Boolean isSuccess = false;
 			
+			try {
+				isSuccess = mr.deleteUser(user);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			
 			if(isSuccess) {
 				message = "削除しました。";
+				mr.getUsers();
+
 			} else {
 				message = "削除できませんでした。";
 			}
 		}
+		UserList list = mr.getUsers();
 		
 		request.setAttribute("message", message);
 		request.setAttribute("list", list);

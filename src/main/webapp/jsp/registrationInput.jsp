@@ -5,7 +5,7 @@
 <form action="${pageContext.request.contextPath}/RegistrationServlet" method="post" class="form">
 	<div class="input-wrap">
 		<label for="userPw">パスワード</label>
-		<input type="password" name="userPw" value="${user.password}" id="userPw" class="form_input" required>
+		<input type="text" name="userPw" value="${user.password}" id="userPw" class="form_input" required>
 	</div>
 	<div class="input-wrap">
 		<label for="userName">氏名</label>
@@ -21,7 +21,7 @@
 	</div>
  	<div class="button_row">
 	    <a href="${pageContext.request.contextPath}/jsp/menu.jsp" class="button_submit">戻る</a>
-	    <input type="submit" value="登録" class="button_submit">
+	    <input type="submit" name="action" value="決定" class="button_submit">
     </div>
 </form>
 <%@include file="../common/footer.jsp"%>

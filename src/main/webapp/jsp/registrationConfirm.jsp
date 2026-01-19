@@ -6,10 +6,10 @@
 <h2>登録情報の確認</h2>
 <table>
 	<tbody>
-		<tr>
+<%-- 		<tr>
 			<th>利用者ID</th>
 			<td>${"2600001"}</td>
-		</tr>
+		</tr> --%>
 		<tr>
 			<th>パスワード</th>
 			<td>${user.password}</td>
@@ -37,7 +37,7 @@
 		<input type="hidden" name="userAdmin" value="${user.isAdmin}">
 		
 		<input type="submit" name="action" value="戻る" class="button_submit">
-		<input type="submit" name="action" value="決定" class="button_submit">
+		<input type="submit" name="action" value="登録" class="button_submit">
 	</form>
 </div>
-<%@include file="../common/footer.jsp"%>
+<%@ include file="../common/footer.jsp"%>

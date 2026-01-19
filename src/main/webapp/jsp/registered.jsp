@@ -8,7 +8,7 @@
 	<tbody>
 		<tr>
 			<th>利用者ID</th>
-			<td>${"2600001"}</td>
+			<td>${user.id}</td>
 		</tr>
 		<tr>
 			<th>パスワード</th>
@@ -28,5 +28,5 @@
 		</tr>
 	</tbody>
 </table>
-<a href="${pageContext.request.contextPath}/AdminUserServlet" class="button_submit">メニューへ戻る</a>
+<a href="${pageContext.request.contextPath}/AdminUserServlet" class="button_submit">メニューへ</a>
 <%@include file="../common/footer.jsp"%>

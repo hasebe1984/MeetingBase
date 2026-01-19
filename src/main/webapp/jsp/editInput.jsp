@@ -7,7 +7,7 @@
 <form action="${pageContext.request.contextPath}/UserEditServlet" method="post" class="form">
 	<div class="input-wrap">
 		<label for="userPw">パスワード</label>
-		<input type="password" name="userPw" value="${user.password}" id="userPw" class="form_input" required>
+		<input type="text" name="userPw" value="${user.password}" id="userPw" class="form_input" required>
 	</div>
 	<div class="input-wrap">
 		<label for="userName">氏名</label>

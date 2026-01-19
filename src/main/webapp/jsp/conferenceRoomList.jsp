@@ -15,22 +15,6 @@
 		</tr>
 	</thead>
 	<tbody>
-		<tr>
-			<td>${"0501"}</td>
-			<td>${"大会議室"}</td>
-			<td class="list_td_small">
-				<form action="${pageContext.request.contextPath}/RoomEditServlet"
-					method="post">
-					<input type="submit" name="action" value="編集" class="button_list">
-				</form>
-			</td>
-			<td class="list_td_small">
-				<form action="${pageContext.request.contextPath}/RoomAdminServlet"
-					method="post">
-					<input type="submit" name="action" value="削除" class="button_list">
-				</form>
-			</td>
-		</tr>
 		<% 
 			RoomList list = (RoomList)request.getAttribute("list");
 			if (list != null) {
@@ -40,15 +24,19 @@
 			<td><%= l.getId() %></td>
 			<td><%= l.getName() %></td>
 			<td class="list_td_small">
-				<form action="${pageContext.request.contextPath}/RoomEditServlet"
-					method="post">
+				<form action="<%= request.getContextPath() %>/RoomEditServlet"
+					method="post">					
+					<input type="hidden" name="roomId" value="<%= l.getId() %>" class="button_list">
+					<input type="hidden" name="roomName" value="<%= l.getName() %>" class="button_list">
 					<input type="submit" name="action" value="編集" class="button_list">
 				</form>
 			</td>
 			<td class="list_td_small">
-				<form action="${pageContext.request.contextPath}/RoomAdminServlet"
+				<form action="<%= request.getContextPath() %>/RoomAdminServlet"
 					method="post">
-					<input type="submit" name="action" value="削除" class="button_list">
+					<input type="hidden" name="roomId" value="<%= l.getId() %>" class="button_list">
+					<input type="hidden" name="roomName" value="<%= l.getName() %>" class="button_list">
+					<input type="submit" name="action" value="削除" class="button_list" onclick="return confirm('本当に削除してよろしいですか？');">
 				</form>
 			</td>
 		</tr>

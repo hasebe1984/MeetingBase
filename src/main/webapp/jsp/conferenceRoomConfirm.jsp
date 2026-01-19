@@ -10,9 +10,9 @@
 			<th>会議室名</th>
 			<td>${room.name}</td>
 		</tr>
-		<tr>
+		<tr class="${title == '会議室編集' ? 'hidden' : ''}">
 			<th>会議室階</th>
-			<td>${room.id}</td>
+			<td>${addRoom.id}</td>
 		</tr>
 	</tbody>
 </table>
@@ -20,7 +20,8 @@
 	<form action="${pageContext.request.contextPath}/RoomEditServlet"
 		method="post">
 		<input type="hidden" name="roomName" value="${room.name}">
-		<input type="hidden" name="roomFloor" value="${room.id}">
+		<input type="hidden" name="roomFloor" value="${addRoom.id}">
+		<input type="hidden" name="roomId" value="${room.id}">
 		<input type="hidden" name="title" value="${title}">
 		
 		<input type="submit" name="action" value="戻る" class="button_submit">
