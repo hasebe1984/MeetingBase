@@ -299,6 +299,25 @@ public class MeetingRoom implements Serializable {
 	 *@throws Exception
 	 */
 	public boolean deleteUser(UserBean user) throws Exception {
+		UserBean deleteUser = UserDao.findById(user.getId());
+		if (deleteUser==null) {
+			throw new Exception("存在しないユーザーです");
+		}
+		if (deleteUser.getIsDeleted().equals(1)) {
+			throw new Exception("既に削除されています");
+		}
+		ReservationList reserveList = ReservationDao.finduserID(user.getId());
+		if(reserveList !=null) {
+			LocalDateTime now = LocalDateTime.now();		
+			for(ReservationBean rs:reserveList) {
+				LocalDate rsDate = LocalDate.parse(rs.getDate());
+				LocalTime rsTime = LocalTime.parse(rs.getEnd());
+				LocalDateTime rsDateTime = LocalDateTime.of(rsDate, rsTime);
+				if (rsDateTime.isAfter(now)) {
+					throw new Exception("予約があるため削除できません");
+				}
+			}
+		}
 		boolean isSuccess = UserDao.delete​(user);
 		return isSuccess;
 	}
