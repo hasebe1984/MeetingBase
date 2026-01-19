@@ -11,7 +11,7 @@
 			<td>${room.name}</td>
 		</tr>
  		<tr class="${title == '会議室編集' ? 'hidden' : ''}">
-			<th>会議室階</th>
+			<th>ID</th>
 			<td>${addRoom.id}</td>
 		</tr>
 	</tbody>

@@ -4,7 +4,7 @@
 <h1>${title}</h1>
 <hr>
 <h2>エラー</h2>
-<p class="message">${"エラーメッセージ"}</p>
+<p class="message">${message}</p>
 <table>
 	<tbody>
 		<tr>

@@ -9,7 +9,7 @@
 	<tbody>
 		<tr>
 			<th>利用者ID</th>
-			<td>${"2600001"}</td>
+			<td>${user.id}</td>
 		</tr>
 		<tr>
 			<th>パスワード</th>
