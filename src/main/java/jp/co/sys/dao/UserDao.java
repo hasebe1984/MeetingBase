@@ -40,7 +40,7 @@ public class UserDao {
 					String name = rs.getString("name");
 					String address = rs.getString("address");
 					String isAdmin = rs.getString("isAdmin");
-					String isDeleted = rs.getString("isDeleted");
+					int isDeleted = rs.getInt("isDeleted");
 					user = new UserBean(address, id, name, password, isAdmin, isDeleted);
 				}
 			}
@@ -67,7 +67,6 @@ public class UserDao {
 			pstmt.setString(2, userbean.getPassword());
 			pstmt.setString(3, userbean.getName());
 			pstmt.setString(4, userbean.getAddress());
-			pstmt.setString(5, userbean.getIsDeleted());
 			pstmt.setString(6, userbean.getIsAdmin());
 			//更新クエリの実行
 			ret = pstmt.executeUpdate();
@@ -124,7 +123,7 @@ public class UserDao {
 					String name = rs.getString("name");
 					String password = rs.getString("password");
 					String isAdmin = rs.getString("isAdmin");
-					String isDeleted = rs.getString("isDeleted");
+					int isDeleted = rs.getInt("isDeleted");
 					UserBean ub = new UserBean(id, address, name, password, isAdmin, isDeleted);
 					userlist.add(ub);
 				}
@@ -155,7 +154,7 @@ public class UserDao {
 					String name = rs.getString("name");
 					String password = rs.getString("password");
 					String isAdmin = rs.getString("isAdmin");
-					String isDeleted = rs.getString("isDeleted");
+					int isDeleted = rs.getInt("isDeleted");
 					UserBean ub = new UserBean(id, address, name, password, isAdmin, isDeleted);
 					userlist.add(ub);
 				}

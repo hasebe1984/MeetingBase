@@ -9,7 +9,7 @@ public class UserBean implements Serializable {
 	private String name;
 	private String password;
 	private String isAdmin;
-	private String isDeleted;
+	private int isDeleted;
 	private String userId;
 
 	public UserBean() {
@@ -24,7 +24,7 @@ public class UserBean implements Serializable {
 		this.isAdmin = isAdmin;
 	}
 
-	public UserBean(String address, String id, String name, String password, String isAdmin, String isDeleted) {
+	public UserBean(String address, String id, String name, String password, String isAdmin, int isDeleted) {
 		super();
 		this.address = address;
 		this.id = id;
@@ -61,7 +61,7 @@ public class UserBean implements Serializable {
 		return isAdmin;
 	}
 
-	public String getIsDeleted() {
+	public int getIsDeleted() {
 		return isDeleted;
 	}
 
