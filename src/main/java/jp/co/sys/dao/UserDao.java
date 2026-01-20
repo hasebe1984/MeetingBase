@@ -103,7 +103,11 @@ public class UserDao {
 		return false;
 	}
 
-	//UserList getNowId(String idNow) ※where id like 'idNow%' のように引数idNowから始まるid検索
+	/**
+	 * 引数idNowから始まるid検索
+	 * @param idNow
+	 * @return
+	 */
 	public static UserList getNowId(String idNow) {
 		UserList userlist = new UserList();
 		//SQL文user_idを指定して、レコードを取得
@@ -135,6 +139,10 @@ public class UserDao {
 
 	}
 
+	/**
+	 * 有効ユーザーをUserListで全件出力する
+	 * @return
+	 */
 	public static UserList findAll() {
 		UserList userlist = new UserList();
 		//SQL文user_idを指定して、レコードを取得
@@ -165,6 +173,11 @@ public class UserDao {
 		return userlist;
 	}
 
+	/**
+	 * 利用者IDで該当するユーザーを検索し、存在する場合UserBeanで返し、存在しないばあいnullを返す。
+	 * @param id
+	 * @return
+	 */
 	public static UserBean findById(String id) {
 		String sql = "SELECT * FROM user WHERE id=?";
 		try (Connection db = DatabaseConnectionProvider.getConnection();
