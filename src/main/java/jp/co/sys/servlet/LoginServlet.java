@@ -15,6 +15,7 @@ import jp.co.sys.bean.MeetingRoom;
 public class LoginServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
+
 //		 直接URLを叩かれた場合はログイン画面へ戻す
 		 protected void doGet(HttpServletRequest request, HttpServletResponse response)
 				throws ServletException, IOException {
@@ -62,6 +63,7 @@ public class LoginServlet extends HttpServlet {
 		} else {
 			er="ID";
 			session.setAttribute("er", er);
+			request.setAttribute("er", er);
 			//        		ログインJSPに飛ばす
 			nextPage = request.getContextPath() + "/jsp/login.jsp";
 		}
