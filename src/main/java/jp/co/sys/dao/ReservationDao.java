@@ -43,7 +43,7 @@ public class ReservationDao {
 					//					String end = rs.getString("end");
 					//					String userID = rs.getString("userID");
 					//					ReservationBean rb = new ReservationBean(id, roomId, date2, start, end, userID);
-					ReservationBean rb = new ReservationBean(rs.getInt("id"), rs.getString("roomId"),
+					ReservationBean rb = new ReservationBean(rs.getString("id"), rs.getString("roomId"),
 							rs.getString("date"),
 							rs.getString("start"), rs.getString("end"), rs.getString("userID"), rs.getInt("isDeleted"));
 					list.add(rb);
@@ -73,7 +73,7 @@ public class ReservationDao {
 			pstmt.setInt(1, id);
 			try (ResultSet rs = pstmt.executeQuery()) {
 				while (rs.next()) {
-					rb = new ReservationBean(rs.getInt("id"), rs.getString("roomId"),
+					rb = new ReservationBean(rs.getString("id"), rs.getString("roomId"),
 							rs.getString("date"),
 							rs.getString("start"), rs.getString("end"), rs.getString("userID"), rs.getInt("isDeleted"));
 				}
@@ -93,7 +93,7 @@ public class ReservationDao {
 			pstmt.setString(1, roomId);
 			try (ResultSet rs = pstmt.executeQuery()) {
 				while (rs.next()) {
-					ReservationBean searchResult = new ReservationBean(rs.getInt("id"), rs.getString("roomId"),
+					ReservationBean searchResult = new ReservationBean(rs.getString("id"), rs.getString("roomId"),
 							rs.getString("date"),
 							rs.getString("start"), rs.getString("end"), rs.getString("userID"), rs.getInt("isDeleted"));
 					list.add(searchResult);
@@ -121,7 +121,7 @@ public class ReservationDao {
 
 			try (ResultSet rs = pstmt.executeQuery()) {
 				while (rs.next()) {
-					ReservationBean rb = new ReservationBean(rs.getInt("id"), rs.getString("roomId"),
+					ReservationBean rb = new ReservationBean(rs.getString("id"), rs.getString("roomId"),
 							rs.getString("date"),
 							rs.getString("start"), rs.getString("end"), rs.getString("userID"), rs.getInt("isDeleted"));
 					list.add(rb);
@@ -150,7 +150,7 @@ public class ReservationDao {
 						ResultSet.CONCUR_READ_ONLY);
 				ResultSet rs = pstmt.executeQuery()) {
 			while (rs.next()) {
-				ReservationBean rb = new ReservationBean(rs.getInt("id"), rs.getString("roomId"),
+				ReservationBean rb = new ReservationBean(rs.getString("id"), rs.getString("roomId"),
 						rs.getString("date"),
 						rs.getString("start"), rs.getString("end"), rs.getString("userID"), rs.getInt("isDeleted"));
 				list.add(rb);
