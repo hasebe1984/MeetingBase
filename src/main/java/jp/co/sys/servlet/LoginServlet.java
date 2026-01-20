@@ -30,7 +30,7 @@ public class LoginServlet extends HttpServlet {
 		String id = request.getParameter("userId");
 		String password = request.getParameter("userPw");
 		
-		
+		String er = " ";
 		String nextPage;
 		HttpSession session = request.getSession();
 		MeetingRoom meetingRoom = new MeetingRoom();
@@ -60,6 +60,8 @@ public class LoginServlet extends HttpServlet {
 
 			nextPage = request.getContextPath() + "/jsp/menu.jsp";
 		} else {
+			er="ID";
+			session.setAttribute("er", er);
 			//        		ログインJSPに飛ばす
 			nextPage = request.getContextPath() + "/jsp/login.jsp";
 		}
