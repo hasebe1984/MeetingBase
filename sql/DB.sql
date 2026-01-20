@@ -1,11 +1,11 @@
 DROP USER IF EXISTS 'user'@'localhost';
 CREATE USER 'user'@'localhost' IDENTIFIED BY 'pass';
-GRANT ALL PRIVILEGES ON `meetingroomB`.* TO 'user'@'localhost';
+GRANT ALL PRIVILEGES ON `meetingroomb`.* TO 'user'@'localhost';
 FLUSH PRIVILEGES;
 
-DROP DATABASE IF EXISTS meetingroomB;
-create database meetingroomB default character set utf8 collate utf8_general_ci;
-USE meetingroomB;
+DROP DATABASE IF EXISTS meetingroomb;
+create database meetingroomb default character set utf8 collate utf8_general_ci;
+USE meetingroomb;
 
 DROP TABLE IF EXISTS user;
 DROP TABLE IF EXISTS room;
@@ -14,15 +14,15 @@ DROP TABLE IF EXISTS reservation;
 CREATE TABLE user (
         id VARCHAR(7) PRIMARY KEY,
         password VARCHAR(255) NOT NULL,
-        name VARCHAR(10),
+        name VARCHAR(10) NOT NULL,
         address VARCHAR(30),
-        isDeleted TINYINT(1) not null DEFAULT 0,
-        isAdmin TINYINT(1) not null DEFAULT 0
+        isDeleted TINYINT(1) NOT NULL DEFAULT 0,
+        isAdmin TINYINT(1) NOT NULL DEFAULT 0
 );
 
 CREATE TABLE room (
         id VARCHAR(4) PRIMARY KEY,
-        name VARCHAR(20)
+        name VARCHAR(20) NOT NULL
 );
 
 CREATE TABLE reservation (
@@ -32,17 +32,17 @@ CREATE TABLE reservation (
         start TIME NOT NULL,
         end TIME NOT NULL,
         userId VARCHAR(7) NOT NULL,
+        isDeleted TINYINT(1) NOT NULL DEFAULT 0,
         FOREIGN KEY(roomid) REFERENCES room(id),
         FOREIGN KEY(userid) REFERENCES user(id),
-        UNIQUE(roomId, date, start),
-        isDeleted TINYINT(1) not null DEFAULT 0
+        UNIQUE(roomId, date, start)
 );
 
-
-INSERT INTO user VALUES('2500001','111111','一般','東京都','0','0');
+INSERT INTO user VALUES('2500001','111111','一般太郎','東京都','0','0');
 INSERT INTO user VALUES('2500002','111111','管理花子','大阪府','0','1');
-INSERT INTO user VALUES('2500003','111111','削除よしお','大阪府','1','0');
-INSERT INTO user VALUES('2500004','111111','管理削除リチャード','大阪府','1','1');
+INSERT INTO user VALUES('2500003','111111','削除よしお','北海道','1','0');
+INSERT INTO user VALUES('2500004','111111','管理削除リチャード','USA','1','1');
+INSERT INTO user VALUES('2500005','111111','管理たけお','島根県','0','1');
 
 INSERT INTO room VALUES('0201','大会議室');
 INSERT INTO room VALUES('0301','３Ａ会議室');
