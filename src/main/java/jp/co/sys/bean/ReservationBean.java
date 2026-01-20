@@ -5,7 +5,7 @@ import java.io.Serializable;
 public class ReservationBean implements Serializable {
 	private String date;
 	private String end;
-	private int id;
+	private String id;
 	private String roomId;
 	private static final long serialVersionUID = 1L;
 	private String start;
@@ -16,7 +16,7 @@ public class ReservationBean implements Serializable {
 	public ReservationBean() {
 	}
 
-	public ReservationBean(int id, String roomId, String date, String start, String end, String userID, int isDeleted) {
+	public ReservationBean(String id, String roomId, String date, String start, String end, String userID, int isDeleted) {
 		super();
 		this.id = id;
 		this.roomId = roomId;
@@ -28,7 +28,7 @@ public class ReservationBean implements Serializable {
 	}
 
 	public ReservationBean(String roomId, String date, String start, String end, String userID) {
-		this(0, roomId, date, start, end, userID, 0);
+		this("0", roomId, date, start, end, userID, 0);
 		this.roomId = roomId;
 		this.date = date;
 		this.start = start;
@@ -36,7 +36,7 @@ public class ReservationBean implements Serializable {
 		this.userID = userID;
 	}
 
-	public int getId() {
+	public String getId() {
 		return id;
 	}
 
@@ -44,7 +44,7 @@ public class ReservationBean implements Serializable {
 		return isDeleted;
 	}
 
-	public void setId(int id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 
