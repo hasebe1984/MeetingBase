@@ -41,14 +41,16 @@ public class AdminUserServlet extends HttpServlet {
 		String userPw = request.getParameter("userPw");
 		String userAdmin = request.getParameter("userAdmin");
 		
-		String checked = "on".equals(userAdmin) ? "checked" : null;
+		String checked = "on".equals(userAdmin) ? "checked" : "";
 		userAdmin = "on".equals(userAdmin) ? "管理者" : "一般会員";
-		int userAdminInt = userAdmin == "on" ? 1 : 0;
+		int userAdminInt = "管理者".equals(userAdmin) ? 1 : 0;
 		
 		UserBean user = new UserBean(userAddress, userId, userName, userPw, userAdminInt);
 		
 		String action = request.getParameter("action");
 		String nextPath = "/jsp/userList.jsp";
+		String cancelFlag = request.getParameter("cancelFlag");
+		String adminFlag = request.getParameter("adminFlag");
 		
 //		会議室の削除
 		String message = "";
@@ -86,6 +88,8 @@ public class AdminUserServlet extends HttpServlet {
 				
 			} else {
 				message = "退会できませんでした。";
+				nextPath = "/jsp/editInput.jsp";
+				
 			}
 		}
 		
@@ -93,7 +97,10 @@ public class AdminUserServlet extends HttpServlet {
 		
 		request.setAttribute("message", message);
 		request.setAttribute("list", list);
+		request.setAttribute("user", user);
 		request.setAttribute("checked", checked);
+		request.setAttribute("cancelFlag", cancelFlag);
+		request.setAttribute("adminFlag", adminFlag);
 		
 		request.getRequestDispatcher(nextPath).forward(request, response);
 	}

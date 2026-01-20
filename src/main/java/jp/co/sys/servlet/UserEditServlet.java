@@ -41,15 +41,16 @@ public class UserEditServlet extends HttpServlet {
 		String userName = request.getParameter("userName");
 		String userPw = request.getParameter("userPw");
 		String userAdmin = request.getParameter("userAdmin");
-		String checked = "on".equals(userAdmin) ? "checked" : null;		
+		String checked = "on".equals(userAdmin) ? "checked" : "";		
 		userAdmin = "on".equals(userAdmin) ? "管理者" : "一般会員";
-		int userAdminInt = userAdmin == "on" ? 1 : 0;
+		int userAdminInt = "管理者".equals(userAdmin) ? 1 : 0;
 
 		UserBean user = new UserBean(userAddress, userId, userName, userPw, userAdminInt);
 		
 		String nextPage = "/jsp/editInput.jsp";			
 		String message = "";
-		int editFlag = 0;
+		String cancelFlag = request.getParameter("cancelFlag");
+		String adminFlag = request.getParameter("adminFlag");
 		
 		if ("会員情報編集".equals(action)) {
 			userAddress = mr.getUser().getAddress();
@@ -57,13 +58,16 @@ public class UserEditServlet extends HttpServlet {
 			userName = mr.getUser().getName();
 			userPw = mr.getUser().getPassword();
 			userAdminInt = mr.getUser().getIsAdmin();
-			checked = "1".equals(userAdmin) ? "checked" : null;
-			userAdmin = "1".equals(userAdmin) ? "管理者" : "一般会員";
-			editFlag = 1;
+			checked = userAdminInt == 1 ? "checked" : "";
+			cancelFlag = "1";
 			
 			user = new UserBean(userAddress, userId, userName, userPw, userAdminInt);
 			
 		}
+		 if ("編集".equals(action) || mr.getUser().getIsAdmin() == 1) {
+			checked = userAdminInt == 1 ? "checked" : "";
+			adminFlag = "1";
+		 }
 		
 		
 		if ("決定".equals(action)) {
@@ -119,7 +123,8 @@ public class UserEditServlet extends HttpServlet {
 		request.setAttribute("user", user);
 		request.setAttribute("checked", checked);
 		request.setAttribute("message", message);
-		request.setAttribute("editFlag", editFlag);
+		request.setAttribute("cancelFlag", cancelFlag);
+		request.setAttribute("adminFlag", adminFlag);
 
 		request.getRequestDispatcher(nextPage).forward(request, response);
 		

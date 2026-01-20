@@ -43,10 +43,9 @@ public class RegistrationServlet extends HttpServlet {
 		String userName = request.getParameter("userName");
 		String userPw = request.getParameter("userPw");
 		String userAdmin = request.getParameter("userAdmin");
-		String checked = "";
-		checked = "on".equals(userAdmin) ? "checked" : null;
+		String checked = "on".equals(userAdmin) ? "checked" : "";
 		userAdmin = "on".equals(userAdmin) ? "管理者" : "一般会員";
-		int userAdminInt = userAdmin == "管理者" ? 1 : 0;
+		int userAdminInt = "管理者".equals(userAdmin) ? 1 : 0;
 		
 		UserBean user = new UserBean(userAddress, userId, userName, userPw, userAdminInt);
 		

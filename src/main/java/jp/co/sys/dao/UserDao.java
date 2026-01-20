@@ -164,7 +164,7 @@ public class UserDao {
 					String password = rs.getString("password");
 					int isAdmin = rs.getInt("isAdmin");
 					int isDeleted = rs.getInt("isDeleted");
-					UserBean ub = new UserBean(id, address, name, password, isAdmin, isDeleted);
+					UserBean ub = new UserBean(address, id, name, password, isAdmin, isDeleted);
 					userlist.add(ub);
 				}
 			}

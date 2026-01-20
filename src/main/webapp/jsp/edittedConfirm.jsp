@@ -4,6 +4,7 @@
 <h1>会員情報編集</h1>
 <hr>
 <h2>編集確認</h2>
+<p class="message">${message}</p>
 <table>
 	<tbody>
 		<tr>
@@ -31,7 +32,9 @@
 		<input type="hidden" name="userPw" value="${user.password}">
 		<input type="hidden" name="userName" value="${user.name}">
 		<input type="hidden" name="userAddress" value="${user.address}">
-		<input type="hidden" name="userAdmin" value="${user.isAdmin}">
+		<input type="hidden" name="userAdmin" value="${user.isAdmin == 1 ? 'on' : ''}">
+		<input type="hidden" name="cancelFlag" value="${cancelFlag}">
+		<input type="hidden" name="adminFlag" value="${adminFlag}">
 		
 		<input type="submit" name="action" value="戻る" class="button_submit">
 		<input type="submit" name="action" value="登録" class="button_submit">
