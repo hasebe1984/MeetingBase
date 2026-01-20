@@ -63,14 +63,6 @@ h2 {
 	text-align: center;
 }
 
-
-/*.item_outer {*/
-/*	display: flex;*/
-/*	flex-direction: column;*/
-/*	gap: 24px;*/
-/*	margin: 0 auto;*/
-/*}*/
-
 /*-------*/
 /*form*/
 /*-------*/
@@ -90,8 +82,8 @@ h2 {
 	justify-content: space-between;
 }
 
-.input-wrap_check{
-	justify-content:start;
+.input-wrap_check {
+	justify-content: start;
 }
 
 
@@ -110,7 +102,6 @@ h2 {
 	margin-left: 117px;
 	border: 2px solid #292929;
 }
-
 
 /*-------*/
 /*button*/
@@ -146,10 +137,11 @@ h2 {
 }
 
 .button_submit_small {
-	width: 100px;
+	width: 70px;
 	margin: 0;
 	padding: 0;
 }
+
 .button_submit_large {
 	width: 500px;
 }
@@ -158,6 +150,7 @@ h2 {
 	background-color: #2008ff;
 	border-radius: 2rem;
 }
+
 .button_submit_impossible {
 	background-color: #fff9e6;
 	color: #292929;
@@ -228,29 +221,41 @@ table {
 	margin: 0 auto;
 	text-align: left;
 	border: 1px solid #292929;
-
+	width: 90vw;
 }
+
+tr:first-child {
+	width: 1000px;
+}
+
 
 th {
 	width: 150px;
 	border: 1px solid #292929;
 	padding: 12px;
+	margin: 0 auto;
+	text-align: center;
 }
 
 td {
 	width: 300px;
 	border: 1px solid #292929;
 	padding: 12px;
+	text-align: center;
+
 }
 
 .input_table {
 	width: 90vw;
 	margin: 0 auto;
 }
-.input_table tr{
+
+.input_table tr {
 	text-align: center;
 }
-.input_table tr, .input_table td{
+
+.input_table tr,
+.input_table td {
 	padding: 8px 0;
 }
 

@@ -28,4 +28,8 @@
 	    <input type="submit" name="action" value="決定" class="button_submit">
     </div>
 </form>
+<form action="${pageContext.request.contextPath}/AdminUserServlet" method="post" class="form ${editFlag == 1 ? '' : 'hidden'}">
+    <input type="hidden" name="userId" value="${user.id}">
+    <input type="submit" name="action" value="退会する" class="button_submit" onclick="return confirm('本当に退会してよろしいですか？');">
+</form>
 <%@include file="../common/footer.jsp"%>
