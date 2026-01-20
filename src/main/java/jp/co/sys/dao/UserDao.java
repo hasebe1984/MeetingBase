@@ -67,6 +67,7 @@ public class UserDao {
 			pstmt.setString(2, userbean.getPassword());
 			pstmt.setString(3, userbean.getName());
 			pstmt.setString(4, userbean.getAddress());
+			pstmt.setInt(5, 0);
 			pstmt.setString(6, userbean.getIsAdmin());
 			//更新クエリの実行
 			ret = pstmt.executeUpdate();
