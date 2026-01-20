@@ -10,8 +10,7 @@ public class UserBean implements Serializable {
 	private String password;
 	private int isAdmin;
 	private int isDeleted;
-	private String userId;
-
+	
 	public UserBean() {
 	}
 
@@ -65,12 +64,8 @@ public class UserBean implements Serializable {
 		return isDeleted;
 	}
 
-	public String getuserId() {
-		return userId;
-	}
-
-	public void setId(String userId) {
-		this.userId = userId;
+	public void setId(String id) {
+		this.id = id;
 	}
 
 	@Override
