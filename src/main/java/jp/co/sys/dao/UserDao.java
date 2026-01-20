@@ -39,7 +39,7 @@ public class UserDao {
 					id = rs.getString("id");
 					String name = rs.getString("name");
 					String address = rs.getString("address");
-					String isAdmin = rs.getString("isAdmin");
+					int isAdmin = rs.getInt("isAdmin");
 					int isDeleted = rs.getInt("isDeleted");
 					user = new UserBean(address, id, name, password, isAdmin, isDeleted);
 				}

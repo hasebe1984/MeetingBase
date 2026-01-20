@@ -200,7 +200,11 @@ public class MeetingRoom implements Serializable {
 		if (reserveList != null) {
 			for (ReservationBean rs : reserveList) {
 				String reservedRoomId = rs.getRoomId();
-				if (reservedRoomId.equals(reservation.getRoomId()) && rs.getDate().equals(reservation.getStart())
+			
+				LocalTime time = LocalTime.parse(rs.getStart());
+				DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
+				String rsStart = formatter.format(time);
+				if (reservedRoomId.equals(reservation.getRoomId()) && rsStart.equals(reservation.getStart())
 						&& rs.getIsDeleted() == 0) {
 					throw new Exception("既に予約されています");
 				}
