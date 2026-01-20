@@ -97,8 +97,8 @@ public class ReservationDao {
 							rs.getString("date"),
 							rs.getString("start"), rs.getString("end"), rs.getString("userID"), rs.getInt("isDeleted"));
 					list.add(searchResult);
-					return list;
 				}
+				return list;
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
