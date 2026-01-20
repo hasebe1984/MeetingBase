@@ -27,7 +27,7 @@
 				<td class="list_td_middle"><%= l.getPassword() %></td>
 				<td><%= l.getName() %></td>
 				<td class="list_td_large"><%= l.getAddress() %></td>
-				<td class="list_td_small"><%= "0".equals(l.getIsAdmin()) ? "一般" : "管理者" %></td>				
+				<td class="list_td_small"><%= l.getIsAdmin() == 0 ? "一般" : "管理者" %></td>				
 				<td class="list_td_small">
 					<form action="<%= request.getContextPath() %>/UserEditServlet" method="post">
 						<input type="hidden" name="userAddress" value="<%= l.getAddress() %>">
