@@ -39,7 +39,7 @@ public class UserDao {
 					id = rs.getString("id");
 					String name = rs.getString("name");
 					String address = rs.getString("address");
-					String isAdmin = rs.getString("isAdmin");
+					int isAdmin = rs.getInt("isAdmin");
 					int isDeleted = rs.getInt("isDeleted");
 					user = new UserBean(address, id, name, password, isAdmin, isDeleted);
 				}
@@ -67,7 +67,7 @@ public class UserDao {
 			pstmt.setString(2, userbean.getPassword());
 			pstmt.setString(3, userbean.getName());
 			pstmt.setString(4, userbean.getAddress());
-			pstmt.setString(6, userbean.getIsAdmin());
+			pstmt.setInt(6, userbean.getIsAdmin());
 			//更新クエリの実行
 			ret = pstmt.executeUpdate();
 		} catch (SQLException e) {
@@ -126,7 +126,7 @@ public class UserDao {
 					String address = rs.getString("address");
 					String name = rs.getString("name");
 					String password = rs.getString("password");
-					String isAdmin = rs.getString("isAdmin");
+					int isAdmin = rs.getInt("isAdmin");
 					int isDeleted = rs.getInt("isDeleted");
 					UserBean ub = new UserBean(id, address, name, password, isAdmin, isDeleted);
 					userlist.add(ub);
@@ -161,7 +161,7 @@ public class UserDao {
 					String address = rs.getString("address");
 					String name = rs.getString("name");
 					String password = rs.getString("password");
-					String isAdmin = rs.getString("isAdmin");
+					int isAdmin = rs.getInt("isAdmin");
 					int isDeleted = rs.getInt("isDeleted");
 					UserBean ub = new UserBean(id, address, name, password, isAdmin, isDeleted);
 					userlist.add(ub);
@@ -190,7 +190,7 @@ public class UserDao {
 					rs.getString("name"),
 					rs.getString("address"),
 					rs.getString("password"),
-					rs.getString("isAdmin"));
+					rs.getInt("isAdmin"));
 			return rb;
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -210,7 +210,7 @@ public class UserDao {
 			pstmt.setString(1, userbean.getName());
 			pstmt.setString(2, userbean.getAddress());
 			pstmt.setString(3, userbean.getPassword());
-			pstmt.setString(4, userbean.getIsAdmin());
+			pstmt.setInt(4, userbean.getIsAdmin());
 			pstmt.setString(5, userbean.getId());
 			ret = pstmt.executeUpdate();
 		} catch (SQLException e) {
