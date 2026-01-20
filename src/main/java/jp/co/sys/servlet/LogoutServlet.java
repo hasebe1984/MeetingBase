@@ -20,7 +20,7 @@ public class LogoutServlet extends HttpServlet {
 		  PrintWriter out = response.getWriter();
 
 		  HttpSession session = request.getSession(true);
-//session破棄
+		  //session破棄
 		  session.invalidate();
 //		  リダイレクト先
 		  response.sendRedirect(request.getContextPath()+"/jsp/login.jsp");
