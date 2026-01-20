@@ -243,15 +243,16 @@ public class MeetingRoom implements Serializable {
 	*@throws Exception
 	*/
 
+	@SuppressWarnings("unused")
 	public boolean addUser(UserBean addUser) throws Exception {
 		LocalDateTime now = LocalDateTime.now();
 		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yy");
 		String idNow = now.format(dtf);
 		UserList usersNowId = UserDao.getNowId(idNow);//DAOからuserNowIdでid検索する
-		int usersNowIdSize = usersNowId.size();
+		int usersNowIdSize = 0;
 		
 		if (usersNowId != null) {
-			usersNowIdSize = 0;
+			usersNowIdSize = usersNowId.size();
 		}
 		String idSize = String.format("%05d", usersNowIdSize);
 		String userId = idNow + idSize;
@@ -283,7 +284,7 @@ public class MeetingRoom implements Serializable {
 		if (userEdit==null) {
 			throw new Exception("存在しないユーザーです");
 		}
-		if (userEdit.getIsDeleted().equals(1)) {
+		if (userEdit.getIsDeleted() == 1) {
 			throw new Exception("削除されたユーザーです");
 		}
 		if (editUserId.equals(this.user.getId()) && this.user.getIsAdmin().equals(0)) {
@@ -305,10 +306,10 @@ public class MeetingRoom implements Serializable {
 		if (deleteUser==null) {
 			throw new Exception("存在しないユーザーです");
 		}
-		if (deleteUser.getIsDeleted().equals(1)) {
+		if (deleteUser.getIsDeleted()==1) {
 			throw new Exception("既に削除されています");
 		}
-		if (user.getId() != this.user.getId() && this.user.getIsAdmin().equals(0)) {
+		if (user.getId() != this.user.getId() && this.user.getIsAdmin()==1) {
 			throw new Exception("削除できないユーザーです。");
 		}
 		ReservationList reserveList = ReservationDao.finduserID(user.getId());
@@ -355,7 +356,7 @@ public class MeetingRoom implements Serializable {
 	 *@return DBに追加できたらtrue、失敗したらfalse 
 	 *@throws Exception
 	 */
-	public RoomBean addRoom(RoomBean room) throws Exception {
+	public Boolean addRoom(RoomBean room) throws Exception {
 		int num = Integer.parseInt(room.getId());
 		int count = RoomDao.findAll().size() + 1;
 		String roomsNum = String.format("%02d", count);
@@ -371,8 +372,8 @@ public class MeetingRoom implements Serializable {
 				}
 			}
 		}
-		RoomDao.insert(room);
-		return room;
+		return RoomDao.insert(room);
+		
 
 	}
 
@@ -401,7 +402,7 @@ public class MeetingRoom implements Serializable {
 		if(RoomDao.findId(deleteRoomId)==null) {
 			throw new Exception("会議室が見つかりません");
 		}
-		ReservationList reserveList = ReservationDao.findRoomId(deleteRoomId);
+		ReservationList reserveList = ReservationDao.findByRoomId​(deleteRoomId);
 		if(reserveList !=null) {
 			LocalDateTime now = LocalDateTime.now();		
 			for(ReservationBean rs:reserveList) {
