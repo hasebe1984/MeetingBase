@@ -8,14 +8,14 @@ public class UserBean implements Serializable {
 	private String id;
 	private String name;
 	private String password;
-	private String isAdmin;
+	private int isAdmin;
 	private int isDeleted;
 	private String userId;
 
 	public UserBean() {
 	}
 
-	public UserBean(String address, String id, String name, String password, String isAdmin) {
+	public UserBean(String address, String id, String name, String password, int isAdmin) {
 		super();
 		this.address = address;
 		this.id = id;
@@ -24,7 +24,7 @@ public class UserBean implements Serializable {
 		this.isAdmin = isAdmin;
 	}
 
-	public UserBean(String address, String id, String name, String password, String isAdmin, int isDeleted) {
+	public UserBean(String address, String id, String name, String password, int isAdmin, int isDeleted) {
 		super();
 		this.address = address;
 		this.id = id;
@@ -57,7 +57,7 @@ public class UserBean implements Serializable {
 		return address;
 	}
 
-	public String getIsAdmin() {
+	public int getIsAdmin() {
 		return isAdmin;
 	}
 
