@@ -45,13 +45,14 @@ ReservationBean[][] reservations = meetingRoom.getReservations();
 		<th><%=rooms.get(i).getName()%></th>
 		<%
 		for (int j = 0; j < period.length; j++) {
-			
 		%>
 		<td>
-		
 			<%--予約キャンセルできるデータに〇をつける--%> <%
- if (reservations[i][j]!=null) {
-	 
+ if (reservations[i][j] != null) {
+ 	String resUser = reservations[i][j].getUserID();
+ 	String logUser = meetingRoom.getUser().getId();
+ 	if (resUser.equals(logUser)) {
+ 		System.out.println(reservations[i][j].getUserID() + meetingRoom.getUser().getId());
  %>
 			<form action="${pageContext.request.contextPath}/CancelCreateServlet"
 				method="post">
@@ -60,18 +61,21 @@ ReservationBean[][] reservations = meetingRoom.getReservations();
 					class="button_submit button_submit_small button_submit_blue">
 				<input type="hidden" name="time" value="<%=period[j]%>">
 
-				</form>
-				<%--配列の中身が×だったら×を直書き--%>
-				<%
-				} else {
-				%>
-			<button 
+			</form> <%--配列の中身が×だったら×を直書き--%> <%
+ } else {
+ %>
+			<button
 				class="button_submit button_submit_small button_submit_blue ${'button_submit_impossible'}"
-				${"disabled"}>×</button>
-				<%
-				}
-				%>
-			
+				${"disabled"}>×</button> <%
+ }
+ } else {
+ %>
+			<button
+				class="button_submit button_submit_small button_submit_blue ${'button_submit_impossible'}"
+				${"disabled"}>×</button> <%
+ }
+ %>
+
 		</td>
 		<%
 		}
@@ -81,6 +85,7 @@ ReservationBean[][] reservations = meetingRoom.getReservations();
 	}
 	%>
 </table>
-<a href="menu.jsp" class="button_submit">戻る</a>
+<a href="${pageContext.request.contextPath}/jsp/menu.jsp"
+	class="button_submit">戻る</a>
 
 <%@include file="../common/footer.jsp"%>
