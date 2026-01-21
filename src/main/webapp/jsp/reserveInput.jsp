@@ -6,11 +6,8 @@
 <%@ page import="jp.co.sys.bean.ReservationBean"%>
 <%@ page import="jp.co.sys.util.RoomList"%>
 <%@ page import="jp.co.sys.dao.UserDao"%>
-
-   
-
     
-    <%
+<%
     // ===== サーブレットから受け取る =====
     MeetingRoom meetingRoom = (MeetingRoom) session.getAttribute("meetingRoom");
         session.setAttribute("meetingRoom", meetingRoom);
@@ -20,18 +17,15 @@
     ReservationBean[][] reservations = meetingRoom.getReservations();
 %>
 
-    
-
-
 <%@include file="../common/header.jsp"%>
 <h1>会議室予約</h1>
 <h2>利用日</h2>
 <form action="${pageContext.request.contextPath}/ChangeDateServlet"
 	method="POST" class="input_table">
 	
-	<input type="date" name="date"  value="${meetingRoom.date}"> <input
-		type="submit" value="日付変更" class="button_submit button_submit_small"><br> <input type="hidden"
-		name="page" value="reserveInput.jsp">
+	<input type="date" name="date" class="form_input_date" value="${meetingRoom.date}">
+	<input type="submit" value="日付変更" class="button_submit"><br>
+	<input type="hidden" name="page" value="reserveInput.jsp">
 </form>
 <h2>予約可能時間帯 &nbsp;&nbsp;&nbsp; <c:out value="${meetingRoom.user.name}" /> さん</h2>
 
@@ -40,7 +34,7 @@
 <table class="input_table">
 		<thead>
 			<tr>
-				<th>会議室/時間</th>
+				<th class="input_th">会議室/時間</th>
 		<%--始まりの時間を要素分取り出して順に表示--%>
 		<%
 		for (int j = 0; j < period.length; j++) {
@@ -72,7 +66,6 @@
 			<form action="${pageContext.request.contextPath}/reserveCreateServlet"
 				method="post">
 				<input type="hidden" name="roomId" value="<%=rooms.get(i).getId()%>">
-
 				<button 
 					class="button_submit button_submit_small button_submit_blue">〇</button>
 				<%--仕様書はsubmit送信ですが、〇×表示になったので hiddenで送ってます--%>

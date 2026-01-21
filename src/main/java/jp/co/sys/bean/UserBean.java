@@ -67,6 +67,10 @@ public class UserBean implements Serializable {
 	public void setId(String id) {
 		this.id = id;
 	}
+	
+	public void setIsAdmin(int isAdmin) {
+		this.isAdmin = isAdmin;
+	}
 
 	@Override
 	public String toString() {
