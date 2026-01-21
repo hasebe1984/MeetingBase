@@ -18,7 +18,7 @@
 		<label for="userAddress">住所</label>
 		<input type="text" name="userAddress" value="${user.address}" id="userAddress" class="form_input" required>
 	</div>
-	<div class="input-wrap input-wrap_check ${'1'.equals(adminFlag) ? '' : 'hidden' || meetingRoom.user.isAdmin == '0' ? '' : 'hidden'}">
+	<div class="input-wrap input-wrap_check ${'1'.equals(adminFlag) ? '' : 'hidden' || meetingRoom.user.isAdmin == '0' ? 'hidden' : ''}">
 		<label for="userAdmin">管理者</label>
 		<input type="checkbox" name="userAdmin" id="userAdmin" class="form_check" ${checked}>
 	</div>

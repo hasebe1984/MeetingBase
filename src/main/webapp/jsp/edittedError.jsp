@@ -23,7 +23,7 @@
 			<th>住所</th>
 			<td>${user.address}</td>
 		</tr>
-		<tr>
+		<tr class="${'1'.equals(adminFlag) ? '' : 'hidden' || meetingRoom.user.isAdmin == '0' ? 'hidden' : ''}">
 			<th>会員区分</th>
 			<td>${user.isAdmin}</td>
 		</tr>
