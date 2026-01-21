@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@include file="../common/header.jsp"%>
 <h1>${title}</h1>
 <hr>
@@ -8,7 +9,7 @@
 	<tbody>
 		<tr>
 			<th>会議室名</th>
-			<td>${room.name}</td>
+			<td><c:out value="${room.name}" /></td>
 		</tr>
 		<tr class="${title == '会議室編集' ? 'hidden' : ''}">
 			<th>会議室階</th>
@@ -19,7 +20,7 @@
 <div class="button_row">
 	<form action="${pageContext.request.contextPath}/RoomEditServlet"
 		method="post">
-		<input type="hidden" name="roomName" value="${room.name}">
+		<input type="hidden" name="roomName" <c:out value="${room.name}" />>
 		<input type="hidden" name="roomFloor" value="${addRoom.id}">
 		<input type="hidden" name="roomId" value="${room.id}">
 		<input type="hidden" name="title" value="${title}">

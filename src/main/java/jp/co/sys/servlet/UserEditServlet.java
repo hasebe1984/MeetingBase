@@ -115,7 +115,7 @@ public class UserEditServlet extends HttpServlet {
 //			失敗
 			} else {
 				nextPage = "/jsp/edittedError.jsp";
-				message = "エラーメッセージ";
+				message = "変更に失敗しました。";
 				
 			}
 		}

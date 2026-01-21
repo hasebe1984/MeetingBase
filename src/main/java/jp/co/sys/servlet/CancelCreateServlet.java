@@ -36,10 +36,16 @@ protected void doPost(HttpServletRequest request, HttpServletResponse response)
 		request.setCharacterEncoding("UTF-8");
 		String roomId = request.getParameter("roomId");
 		String start = request.getParameter("time");
+		String researvationId = request.getParameter("researvationId");
+		int researvationIdInt = Integer.parseInt(researvationId);
+
 		/** 会議室管理システム取得 */		
 		MeetingRoom meetingRoom=(MeetingRoom) session.getAttribute("meetingRoom");
 /** 取り消す予約情報を生成する */
 		ReservationBean reservation = meetingRoom.createReservation​(roomId,start);
+		reservation.setId(researvationIdInt);
+		
+//		reservation.setId(roomId);
 /** 取り消す予約（会議室ID、開始時間）をセッションにセットする */
 		session.setAttribute("reservation",reservation);
 		session.setAttribute("room",meetingRoom.getRoom​(roomId));

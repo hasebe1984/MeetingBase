@@ -2,6 +2,7 @@
 <%@page import="jp.co.sys.util.RoomList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page import="jp.co.sys.bean.MeetingRoom"%>
 <%@ page import="jp.co.sys.bean.RoomBean"%>
 
@@ -10,11 +11,11 @@
 <h2>利用日</h2>
 <form action="${pageContext.request.contextPath}/ChangeDateServlet"
 	method="post">
-	<input type="date" name="date" value="${meetingRoom.date}"> <input
-		type="submit" value="日付変更" class="button_submit button_submit_small">
+	<input type="date" name="date" class="form_input_date" value="${meetingRoom.date}"> <input
+		type="submit" value="日付変更" class="button_submit">
 	<input type="hidden" name="page" value="cancelInput.jsp">
 </form>
-<h2>キャンセル可能時間帯（${meetingRoom.user.name}）</h2>
+<h2>キャンセル可能時間帯（<c:out value="${meetingRoom.user.name}" />）</h2>
 <%
 //meetingRoomをセッションから取得
 MeetingRoom meetingRoom = (MeetingRoom) session.getAttribute("meetingRoom");
@@ -27,7 +28,7 @@ ReservationBean[][] reservations = meetingRoom.getReservations();
 %>
 <table class="input_table">
 	<tr>
-		<th>会議室 / 時間</th>
+		<th class="input_th">会議室 / 時間</th>
 		<%--始まりの時間を要素分取り出して順に表示--%>
 		<%
 		for (int j = 0; j < period.length; j++) {
@@ -40,9 +41,11 @@ ReservationBean[][] reservations = meetingRoom.getReservations();
 	<%--二重for文　i=会議室名の表示--%>
 	<%
 	for (int i = 0; i < rooms.size(); i++) {
+		String room = rooms.get(i).getName();
+		request.setAttribute("room", room);
 	%>
 	<tr>
-		<th><%=rooms.get(i).getName()%></th>
+		<th><c:out value="${room }" /></th>
 		<%
 		for (int j = 0; j < period.length; j++) {
 		%>
@@ -60,7 +63,7 @@ ReservationBean[][] reservations = meetingRoom.getReservations();
 				<input type="submit" value="〇"
 					class="button_submit button_submit_small button_submit_blue">
 				<input type="hidden" name="time" value="<%=period[j]%>">
-
+				<input type="hidden" name="researvationId" value="<%=reservations[i][j].getId()%>">
 			</form> <%--配列の中身が×だったら×を直書き--%> <%
  } else {
  %>

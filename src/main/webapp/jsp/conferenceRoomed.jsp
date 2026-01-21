@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@include file="../common/header.jsp"%>
 <h1>${title}</h1>
 <hr>
@@ -8,7 +9,7 @@
 	<tbody>
 		<tr>
 			<th>会議室名</th>
-			<td>${room.name}</td>
+			<td><c:out value="${room.name}" /></td>
 		</tr>
  		<tr class="${title == '会議室編集' ? 'hidden' : ''}">
 			<th>ID</th>
