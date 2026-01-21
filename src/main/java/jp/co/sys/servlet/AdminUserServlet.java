@@ -40,10 +40,17 @@ public class AdminUserServlet extends HttpServlet {
 		String userName = request.getParameter("userName");
 		String userPw = request.getParameter("userPw");
 		String userAdmin = request.getParameter("userAdmin");
-		UserBean user = new UserBean(userAddress, userId, userName, userPw, userAdmin);
+		
+		String checked = "on".equals(userAdmin) ? "checked" : "";
+		userAdmin = "on".equals(userAdmin) ? "管理者" : "一般会員";
+		int userAdminInt = "管理者".equals(userAdmin) ? 1 : 0;
+		
+		UserBean user = new UserBean(userAddress, userId, userName, userPw, userAdminInt);
 		
 		String action = request.getParameter("action");
 		String nextPath = "/jsp/userList.jsp";
+		String cancelFlag = request.getParameter("cancelFlag");
+		String adminFlag = request.getParameter("adminFlag");
 		
 //		会議室の削除
 		String message = "";
@@ -65,10 +72,35 @@ public class AdminUserServlet extends HttpServlet {
 				message = "削除できませんでした。";
 			}
 		}
+		if ("退会する".equals(action)) {
+			Boolean isSuccess = false;
+			
+			try {
+				isSuccess = mr.deleteUser(user);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			
+			if(isSuccess) {
+				message = "退会しました。";
+				nextPath = "/jsp/login.jsp";
+				mr.getUsers();
+				
+			} else {
+				message = "退会できませんでした。";
+				nextPath = "/jsp/editInput.jsp";
+				
+			}
+		}
+		
 		UserList list = mr.getUsers();
 		
 		request.setAttribute("message", message);
 		request.setAttribute("list", list);
+		request.setAttribute("user", user);
+		request.setAttribute("checked", checked);
+		request.setAttribute("cancelFlag", cancelFlag);
+		request.setAttribute("adminFlag", adminFlag);
 		
 		request.getRequestDispatcher(nextPath).forward(request, response);
 	}

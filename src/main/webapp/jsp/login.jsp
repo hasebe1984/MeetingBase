@@ -1,13 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@include file="../common/header.jsp"%>
-${		er
-		PrintWriter out = response.getWriter();
-
-		  HttpSession session = request.getSession(true);
-		 
-		  session.invalidate();
-} 
+${er} 
     <h1>会議室予約</h1>
     <hr>
     <%-- 動的にパスを取得するため、プロジェクト名が変わっても修正不要です --%>

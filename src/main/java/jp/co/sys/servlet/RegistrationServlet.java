@@ -39,28 +39,23 @@ public class RegistrationServlet extends HttpServlet {
 		String action = request.getParameter("action");
 		
 		String userAddress = request.getParameter("userAddress");
-		String userId = "登録ボタン押したとき、生成・取得";
-//		String userId = request.getParameter("userId");
+		String userId = request.getParameter("userId");
 		String userName = request.getParameter("userName");
 		String userPw = request.getParameter("userPw");
 		String userAdmin = request.getParameter("userAdmin");
-		String checked = "on".equals(userAdmin) ? "checked" : null;
+		String checked = "on".equals(userAdmin) ? "checked" : "";
 		userAdmin = "on".equals(userAdmin) ? "管理者" : "一般会員";
+		int userAdminInt = "管理者".equals(userAdmin) ? 1 : 0;
 		
-		
-		UserBean user = new UserBean(userAddress, userId, userName, userPw, userAdmin);
+		UserBean user = new UserBean(userAddress, userId, userName, userPw, userAdminInt);
 		
 		String nextPage = "jsp/registrationInput.jsp";
 		String message = "";
 
-
-		
-		
 		if ("決定".equals(action)) {
 			
 			if (userPw.length() > 10 || userPw.length() < 6) {
 				message += "パスワードは、6文字から10文字で入力してください。";
-				
 
 			} 
 			
