@@ -43,9 +43,9 @@ public class ReservationDao {
 					//					String end = rs.getString("end");
 					//					String userID = rs.getString("userID");
 					//					ReservationBean rb = new ReservationBean(id, roomId, date2, start, end, userID);
-					ReservationBean rb = new ReservationBean(rs.getString("id"), rs.getString("roomId"),
+					ReservationBean rb = new ReservationBean(rs.getInt("id"), rs.getString("roomId"),
 							rs.getString("date"),
-							rs.getString("start"), rs.getString("end"), rs.getString("userID"), rs.getInt("isDeleted"));
+							rs.getString("start"), rs.getString("end"), rs.getString("userId"), rs.getInt("isDeleted"));
 					list.add(rb);
 				}
 			}
@@ -73,9 +73,9 @@ public class ReservationDao {
 			pstmt.setInt(1, id);
 			try (ResultSet rs = pstmt.executeQuery()) {
 				while (rs.next()) {
-					rb = new ReservationBean(rs.getString("id"), rs.getString("roomId"),
+					rb = new ReservationBean(rs.getInt("id"), rs.getString("roomId"),
 							rs.getString("date"),
-							rs.getString("start"), rs.getString("end"), rs.getString("userID"), rs.getInt("isDeleted"));
+							rs.getString("start"), rs.getString("end"), rs.getString("userId"), rs.getInt("isDeleted"));
 				}
 			} catch (SQLException e) {
 				e.printStackTrace();
@@ -93,9 +93,9 @@ public class ReservationDao {
 			pstmt.setString(1, roomId);
 			try (ResultSet rs = pstmt.executeQuery()) {
 				while (rs.next()) {
-					ReservationBean searchResult = new ReservationBean(rs.getString("id"), rs.getString("roomId"),
+					ReservationBean searchResult = new ReservationBean(rs.getInt("id"), rs.getString("roomId"),
 							rs.getString("date"),
-							rs.getString("start"), rs.getString("end"), rs.getString("userID"), rs.getInt("isDeleted"));
+							rs.getString("start"), rs.getString("end"), rs.getString("userId"), rs.getInt("isDeleted"));
 					list.add(searchResult);
 				}
 				return list;
@@ -121,9 +121,9 @@ public class ReservationDao {
 
 			try (ResultSet rs = pstmt.executeQuery()) {
 				while (rs.next()) {
-					ReservationBean rb = new ReservationBean(rs.getString("id"), rs.getString("roomId"),
+					ReservationBean rb = new ReservationBean(rs.getInt("id"), rs.getString("roomId"),
 							rs.getString("date"),
-							rs.getString("start"), rs.getString("end"), rs.getString("userID"), rs.getInt("isDeleted"));
+							rs.getString("start"), rs.getString("end"), rs.getString("userId"), rs.getInt("isDeleted"));
 					list.add(rb);
 				}
 			}
@@ -150,9 +150,9 @@ public class ReservationDao {
 						ResultSet.CONCUR_READ_ONLY);
 				ResultSet rs = pstmt.executeQuery()) {
 			while (rs.next()) {
-				ReservationBean rb = new ReservationBean(rs.getString("id"), rs.getString("roomId"),
+				ReservationBean rb = new ReservationBean(rs.getInt("id"), rs.getString("roomId"),
 						rs.getString("date"),
-						rs.getString("start"), rs.getString("end"), rs.getString("userID"), rs.getInt("isDeleted"));
+						rs.getString("start"), rs.getString("end"), rs.getString("userId"), rs.getInt("isDeleted"));
 				list.add(rb);
 			}
 		} catch (SQLException e) {
@@ -182,7 +182,7 @@ public class ReservationDao {
 			pstmt.setString(2, reservation.getDate());
 			pstmt.setString(3, reservation.getStart());
 			pstmt.setString(4, reservation.getEnd());
-			pstmt.setString(5, reservation.getUserID());
+			pstmt.setString(5, reservation.getUserId());
 			//更新クエリの実行
 			int ret = pstmt.executeUpdate();
 			return ret != 0;

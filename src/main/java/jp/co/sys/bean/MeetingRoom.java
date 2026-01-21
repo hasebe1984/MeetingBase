@@ -271,8 +271,7 @@ public class MeetingRoom implements Serializable {
 				}
 			}
 		}
-		boolean isSuccess = UserDao.insert​(addUser);
-		return isSuccess;
+		return UserDao.insert​(addUser);
 	}
 
 	/**
@@ -291,7 +290,7 @@ public class MeetingRoom implements Serializable {
 		if (userEdit.getIsDeleted() == 1) {
 			throw new Exception("削除されたユーザーです");
 		}
-		if (editUserId.equals(this.user.getId()) && this.user.getIsAdmin().equals(0)) {
+		if (editUserId.equals(this.user.getId()) && this.user.getIsAdmin()==0) {
 			throw new Exception("変更できないユーザーです。");
 		}
 		boolean isSuccess = UserDao.update(user);
