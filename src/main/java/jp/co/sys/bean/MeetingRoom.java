@@ -233,12 +233,11 @@ public class MeetingRoom implements Serializable {
 			throw new Exception("時刻が過ぎているためキャンセルできません");
 		}
 		ReservationBean cancelReserve = ReservationDao.findById​(reservation.getId());
-		if (cancelReserve != null) {
+		if (cancelReserve == null) {
 			throw new Exception("既にキャンセルされています");
 		}
 		ReservationDao.delete​(reservation);
 	}
-
 	/**
 	*利用者登録生成
 	*登録情報がセットされた利用者情報にIDを追加して利用者登録情報として完成させ、DBに追加する。
