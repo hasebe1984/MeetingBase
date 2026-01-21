@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.SQLIntegrityConstraintViolationException;
+import java.sql.Statement;
 
 import jp.co.sys.bean.ReservationBean;
 import jp.co.sys.util.DatabaseConnectionProvider;
@@ -176,7 +177,7 @@ public class ReservationDao {
 		//INSERT INTO reservation (roomId, date, start, end, userID) VALUES ("0302", "2026-01-10", "09:00:00", "10:00:00", "2500003");
 		// try-with-resources構文でリソースを自動的にクローズ
 		try (Connection conn = DatabaseConnectionProvider.getConnection();
-				PreparedStatement pstmt = conn.prepareStatement(sql)) {
+				PreparedStatement pstmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
 			// プレースホルダーに値を設定
 			pstmt.setString(1, reservation.getRoomId());
 			pstmt.setString(2, reservation.getDate());
@@ -185,7 +186,18 @@ public class ReservationDao {
 			pstmt.setString(5, reservation.getUserId());
 			//更新クエリの実行
 			int ret = pstmt.executeUpdate();
-			return ret != 0;
+			 if (ret == 0) {
+		            return false;
+		        }
+		        //自動生成されたIDを取得
+		        try (ResultSet rs = pstmt.getGeneratedKeys()) {
+		            if (rs.next()) {
+		                int id = rs.getInt(1);
+		                reservation.setId(id); 
+		            }
+		        }
+		        return true;
+
 		} catch (SQLIntegrityConstraintViolationException e) {
 			e.printStackTrace();
 			System.err.println("登録していないルームIDを入れているか日付や時間が重複しています。");
