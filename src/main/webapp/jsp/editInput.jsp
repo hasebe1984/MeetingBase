@@ -13,11 +13,11 @@
 	</div>
 	<div class="input-wrap">
 		<label for="userName">氏名</label>
-		<input type="text" name="userName" <c:out value="${user.name}" /> id="userName" class="form_input" required>
+		<input type="text" name="userName" value="${user.name}"  id="userName" class="form_input" required>
 	</div>
 	<div class="input-wrap">
 		<label for="userAddress">住所</label>
-		<input type="text" name="userAddress" <c:out value="${user.address}" /> id="userAddress" class="form_input" required>
+		<input type="text" name="userAddress"  value="${user.address}"  id="userAddress" class="form_input" required>
 	</div>
 	<div class="input-wrap input-wrap_check ${'1'.equals(adminFlag) ? '' : 'hidden' || meetingRoom.user.isAdmin == '0' ? 'hidden' : ''}">
 		<label for="userAdmin">管理者</label>
@@ -34,8 +34,8 @@
 <form action="${pageContext.request.contextPath}/AdminUserServlet" method="post" class="form form_unsubscribe ${cancelFlag == '1' ? '' : 'hidden'}">
     <input type="hidden" name="userId" value="${user.id}">
     <input type="hidden" name="userPw" value="${user.password}">
-    <input type="hidden" name="userName" value="${user.name}">
-    <input type="hidden" name="userAddress" value="${user.address}">
+    <input type="hidden" name="userName" <c:out value="${user.name}" />>
+    <input type="hidden" name="userAddress" <c:out value="${user.address}" />>
 	<input type="hidden" name="userAdmin" value="${user.isAdmin == 1 ? 'on' : ''}">
     <input type="hidden" name="cancelFlag" value="${cancelFlag}">
     <input type="hidden" name="adminFlag" value="${adminFlag}">
