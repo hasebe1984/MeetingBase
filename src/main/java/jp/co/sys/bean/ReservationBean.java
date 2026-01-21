@@ -5,38 +5,38 @@ import java.io.Serializable;
 public class ReservationBean implements Serializable {
 	private String date;
 	private String end;
-	private String id;
+	private int id;
 	private String roomId;
 	private static final long serialVersionUID = 1L;
 	private String start;
-	private String userID;
+	private String userId;
 	private int isDeleted;
 
 	//	コンストラクタ
 	public ReservationBean() {
 	}
 
-	public ReservationBean(String id, String roomId, String date, String start, String end, String userID, int isDeleted) {
+	public ReservationBean(int id, String roomId, String date, String start, String end, String userId, int isDeleted) {
 		super();
 		this.id = id;
 		this.roomId = roomId;
 		this.date = date;
 		this.start = start;
 		this.end = end;
-		this.userID = userID;
+		this.userId = userId;
 		this.isDeleted = isDeleted;
 	}
 
-	public ReservationBean(String roomId, String date, String start, String end, String userID) {
-		this("0", roomId, date, start, end, userID, 0);
+	public ReservationBean(String roomId, String date, String start, String end, String userId) {
+		this(0, roomId, date, start, end, userId, 0);
 		this.roomId = roomId;
 		this.date = date;
 		this.start = start;
 		this.end = end;
-		this.userID = userID;
+		this.userId = userId;
 	}
 
-	public String getId() {
+	public int getId() {
 		return id;
 	}
 
@@ -44,7 +44,7 @@ public class ReservationBean implements Serializable {
 		return isDeleted;
 	}
 
-	public void setId(String id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 
@@ -64,12 +64,12 @@ public class ReservationBean implements Serializable {
 		return end;
 	}
 
-	public String getUserID() {
-		return userID;
+	public String getUserId() {
+		return userId;
 	}
 
 	@Override
 	public String toString() {
-		return id + " " + date + " " + start + " " + end + " " + userID + " " + isDeleted + "\n";
+		return id + " " + date + " " + start + " " + end + " " + userId + " " + isDeleted + "\n";
 	}
 }
