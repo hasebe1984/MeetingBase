@@ -57,7 +57,7 @@
 	%>
 	<tbody>
 	<tr>
-		<td><%=rooms.get(i).getName()%></td>
+		<td><%= String a=rooms.get(i).getName() ${a}%></td>
 		<%--二重for文　j=時間の表示（今は〇、×表示をここで判定）--%>
 		<%
 		for (int j = 0; j < period.length; j++) {
