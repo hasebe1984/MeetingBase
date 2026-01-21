@@ -35,6 +35,7 @@ body {
 	flex-direction: row;
 	align-items: center;
 	justify-content: end;
+	gap: 48px;
 }
 
 
