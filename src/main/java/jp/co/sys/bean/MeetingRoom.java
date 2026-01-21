@@ -174,7 +174,6 @@ public class MeetingRoom implements Serializable {
 		ReservationBean reservation = new ReservationBean(roomId, date, start, end, userId);
 		return reservation;
 	}
-
 	/**
 	*予約登録
 	*会議室予約情報で会議室Daoを利用し、予約します。
@@ -212,7 +211,6 @@ public class MeetingRoom implements Serializable {
 		}
 		ReservationDao.insert​(reservation);
 	}
-
 	/**
 	*予約キャンセル
 	*会議室予約情報で会議室をキャンセルします。
@@ -292,6 +290,7 @@ public class MeetingRoom implements Serializable {
 			throw new Exception("変更できないユーザーです。");
 		}
 		boolean isSuccess = UserDao.update(user);
+		this.user = user;
 		return isSuccess;
 	}
 

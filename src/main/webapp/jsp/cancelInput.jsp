@@ -11,8 +11,8 @@
 <h2>利用日</h2>
 <form action="${pageContext.request.contextPath}/ChangeDateServlet"
 	method="post">
-	<input type="date" name="date" value="${meetingRoom.date}"> <input
-		type="submit" value="日付変更" class="button_submit button_submit_small">
+	<input type="date" name="date" class="form_input_date" value="${meetingRoom.date}"> <input
+		type="submit" value="日付変更" class="button_submit">
 	<input type="hidden" name="page" value="cancelInput.jsp">
 </form>
 <h2>キャンセル可能時間帯（<c:out value="${meetingRoom.user.name}" />）</h2>
@@ -28,7 +28,7 @@ ReservationBean[][] reservations = meetingRoom.getReservations();
 %>
 <table class="input_table">
 	<tr>
-		<th>会議室 / 時間</th>
+		<th class="input_th">会議室 / 時間</th>
 		<%--始まりの時間を要素分取り出して順に表示--%>
 		<%
 		for (int j = 0; j < period.length; j++) {
@@ -63,7 +63,7 @@ ReservationBean[][] reservations = meetingRoom.getReservations();
 				<input type="submit" value="〇"
 					class="button_submit button_submit_small button_submit_blue">
 				<input type="hidden" name="time" value="<%=period[j]%>">
-
+				<input type="hidden" name="researvationId" value="<%=reservations[i][j].getId()%>">
 			</form> <%--配列の中身が×だったら×を直書き--%> <%
  } else {
  %>
