@@ -35,7 +35,10 @@ public class LoginFilter implements Filter {
 
 //        未ログインならログイン画面へ飛ばす
         } else {
-            res.sendRedirect(req.getContextPath() + "/jsp/login.jsp");
+        	session = req.getSession(true);
+        	session.setAttribute("message", "一定時間が経過したため再ログインしてください");
+        	res.sendRedirect(req.getContextPath() + "/jsp/login.jsp");
         }
     }
 }
+

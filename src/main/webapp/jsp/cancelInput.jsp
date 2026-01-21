@@ -49,10 +49,10 @@ ReservationBean[][] reservations = meetingRoom.getReservations();
 		<td>
 			<%--予約キャンセルできるデータに〇をつける--%> <%
  if (reservations[i][j] != null) {
- 	String resUser = reservations[i][j].getUserId();
+ 	String resUser = reservations[i][j].getUserID();
  	String logUser = meetingRoom.getUser().getId();
  	if (resUser.equals(logUser)) {
- 		System.out.println(reservations[i][j].getUserId() + meetingRoom.getUser().getId());
+ 		System.out.println(reservations[i][j].getUserID() + meetingRoom.getUser().getId());
  %>
 			<form action="${pageContext.request.contextPath}/CancelCreateServlet"
 				method="post">
