@@ -5,7 +5,7 @@
 <hr>
 <h2>入力</h2>
 <p class="message">${message}</p>
-<form action="${pageContext.request.contextPath}/UserEditServlet" method="post" class="form">
+<form action="${pageContext.request.contextPath}/UserEditServlet" method="post" class="form form_unsubscribe">
 	<div class="input-wrap">
 		<label for="userPw">パスワード</label>
 		<input type="text" name="userPw" value="${user.password}" id="userPw" class="form_input" required>
@@ -22,7 +22,7 @@
 		<label for="userAdmin">管理者</label>
 		<input type="checkbox" name="userAdmin" id="userAdmin" class="form_check" ${checked}>
 	</div>
-    <div class="button_row">
+    <div class="button_row button_row_unsubscribe">
 	    <a href="${pageContext.request.contextPath}/jsp/menu.jsp" class="button_submit">戻る</a>
 	    <input type="hidden" name="userId" value="${user.id}">
 	    <input type="hidden" name="cancelFlag" value="${cancelFlag}">
@@ -30,7 +30,7 @@
 	    <input type="submit" name="action" value="決定" class="button_submit">
     </div>
 </form>
-<form action="${pageContext.request.contextPath}/AdminUserServlet" method="post" class="form ${cancelFlag == '1' ? '' : 'hidden'}">
+<form action="${pageContext.request.contextPath}/AdminUserServlet" method="post" class="form form_unsubscribe ${cancelFlag == '1' ? '' : 'hidden'}">
     <input type="hidden" name="userId" value="${user.id}">
     <input type="hidden" name="userPw" value="${user.password}">
     <input type="hidden" name="userName" value="${user.name}">
@@ -38,6 +38,6 @@
 	<input type="hidden" name="userAdmin" value="${user.isAdmin == 1 ? 'on' : ''}">
     <input type="hidden" name="cancelFlag" value="${cancelFlag}">
     <input type="hidden" name="adminFlag" value="${adminFlag}">
-    <input type="submit" name="action" value="退会する" class="button_submit" onclick="return confirm('本当に退会してよろしいですか？');">
+    <input type="submit" name="action" value="退会する" class="button_submit button_unsubscribe" onclick="return confirm('本当に退会してよろしいですか？');">
 </form>
 <%@include file="../common/footer.jsp"%>
