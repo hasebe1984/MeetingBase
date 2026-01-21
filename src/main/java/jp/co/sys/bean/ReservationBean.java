@@ -10,13 +10,12 @@ public class ReservationBean implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private String start;
 	private String userId;
-	private int isDeleted;
 
 	//	コンストラクタ
 	public ReservationBean() {
 	}
 
-	public ReservationBean(int id, String roomId, String date, String start, String end, String userId, int isDeleted) {
+	public ReservationBean(int id, String roomId, String date, String start, String end, String userId) {
 		super();
 		this.id = id;
 		this.roomId = roomId;
@@ -24,11 +23,10 @@ public class ReservationBean implements Serializable {
 		this.start = start;
 		this.end = end;
 		this.userId = userId;
-		this.isDeleted = isDeleted;
 	}
 
 	public ReservationBean(String roomId, String date, String start, String end, String userId) {
-		this(0, roomId, date, start, end, userId, 0);
+		this(0, roomId, date, start, end, userId);
 		this.roomId = roomId;
 		this.date = date;
 		this.start = start;
@@ -42,10 +40,6 @@ public class ReservationBean implements Serializable {
 
 	public int getId() {
 		return id;
-	}
-
-	public int getIsDeleted() {
-		return isDeleted;
 	}
 
 	public void setId(int id) {
@@ -74,6 +68,6 @@ public class ReservationBean implements Serializable {
 
 	@Override
 	public String toString() {
-		return id + " " + date + " " + start + " " + end + " " + userId + " " + isDeleted + "\n";
+		return id + " " + date + " " + start + " " + end + " " + userId + "\n";
 	}
 }
