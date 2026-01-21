@@ -33,6 +33,8 @@ public class LoginServlet extends HttpServlet {
 		
 		String nextPage;
 		HttpSession session = request.getSession();
+		//セッション時間の変更
+//		session.setMaxInactiveInterval(5);
 		MeetingRoom meetingRoom = new MeetingRoom();
 		
 		boolean login = meetingRoom.login​(id, password);
@@ -61,7 +63,7 @@ public class LoginServlet extends HttpServlet {
 			nextPage = request.getContextPath() + "/jsp/menu.jsp";
 		} else {
 			//        		ログインJSPに飛ばす
-			session.setAttribute("error", "IDかパスワードが違います");
+			session.setAttribute("message", "IDかパスワードが違います");
 			nextPage = request.getContextPath() + "/jsp/login.jsp";
 			response.sendRedirect(nextPage);
 			return;

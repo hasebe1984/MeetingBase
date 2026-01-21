@@ -5,8 +5,8 @@
 <hr>
 <%-- 動的にパスを取得するため、プロジェクト名が変わっても修正不要です --%>
 <h2>ログイン</h2>
-<p class="message">${error}</p>
-<%session.removeAttribute("error"); %>
+<p class="message">${message}</p>
+<%session.removeAttribute("message"); %>
 <form action="${pageContext.request.contextPath}/LoginServlet"
 	method="post" class="form">
 	<div class="input-wrap">
