@@ -25,7 +25,7 @@ String[] period = meetingRoom.getPeriod();
 //予約情報の一覧
 ReservationBean[][] reservations = meetingRoom.getReservations();
 %>
-<table border="1">
+<table class="input_table">
 	<tr>
 		<th>会議室 / 時間</th>
 		<%--始まりの時間を要素分取り出して順に表示--%>

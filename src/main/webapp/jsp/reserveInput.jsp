@@ -36,7 +36,7 @@
 
 <%--後で復活タグ<h1>予約可能時間帯${meetingRoom.user.name}</h1>--%>
 
-<table>
+<table class="input_table">
 		<thead>
 			<tr>
 				<th>会議室/時間</th>
