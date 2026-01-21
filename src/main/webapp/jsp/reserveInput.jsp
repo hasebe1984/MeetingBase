@@ -48,11 +48,12 @@
 	<%--二重for文　i=会議室名の表示--%>
 	<%
 	for (int i = 0; i < rooms.size(); i++) {
-		
+		String room = rooms.get(i).getName();
+		request.setAttribute("room", room);
 	%>
 	<tbody>
 	<tr>
-		<td><%=rooms.get(i).getName()%></td>
+		<td><c:out value="${room }" /></td>
 		<%--二重for文　j=時間の表示（今は〇、×表示をここで判定）--%>
 		<%
 		for (int j = 0; j < period.length; j++) {

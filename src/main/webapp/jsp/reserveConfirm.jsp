@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@include file="../common/header.jsp"%>
 <h1>会議室予約</h1>
 <hr>
@@ -12,7 +13,7 @@
 		</tr>
 		<tr>
 			<th>会議室</th>
-			<td>${room.name}</td>
+			<td><c:out value="${room.name}" /></td>
 		</tr>
 		<tr>
 			<th>予約時刻</th>
@@ -21,7 +22,7 @@
 		<tr>
 			<th>予約者</th>
 			
-			<td>${meetingRoom.user.name}</td>
+			<td><c:out value="${meetingRoom.user.name}" /></td>
 		</tr>
 	</tbody>
 </table>
