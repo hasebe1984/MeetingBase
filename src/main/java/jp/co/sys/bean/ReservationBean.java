@@ -35,6 +35,10 @@ public class ReservationBean implements Serializable {
 		this.end = end;
 		this.userId = userId;
 	}
+	
+	public ReservationBean(int id) {
+		this.id = id;
+	}
 
 	public int getId() {
 		return id;

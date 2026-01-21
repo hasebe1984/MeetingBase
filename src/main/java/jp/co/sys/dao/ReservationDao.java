@@ -202,15 +202,13 @@ public class ReservationDao {
 	 */
 	//	予約を削除します
 	public static boolean delete​(ReservationBean reservation) {
-		String sql = "update reservation set isDeleted = 1 where roomId = ? and date = ? and start = ? and isDeleted = 0";
+		String sql = "DELETE FROM reservation WHERE id = ?";
 		//update reservation set isDeleted = 1 where roomId = "0302" and date = "2026-01-10" and start = "09:00:00 and isDeleted = 0";
 		// try-with-resources構文でリソースを自動的にクローズ
 		try (Connection conn = DatabaseConnectionProvider.getConnection();
 				PreparedStatement pstmt = conn.prepareStatement(sql)) {
 			// プレースホルダーに値を設定
-			pstmt.setString(1, reservation.getRoomId());
-			pstmt.setString(2, reservation.getDate());
-			pstmt.setString(3, reservation.getStart());
+			pstmt.setInt(1, reservation.getId());
 			//更新クエリの実行
 			int ret = pstmt.executeUpdate();
 			return ret != 0;
