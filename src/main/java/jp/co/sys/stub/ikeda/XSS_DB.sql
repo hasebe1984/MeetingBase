@@ -34,7 +34,7 @@ CREATE TABLE reservation (
         userId VARCHAR(7) NOT NULL,
         FOREIGN KEY(roomid) REFERENCES room(id),
         FOREIGN KEY(userid) REFERENCES user(id),
-        UNIQUE(roomId, date, start),
+        UNIQUE(roomId, date, start)
 );
 
 
