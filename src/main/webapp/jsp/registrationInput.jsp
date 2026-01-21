@@ -12,7 +12,7 @@
 	</div>
 	<div class="input-wrap">
 		<label for="userName">氏名</label>
-		<input type="text" name="userName" value="${user.name}" id="userName" class="form_input" required>
+		<input type="text" name="userName" value="<c:out value="${user.name}" />" id="userName" class="form_input" required>
 	</div>
 	<div class="input-wrap">
 		<label for="userAddress">住所</label>
