@@ -25,7 +25,7 @@ String[] period = meetingRoom.getPeriod();
 //予約情報の一覧
 ReservationBean[][] reservations = meetingRoom.getReservations();
 %>
-<table border="1">
+<table class="input_table">
 	<tr>
 		<th>会議室 / 時間</th>
 		<%--始まりの時間を要素分取り出して順に表示--%>
@@ -49,11 +49,10 @@ ReservationBean[][] reservations = meetingRoom.getReservations();
 		<td>
 			<%--予約キャンセルできるデータに〇をつける--%> <%
  if (reservations[i][j] != null) {
- 	String resUser = reservations[i][j].getUserID();
+ 	String resUser = reservations[i][j].getUserId();
  	String logUser = meetingRoom.getUser().getId();
  	if (resUser.equals(logUser)) {
- 		System.out.println(reservations[i][j].getUserID() + meetingRoom.getUser().getId());
- %>
+%>
 			<form action="${pageContext.request.contextPath}/CancelCreateServlet"
 				method="post">
 				<input type="hidden" name="roomId" value="<%=rooms.get(i).getId()%>">

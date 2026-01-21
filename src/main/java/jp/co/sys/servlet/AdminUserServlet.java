@@ -35,8 +35,11 @@ public class AdminUserServlet extends HttpServlet {
 		HttpSession session = request.getSession();
 		MeetingRoom mr = (MeetingRoom)session.getAttribute("meetingRoom");
 		
+		String action = request.getParameter("action");
+		
 		String userAddress = request.getParameter("userAddress");
-		String userId = request.getParameter("userId");
+//		String userId = request.getParameter("userId");
+		String userId = "会員情報編集".equals(action) ? mr.getUser().getId() : request.getParameter("userId");
 		String userName = request.getParameter("userName");
 		String userPw = request.getParameter("userPw");
 		String userAdmin = request.getParameter("userAdmin");
@@ -47,7 +50,6 @@ public class AdminUserServlet extends HttpServlet {
 		
 		UserBean user = new UserBean(userAddress, userId, userName, userPw, userAdminInt);
 		
-		String action = request.getParameter("action");
 		String nextPath = "/jsp/userList.jsp";
 		String cancelFlag = request.getParameter("cancelFlag");
 		String adminFlag = request.getParameter("adminFlag");

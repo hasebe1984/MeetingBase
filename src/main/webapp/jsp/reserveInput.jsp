@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page import="jp.co.sys.bean.MeetingRoom"%>
 <%@ page import="jp.co.sys.bean.RoomBean"%>
 <%@ page import="jp.co.sys.bean.ReservationBean"%>
@@ -32,11 +33,11 @@
 		type="submit" value="日付変更" class="button_submit button_submit_small"><br> <input type="hidden"
 		name="page" value="reserveInput.jsp">
 </form>
-<h2>予約可能時間帯 &nbsp;&nbsp;&nbsp; ${meetingRoom.user.name} さん</h2>
+<h2>予約可能時間帯 &nbsp;&nbsp;&nbsp; <c:out value="${meetingRoom.user.name}" /> さん</h2>
 
 <%--後で復活タグ<h1>予約可能時間帯${meetingRoom.user.name}</h1>--%>
 
-<table>
+<table class="input_table">
 		<thead>
 			<tr>
 				<th>会議室/時間</th>
