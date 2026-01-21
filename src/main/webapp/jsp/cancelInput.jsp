@@ -2,6 +2,7 @@
 <%@page import="jp.co.sys.util.RoomList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page import="jp.co.sys.bean.MeetingRoom"%>
 <%@ page import="jp.co.sys.bean.RoomBean"%>
 
@@ -14,7 +15,7 @@
 		type="submit" value="日付変更" class="button_submit">
 	<input type="hidden" name="page" value="cancelInput.jsp">
 </form>
-<h2>キャンセル可能時間帯（${meetingRoom.user.name}）</h2>
+<h2>キャンセル可能時間帯（<c:out value="${meetingRoom.user.name}" />）</h2>
 <%
 //meetingRoomをセッションから取得
 MeetingRoom meetingRoom = (MeetingRoom) session.getAttribute("meetingRoom");
@@ -40,9 +41,11 @@ ReservationBean[][] reservations = meetingRoom.getReservations();
 	<%--二重for文　i=会議室名の表示--%>
 	<%
 	for (int i = 0; i < rooms.size(); i++) {
+		String room = rooms.get(i).getName();
+		request.setAttribute("room", room);
 	%>
 	<tr>
-		<th><%=rooms.get(i).getName()%></th>
+		<th><c:out value="${room }" /></th>
 		<%
 		for (int j = 0; j < period.length; j++) {
 		%>
