@@ -67,7 +67,6 @@ public class ReserveServlet extends HttpServlet {
 		System.out.println("開始: " + reservation.getStart());
 		System.out.println("終了: " + reservation.getEnd());
 		System.out.println("ユーザー");
-		System.out.println("isDeleted:" + reservation.getIsDeleted());
 		System.out.println("===================");
 
      
