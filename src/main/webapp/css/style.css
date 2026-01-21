@@ -76,6 +76,10 @@ h2 {
 	width: 500px;
 }
 
+.form_unsubscribe {
+	margin: 0 auto;
+}
+
 .input-wrap {
 	display: flex;
 	flex-direction: row;
@@ -93,6 +97,11 @@ h2 {
 	color: #292929;
 	border-radius: 0.5rem;
 	background-color: #fff9e6;
+}
+
+.form_input_date {
+    padding: 8px 24px;
+    margin-right: 24px;
 }
 
 .form_check {
@@ -116,6 +125,9 @@ h2 {
 	margin: 24px auto;
 	justify-content: center;
 	gap: 24px;
+}
+.button_row_unsubscribe {
+	margin: 24px auto 0;
 }
 
 
@@ -155,6 +167,12 @@ h2 {
 .button_submit_impossible {
 	background-color: #fff9e6;
 	color: #292929;
+}
+.button_unsubscribe {
+	background-color: #fff9e6;
+	color: #ff8800;
+	border: 2px solid #ff8800;
+	margin: 0 auto;
 }
 
 .button_list {
@@ -262,6 +280,10 @@ td {
 
 .list_table {
 	width: 90vw;
+}
+
+.input_th {
+	width: 500px;
 }
 
 .list_td_small {

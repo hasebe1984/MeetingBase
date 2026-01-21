@@ -105,6 +105,24 @@ public class RoomDao {
 		}
 		return null;
 	}
+	
+	public static RoomBean getFloorId(String idFloor) {
+		//SQL文user_idを指定して、レコードを取得
+		String sql = "SELECT * FROM room WHERE id LIKE ? ORDER BY id DESC LIMIT 1";
+		//データベースへ接続
+		try (Connection db = DatabaseConnectionProvider.getConnection();
+				PreparedStatement pstmt = db.prepareStatement(sql)) {
+			//受け取ったIdをSQL文へ代入
+			pstmt.setString(1, idFloor + "%");
+			ResultSet rs = pstmt.executeQuery();
+			rs.next();
+			RoomBean rb = new RoomBean(rs.getString("id"), rs.getString("name"));
+			return rb;
+		} catch (SQLException ex) {
+			ex.printStackTrace();
+		}
+		return null;
+	}
 }
 
 

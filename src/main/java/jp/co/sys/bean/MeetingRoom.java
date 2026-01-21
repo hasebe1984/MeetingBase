@@ -152,11 +152,11 @@ public class MeetingRoom implements Serializable {
 	*/
 	public boolean login​(String id, String password) {
 		UserBean result = UserDao.certificate​(id, password);
-		if (result != null) {
+		if (result == null || result.getIsDeleted()==1) {
+			return false;
+		} else {
 			this.user = result;
 			return true;
-		} else {
-			return false;
 		}
 	}
 
@@ -311,8 +311,8 @@ public class MeetingRoom implements Serializable {
 		if (deleteUser.getIsDeleted()==1) {
 			throw new Exception("既に削除されています");
 		}
-		if (user.getId() != this.user.getId() && this.user.getIsAdmin()==0) {
-			throw new Exception("削除できないユーザーです。");
+		if(this.user.getIsAdmin() ==1 && deleteUser.getId().equals(this.user.getId())) {
+			throw new Exception("削除できませんでした");
 		}
 		ReservationList reserveList = ReservationDao.finduserID(user.getId());
 		if(reserveList !=null) {
@@ -360,10 +360,17 @@ public class MeetingRoom implements Serializable {
 	 */
 	public Boolean addRoom(RoomBean room) throws Exception {
 		int num = Integer.parseInt(room.getId());
-		int count = RoomDao.findAll().size() + 1;
-		String roomsNum = String.format("%02d", count);
-		String formatRoomNum = String.format("%02d", num);
-		String roomId = formatRoomNum + roomsNum;
+		String floorNum = String.format("%02d", num);
+		RoomBean floorRoom = RoomDao.getFloorId(floorNum);
+		String roomId;
+		if(floorRoom==null) {
+			String roomsNum ="00";
+			roomId = floorNum + roomsNum;
+		} else {
+			int roomIdNum = Integer.parseInt(floorRoom.getId());
+			roomIdNum++;
+			roomId = String.format("%04d", roomIdNum);
+		}
 		room.setId(roomId);
 		RoomList allRoom = RoomDao.findAll();
 		if (allRoom != null) {

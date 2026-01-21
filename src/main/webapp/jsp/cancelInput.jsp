@@ -52,7 +52,8 @@ ReservationBean[][] reservations = meetingRoom.getReservations();
  	String resUser = reservations[i][j].getUserId();
  	String logUser = meetingRoom.getUser().getId();
  	if (resUser.equals(logUser)) {
-%>
+ 		System.out.println(reservations[i][j].getUserId() + meetingRoom.getUser().getId());
+ %>
 			<form action="${pageContext.request.contextPath}/CancelCreateServlet"
 				method="post">
 				<input type="hidden" name="roomId" value="<%=rooms.get(i).getId()%>">
