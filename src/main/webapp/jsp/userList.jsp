@@ -34,9 +34,9 @@
 				<td class="list_td_small"><%= l.getIsAdmin() == 0 ? "一般" : "管理者" %></td>				
 				<td class="list_td_small">
 					<form action="<%= request.getContextPath() %>/UserEditServlet" method="post">
-						<input type="hidden" name="userAddress" value="<%= l.getAddress() %>">
+						<input type="hidden" name="userAddress" value="<c:out value="${address}" />">
 						<input type="hidden" name="userId" value="<%= l.getId() %>">
-						<input type="hidden" name="userName" value="<%= l.getName() %>">
+						<input type="hidden" name="userName" value="<c:out value="${name}" />">
 						<input type="hidden" name="userPw" value="<%= l.getPassword() %>">
 						<input type="hidden" name="userAdmin" value="<%= l.getIsAdmin() %>">
 						<input type="submit" value="編集" class="button_list">
@@ -46,7 +46,7 @@
 					<form action="<%= request.getContextPath() %>/AdminUserServlet" method="post">
 						<input type="hidden" name="userAddress" value="<c:out value="${address}" />">
 						<input type="hidden" name="userId" value="<%= l.getId() %>">
-						<input type="hidden" name="userName" value="<%= l.getName() %>">
+						<input type="hidden" name="userName" value="<c:out value="${name}" />">
 						<input type="hidden" name="userPw" value="<%= l.getPassword() %>">
 						<input type="hidden" name="userAdmin" value="<%= l.getIsAdmin() %>">
 						<input type="submit" name="action" value="削除" class="button_list" onclick="return confirm('本当に削除してよろしいですか？');">

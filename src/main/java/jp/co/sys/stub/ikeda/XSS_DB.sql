@@ -43,7 +43,7 @@ INSERT INTO user VALUES('2500444','111111','<h1>悪</h1>','<h1>悪いある県</
 INSERT INTO user VALUES('2500002','111111','管理花子','大阪府','0','1');
 INSERT INTO user VALUES('2500003','111111','削除よしお','大阪府','1','0');
 INSERT INTO user VALUES('2500004','111111','管理削除リチャード','大阪府','1','1');
-INSERT INTO user VALUES('2500666','111111','悪意','<script>confirm("悪意")</script>','0','0');
+INSERT INTO user VALUES('2500666','111111','悪意','<script>confirm("悪")</script>','0','0');
 
 INSERT INTO room VALUES('0201','<h1>悪意ある会議室</h1>');
 INSERT INTO room VALUES('0301','３Ａ会議室');
