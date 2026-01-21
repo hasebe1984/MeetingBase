@@ -21,12 +21,16 @@
 			UserList list = (UserList)request.getAttribute("list");
 			if (list != null) {
 			for (UserBean l : list) {
+				String name = l.getName();
+				request.setAttribute("name", name);
+				String address = l.getAddress();
+				request.setAttribute("address", address);
 		%>
 			<tr>
 				<td class="list_td_small"><%= l.getId() %></td>
 				<td class="list_td_middle"><%= l.getPassword() %></td>
-				<td><%= l.getName() %></td>
-				<td class="list_td_large"><%= l.getAddress() %></td>
+				<td><c:out value="${name}" /></td>
+				<td class="list_td_large"><c:out value="${address}" /></td>
 				<td class="list_td_small"><%= l.getIsAdmin() == 0 ? "一般" : "管理者" %></td>				
 				<td class="list_td_small">
 					<form action="<%= request.getContextPath() %>/UserEditServlet" method="post">
@@ -40,7 +44,7 @@
 				</td>
 				<td class="list_td_small">
 					<form action="<%= request.getContextPath() %>/AdminUserServlet" method="post">
-						<input type="hidden" name="userAddress" value="<%= l.getAddress() %>">
+						<input type="hidden" name="userAddress" value="<c:out value="${address}" />">
 						<input type="hidden" name="userId" value="<%= l.getId() %>">
 						<input type="hidden" name="userName" value="<%= l.getName() %>">
 						<input type="hidden" name="userPw" value="<%= l.getPassword() %>">

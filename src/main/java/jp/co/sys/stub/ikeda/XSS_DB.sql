@@ -38,8 +38,8 @@ CREATE TABLE reservation (
 );
 
 
-INSERT INTO user VALUES('2500001','111111','<h1>悪</h1>','<script>confirm("悪意")</script>','0','0');
-INSERT INTO user VALUES('2500444','111111','<h1>悪</h1>','東京都','0','0');
+INSERT INTO user VALUES('2500001','111111','<h1>悪</h1>','<h1>悪いある県</h1>','0','1');
+INSERT INTO user VALUES('2500444','111111','<h1>悪</h1>','<h1>悪いある県</h1>','0','0');
 INSERT INTO user VALUES('2500002','111111','管理花子','大阪府','0','1');
 INSERT INTO user VALUES('2500003','111111','削除よしお','大阪府','1','0');
 INSERT INTO user VALUES('2500004','111111','管理削除リチャード','大阪府','1','1');
