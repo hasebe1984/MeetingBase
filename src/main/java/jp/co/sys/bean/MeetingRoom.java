@@ -204,8 +204,8 @@ public class MeetingRoom implements Serializable {
 				LocalTime time = LocalTime.parse(rs.getStart());
 				DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
 				String rsStart = formatter.format(time);
-				if (reservedRoomId.equals(reservation.getRoomId()) && rsStart.equals(reservation.getStart())
-						&& rs.getIsDeleted() == 0) {
+				if (reservedRoomId.equals(reservation.getRoomId()) && rsStart.equals(reservation.getStart()))
+				{
 					throw new Exception("既に予約されています");
 				}
 			}
@@ -233,12 +233,11 @@ public class MeetingRoom implements Serializable {
 			throw new Exception("時刻が過ぎているためキャンセルできません");
 		}
 		ReservationBean cancelReserve = ReservationDao.findById​(reservation.getId());
-		if (cancelReserve != null && cancelReserve.getIsDeleted() == 1) {
+		if (cancelReserve == null) {
 			throw new Exception("既にキャンセルされています");
 		}
 		ReservationDao.delete​(reservation);
 	}
-
 	/**
 	*利用者登録生成
 	*登録情報がセットされた利用者情報にIDを追加して利用者登録情報として完成させ、DBに追加する。
