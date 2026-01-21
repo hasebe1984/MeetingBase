@@ -25,7 +25,7 @@ public class ReservationDao {
 	//	利用日の予約を検索します
 	public static ReservationList findByDate​(String date) {
 		ReservationList list = new ReservationList();
-		String sql = "SELECT * FROM reservation WHERE date = ? and isDeleted = 0";
+		String sql = "SELECT * FROM reservation WHERE date = ?";
 
 		try (Connection conn = DatabaseConnectionProvider.getConnection();
 				PreparedStatement pstmt = conn.prepareStatement(sql)) {
@@ -45,7 +45,7 @@ public class ReservationDao {
 					//					ReservationBean rb = new ReservationBean(id, roomId, date2, start, end, userID);
 					ReservationBean rb = new ReservationBean(rs.getInt("id"), rs.getString("roomId"),
 							rs.getString("date"),
-							rs.getString("start"), rs.getString("end"), rs.getString("userId"), rs.getInt("isDeleted"));
+							rs.getString("start"), rs.getString("end"), rs.getString("userId"));
 					list.add(rb);
 				}
 			}
@@ -66,7 +66,7 @@ public class ReservationDao {
 	 */
 	public static ReservationBean findById​(int id) throws SQLException {
 		ReservationBean rb = null;
-		String sql = "SELECT * FROM reservation WHERE id = ? and isDeleted = 0";
+		String sql = "SELECT * FROM reservation WHERE id = ? ";
 
 		try (Connection conn = DatabaseConnectionProvider.getConnection();
 				PreparedStatement pstmt = conn.prepareStatement(sql)) {
@@ -75,7 +75,7 @@ public class ReservationDao {
 				while (rs.next()) {
 					rb = new ReservationBean(rs.getInt("id"), rs.getString("roomId"),
 							rs.getString("date"),
-							rs.getString("start"), rs.getString("end"), rs.getString("userId"), rs.getInt("isDeleted"));
+							rs.getString("start"), rs.getString("end"), rs.getString("userId"));
 				}
 			} catch (SQLException e) {
 				e.printStackTrace();
@@ -95,7 +95,7 @@ public class ReservationDao {
 				while (rs.next()) {
 					ReservationBean searchResult = new ReservationBean(rs.getInt("id"), rs.getString("roomId"),
 							rs.getString("date"),
-							rs.getString("start"), rs.getString("end"), rs.getString("userId"), rs.getInt("isDeleted"));
+							rs.getString("start"), rs.getString("end"), rs.getString("userId"));
 					list.add(searchResult);
 				}
 				return list;
@@ -123,7 +123,7 @@ public class ReservationDao {
 				while (rs.next()) {
 					ReservationBean rb = new ReservationBean(rs.getInt("id"), rs.getString("roomId"),
 							rs.getString("date"),
-							rs.getString("start"), rs.getString("end"), rs.getString("userId"), rs.getInt("isDeleted"));
+							rs.getString("start"), rs.getString("end"), rs.getString("userId"));
 					list.add(rb);
 				}
 			}
@@ -152,7 +152,7 @@ public class ReservationDao {
 			while (rs.next()) {
 				ReservationBean rb = new ReservationBean(rs.getInt("id"), rs.getString("roomId"),
 						rs.getString("date"),
-						rs.getString("start"), rs.getString("end"), rs.getString("userId"), rs.getInt("isDeleted"));
+						rs.getString("start"), rs.getString("end"), rs.getString("userId"));
 				list.add(rb);
 			}
 		} catch (SQLException e) {
@@ -202,15 +202,13 @@ public class ReservationDao {
 	 */
 	//	予約を削除します
 	public static boolean delete​(ReservationBean reservation) {
-		String sql = "update reservation set isDeleted = 1 where roomId = ? and date = ? and start = ? and isDeleted = 0";
+		String sql = "DELETE FROM reservation WHERE id = ?";
 		//update reservation set isDeleted = 1 where roomId = "0302" and date = "2026-01-10" and start = "09:00:00 and isDeleted = 0";
 		// try-with-resources構文でリソースを自動的にクローズ
 		try (Connection conn = DatabaseConnectionProvider.getConnection();
 				PreparedStatement pstmt = conn.prepareStatement(sql)) {
 			// プレースホルダーに値を設定
-			pstmt.setString(1, reservation.getRoomId());
-			pstmt.setString(2, reservation.getDate());
-			pstmt.setString(3, reservation.getStart());
+			pstmt.setInt(1, reservation.getId());
 			//更新クエリの実行
 			int ret = pstmt.executeUpdate();
 			return ret != 0;
