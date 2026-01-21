@@ -247,7 +247,6 @@ public class MeetingRoom implements Serializable {
 	*@throws Exception
 	*/
 
-	@SuppressWarnings("unused")
 	public boolean addUser(UserBean addUser) throws Exception {
 		LocalDateTime now = LocalDateTime.now();
 		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yy");
@@ -312,7 +311,7 @@ public class MeetingRoom implements Serializable {
 		if (deleteUser.getIsDeleted()==1) {
 			throw new Exception("既に削除されています");
 		}
-		if (user.getId() != this.user.getId() && this.user.getIsAdmin()==1) {
+		if (user.getId() != this.user.getId() && this.user.getIsAdmin()==0) {
 			throw new Exception("削除できないユーザーです。");
 		}
 		ReservationList reserveList = ReservationDao.finduserID(user.getId());
@@ -376,8 +375,6 @@ public class MeetingRoom implements Serializable {
 			}
 		}
 		return RoomDao.insert(room);
-		
-
 	}
 
 	/**
@@ -388,9 +385,13 @@ public class MeetingRoom implements Serializable {
 	*@throws Exception
 	*/
 	public boolean editRoom(RoomBean room) throws Exception {
-
-		boolean isSuccess = RoomDao.update(room);
-		return isSuccess;
+		RoomList rooms = RoomDao.findAll();
+		for(RoomBean rm:rooms) {
+			if(rm.getName().equals(room.getName())) {
+				throw new Exception("既に同じ名前で登録されています");
+			}
+		}
+		return RoomDao.update(room);
 	}
 
 	/**
