@@ -15,7 +15,7 @@
 		type="submit" value="日付変更" class="button_submit">
 	<input type="hidden" name="page" value="cancelInput.jsp">
 </form>
-<h2>キャンセル可能時間帯（<c:out value="${meetingRoom.user.name}" />）</h2>
+<h2>キャンセル可能時間帯（<c:out value="${meetingRoom.user.name}さん" />）</h2>
 <%
 //meetingRoomをセッションから取得
 MeetingRoom meetingRoom = (MeetingRoom) session.getAttribute("meetingRoom");

@@ -29,9 +29,7 @@ ReservationBean[][] reservations = meetingRoom.getReservations();
 		name="page" value="reserveInput.jsp">
 </form>
 <h2>
-	予約可能時間帯 &nbsp;&nbsp;&nbsp;
-	<c:out value="${meetingRoom.user.name}" />
-	さん
+	予約可能時間帯（<c:out value="${meetingRoom.user.name}さん" />）
 </h2>
 
 <%--後で復活タグ<h1>予約可能時間帯${meetingRoom.user.name}</h1>--%>
