@@ -52,16 +52,28 @@ public class RoomAdminServlet extends HttpServlet {
 				isSuccess = mr.deleteRoom(room);
 			} catch (Exception e) {
 				e.printStackTrace();
+				
+				String errorMessage = e.getMessage();
+				
+				if("会議室が見つかりません".equals(errorMessage)) {
+					message = "存在しない会議室です。";
+					
+				} else if("予約があるため削除できません".equals(errorMessage)) {
+					message = "予約があるため削除できません。";
+					
+					
+				} else {
+					message = "削除できませんでした。";
+
+				}
 			}
 			
 			if(isSuccess) {
 				message = "削除しました。";
 				mr.reloadRooms();
 
-			} else {
-				message = "削除できませんでした。";
 			}
-			}
+		}
 		RoomList list = mr.getRooms();
 	
 		request.setAttribute("message", message);

@@ -13,7 +13,7 @@
 		</tr>
  		<tr class="${title == '会議室編集' ? 'hidden' : ''}">
 			<th>ID</th>
-			<td>${addRoom.id}</td>
+			<td><c:out value="${addRoom.id}" /></td>
 		</tr>
 	</tbody>
 </table>

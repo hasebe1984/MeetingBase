@@ -91,18 +91,11 @@ public class RegistrationServlet extends HttpServlet {
 				
 				String errorMessage = e.getMessage();
 				
-				if("存在しないユーザーです".equals(errorMessage)) {
-					message = "存在しないユーザーです。";
-					
-				} else if("既に削除されています".equals(errorMessage)) {
-					message = "既に削除されています。";
-					
-					
-				} else if("予約があるため削除できません。".equals(errorMessage)) {
-					message = "予約があるため削除できません。";
+				if("既に登録されています".equals(errorMessage)) {
+					message = "既にとうろくされています。";
 				
 				} else {
-					message = "削除できませんでした。";
+					message = "登録できませんでした。";
 
 				}
 			}
@@ -116,7 +109,6 @@ public class RegistrationServlet extends HttpServlet {
 //			失敗
 			} else {
 				nextPage = "/jsp/registrationError.jsp";
-				message = "エラーメッセージ";
 				
 			}
 		}

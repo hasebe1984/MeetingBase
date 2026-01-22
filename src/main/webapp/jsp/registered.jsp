@@ -13,7 +13,7 @@
 		</tr>
 		<tr>
 			<th>パスワード</th>
-			<td>${user.password}</td>
+			<td><c:out value="${user.password}" /></td>
 		</tr>
 		<tr>
 			<th>氏名</th>

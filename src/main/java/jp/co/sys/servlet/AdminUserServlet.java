@@ -64,16 +64,32 @@ public class AdminUserServlet extends HttpServlet {
 				isSuccess = mr.deleteUser(user);
 			} catch (Exception e) {
 				e.printStackTrace();
+				
+				String errorMessage = e.getMessage();
+				
+				if("存在しないユーザーです".equals(errorMessage)) {
+					message = "存在しないユーザーです。";
+					
+				} else if("既に削除されています".equals(errorMessage)) {
+					message = "既に削除されています。";
+					
+					
+				} else if("予約があるため削除できません。".equals(errorMessage)) {
+					message = "予約があるため削除できません。";
+				
+				} else {
+					message = "削除できませんでした。";
+
+				}
 			}
 			
 			if(isSuccess) {
 				message = "削除しました。";
 				mr.getUsers();
 
-			} else {
-				message = "削除できませんでした。";
-			}
+			} 
 		}
+		
 		if ("退会する".equals(action)) {
 			Boolean isSuccess = false;
 			
@@ -81,6 +97,23 @@ public class AdminUserServlet extends HttpServlet {
 				isSuccess = mr.deleteUser(user);
 			} catch (Exception e) {
 				e.printStackTrace();
+				
+				String errorMessage = e.getMessage();
+				
+				if("存在しないユーザーです".equals(errorMessage)) {
+					message = "存在しないユーザーです。";
+					
+				} else if("既に削除されています".equals(errorMessage)) {
+					message = "既に退会されています。";
+					
+					
+				} else if("予約があるため削除できません。".equals(errorMessage)) {
+					message = "予約があるため退会できません。";
+				
+				} else {
+					message = "退会できませんでした。";
+
+				}
 			}
 			
 			if(isSuccess) {
@@ -89,7 +122,6 @@ public class AdminUserServlet extends HttpServlet {
 				mr.getUsers();
 				
 			} else {
-				message = "退会できませんでした。";
 				nextPath = "/jsp/editInput.jsp";
 				
 			}
