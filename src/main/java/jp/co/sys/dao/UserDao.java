@@ -1,9 +1,15 @@
 package jp.co.sys.dao;
 
+import java.security.NoSuchAlgorithmException;
+import java.security.spec.InvalidKeySpecException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Base64;
+
+import javax.crypto.SecretKeyFactory;
+import javax.crypto.spec.PBEKeySpec;
 
 import jp.co.sys.bean.UserBean;
 import jp.co.sys.util.DatabaseConnectionProvider;
@@ -20,21 +26,24 @@ public class UserDao {
 	 * @param password
 	 * @return 
 	 */
-	public static UserBean certificate​(String id, String password) {
+	public static UserBean certificate​(String id, String password)
+			throws NoSuchAlgorithmException, InvalidKeySpecException {
+		UserBean attestation = new UserBean(id, password);
 		UserBean user = null;
-		//SQL文user_idを指定して、レコードを取得
+		String pass = attestation.getPassword();
+		//パスワードをハッシュ化
+		PBEKeySpec spec = new PBEKeySpec(pass.toCharArray(), attestation.getHash(), attestation.getIterations(),
+				attestation.getKeyLength());
+		SecretKeyFactory skf = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA256");
+		byte[] hash = skf.generateSecret(spec).getEncoded();
+		//DB接続し、SQL実行。
 		String sql = "select * from user where id = ? AND password=? ";
-		//データベースへ接続
 		try (Connection db = DatabaseConnectionProvider.getConnection();
 				PreparedStatement pstmt = db.prepareStatement(sql)) {
-			//受け取ったIdをSQL文へ代入
 			pstmt.setString(1, id);
-			pstmt.setString(2, password);
+			pstmt.setString(2, Base64.getEncoder().encodeToString(hash)); //ハッシュ化したパスワードをString変換
 			try (ResultSet rs = pstmt.executeQuery()) {
-
-				//			SQL文を実行して実行結果を取
 				while (rs.next()) {
-					//実行結果よりそれぞれのカラムの値を取得
 					password = rs.getString("password");
 					id = rs.getString("id");
 					String name = rs.getString("name");
@@ -55,21 +64,25 @@ public class UserDao {
 	 * @param userbean
 	 * @return　ユーザテーブルにアカウント情報を追加
 	 */
-	public static boolean insert​(UserBean userbean) {
+	public static boolean insert​(UserBean userbean) throws Exception {
 		int ret = -1;
+		UserBean cipher = new UserBean();
 		String sql = "INSERT INTO user (id,password,name, address ,isDeleted, isAdmin) VALUES(?, ?, ?, ?, ?,?)";
-		// INSERT INTO user (id,password,name, address , isDeleted, isAdmin) VALUES ("null", "111111", "一般太郎", "東京都", "0","0");
-		// try-with-resources構文でリソースを自動的にクローズ
+		//パスワードをハッシュ化
+		String password = userbean.getPassword();
+		PBEKeySpec spec = new PBEKeySpec(password.toCharArray(), cipher.getHash(), cipher.getIterations(),
+				cipher.getKeyLength());
+		SecretKeyFactory skf = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA256");
+		byte[] hash = skf.generateSecret(spec).getEncoded();
+
 		try (Connection conn = DatabaseConnectionProvider.getConnection();
 				PreparedStatement pstmt = conn.prepareStatement(sql)) {
-			// プレースホルダーに値を設定
 			pstmt.setString(1, userbean.getId());
-			pstmt.setString(2, userbean.getPassword());
+			pstmt.setString(2, Base64.getEncoder().encodeToString(hash)); //ハッシュ化したパスワードをString変換
 			pstmt.setString(3, userbean.getName());
 			pstmt.setString(4, userbean.getAddress());
-			pstmt.setInt(5, 0);
+			pstmt.setInt(5, userbean.getIsDeleted());
 			pstmt.setInt(6, userbean.getIsAdmin());
-			//更新クエリの実行
 			ret = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -203,14 +216,20 @@ public class UserDao {
 	 * @param userbean
 	 * @return
 	 */
-	public static boolean update(UserBean userbean) {
+	public static boolean update(UserBean userbean) throws NoSuchAlgorithmException, InvalidKeySpecException {
 		int ret = -1;
+		UserBean cipher = new UserBean();
 		String sql = "UPDATE user SET name =?, address=?, password=?, isAdmin=? WHERE id=?";
+		String password = userbean.getPassword();
+		PBEKeySpec spec = new PBEKeySpec(password.toCharArray(), cipher.getHash(), cipher.getIterations(),
+				cipher.getKeyLength());
+		SecretKeyFactory skf = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA256");
+		byte[] hash = skf.generateSecret(spec).getEncoded();
 		try (Connection db = DatabaseConnectionProvider.getConnection();
 				PreparedStatement pstmt = db.prepareStatement(sql)) {
 			pstmt.setString(1, userbean.getName());
 			pstmt.setString(2, userbean.getAddress());
-			pstmt.setString(3, userbean.getPassword());
+			pstmt.setString(3, Base64.getEncoder().encodeToString(hash));
 			pstmt.setInt(4, userbean.getIsAdmin());
 			pstmt.setString(5, userbean.getId());
 			ret = pstmt.executeUpdate();
