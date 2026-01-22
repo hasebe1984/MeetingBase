@@ -63,6 +63,11 @@ public class UserEditServlet extends HttpServlet {
 			
 			user = new UserBean(userAddress, userId, userName, userPw, userAdminInt);
 			
+			
+//			System.out.println("---------- Servlet Data Check ----------");
+//			System.out.println("Action     : [" + user + "]");
+//			System.out.println("----------------------------------------");
+			
 		}
 		 if ("編集".equals(action) || mr.getUser().getIsAdmin() == 1) {
 			checked = userAdminInt == 1 ? "checked" : "";
@@ -100,11 +105,30 @@ public class UserEditServlet extends HttpServlet {
 			
 		} else if ("登録".equals(action)) {
 			Boolean isSuccess = false; 
+			
 			try {
 				isSuccess = mr.editUser(user);
 				
 			} catch (Exception e) {
 				e.printStackTrace();
+				
+				String errorMessage = e.getMessage();
+				
+				if("存在しないユーザーです".equals(errorMessage)) {
+					message = "存在しないユーザーです。";
+					
+				} else if("削除されたユーザーです".equals(errorMessage)) {
+					message = "削除されたユーザーです。";
+					
+					
+				} else if("変更できないユーザーです。".equals(errorMessage)) {
+					message = "変更できないユーザーです。";
+				
+				} else {
+					message = "変更できませんでした。";
+
+				}
+				
 			}
 			
 //			成功
@@ -115,7 +139,6 @@ public class UserEditServlet extends HttpServlet {
 //			失敗
 			} else {
 				nextPage = "/jsp/edittedError.jsp";
-				message = "変更に失敗しました。";
 				
 			}
 		}

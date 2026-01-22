@@ -5,7 +5,7 @@
 <h1>会員情報編集</h1>
 <hr>
 <h2>編集エラー</h2>
-<p class="message">${"エラーメッセージ"}</p>
+<p class="message">${message}</p>
 <table>
 	<tbody>
 		<tr>
