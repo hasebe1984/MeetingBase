@@ -42,6 +42,7 @@
 9:30 - 12:00、13:30 - 15:00まで。
 
 [レビュー管理一覧](https://docs.google.com/spreadsheets/d/1bRu3RzW5ACRM9MBjClZ21d5iOirod3eK/edit?gid=288139212#gid=288139212)
+[議事録](https://docs.google.com/spreadsheets/d/17-a4Rz1PtfL_s24n06a_a_YKEa7QzTc7/edit?gid=821437753#gid=821437753)
 
 ◍　1回目（1/7午前）
 
