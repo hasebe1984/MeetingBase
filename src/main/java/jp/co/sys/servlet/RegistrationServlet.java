@@ -88,6 +88,23 @@ public class RegistrationServlet extends HttpServlet {
 				
 			} catch (Exception e) {
 				e.printStackTrace();
+				
+				String errorMessage = e.getMessage();
+				
+				if("存在しないユーザーです".equals(errorMessage)) {
+					message = "存在しないユーザーです。";
+					
+				} else if("既に削除されています".equals(errorMessage)) {
+					message = "既に削除されています。";
+					
+					
+				} else if("予約があるため削除できません。".equals(errorMessage)) {
+					message = "予約があるため削除できません。";
+				
+				} else {
+					message = "削除できませんでした。";
+
+				}
 			}
 			
 //			成功
