@@ -31,6 +31,13 @@ public class LoginFilter implements Filter {
         boolean loggedIn = (session != null && session.getAttribute("meetingRoom") != null);
 
         if (loggedIn || isLogin || isCss || isImages) {
+        	
+//  		  ブラウザバック対策
+  			res.setHeader("Cache-Control", "no-cache,no-store,must-revalidate");
+  			res.setHeader("Pragma", "no-cache");
+  			res.setDateHeader("Expires", 0);
+
+        	
             chain.doFilter(request, response);
 
 //        未ログインならログイン画面へ飛ばす
