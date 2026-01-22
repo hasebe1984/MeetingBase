@@ -290,9 +290,9 @@ public class MeetingRoom implements Serializable {
 		if (userEdit.getIsDeleted() == 1) {
 			throw new Exception("削除されたユーザーです");
 		}
-//		if (editUserId.equals(this.user.getId()) && this.user.getIsAdmin()==0) {
-//			throw new Exception("変更できないユーザーです。");
-//		}
+		if (!editUserId.equals(this.user.getId()) && this.user.getIsAdmin()==0) {
+			throw new Exception("変更できないユーザーです。");
+		}
 		boolean isSuccess = UserDao.update(user);
 		if(this.user.getId().equals(user.getId())) {			
 			this.user = user;
@@ -365,11 +365,14 @@ public class MeetingRoom implements Serializable {
 	public Boolean addRoom(RoomBean room) throws Exception {
 		int num = Integer.parseInt(room.getId());
 		String floorNum = String.format("%02d", num);
+		RoomList floorRoms = RoomDao.getFloorRooms(floorNum);
+		if(floorRoms.size()>=99) {
+			throw new Exception("この階にはこれ以上登録できません");
+		}
 		RoomBean floorRoom = RoomDao.getFloorId(floorNum);
 		String roomId;
 		if(floorRoom==null) {
-			String roomsNum ="00";
-			roomId = floorNum + roomsNum;
+			roomId = floorNum + "01";
 		} else {
 			int roomIdNum = Integer.parseInt(floorRoom.getId());
 			roomIdNum++;
