@@ -37,11 +37,11 @@ CREATE TABLE reservation (
         UNIQUE(roomId, date, start)
 );
 
-INSERT INTO user VALUES('2500001','111111','一般太郎','東京都','0','0');
-INSERT INTO user VALUES('2500002','111111','管理花子','大阪府','0','1');
-INSERT INTO user VALUES('2500003','111111','削除よしお','北海道','1','0');
-INSERT INTO user VALUES('2500004','111111','管理削除リチャード','USA','1','1');
-INSERT INTO user VALUES('2500005','111111','管理たけお','島根県','0','1');
+INSERT INTO user VALUES('2500001','ffREdNu4Y6wzVXYB+EwuRDHHsnwYZvocosDPIMeAAuw=','一般太郎','東京都','0','0');
+INSERT INTO user VALUES('2500002','ffREdNu4Y6wzVXYB+EwuRDHHsnwYZvocosDPIMeAAuw=','管理花子','大阪府','0','1');
+INSERT INTO user VALUES('2500003','ffREdNu4Y6wzVXYB+EwuRDHHsnwYZvocosDPIMeAAuw=','削除よしお','北海道','1','0');
+INSERT INTO user VALUES('2500004','ffREdNu4Y6wzVXYB+EwuRDHHsnwYZvocosDPIMeAAuw=','管理削除リチャード','USA','1','1');
+INSERT INTO user VALUES('2500005','ffREdNu4Y6wzVXYB+EwuRDHHsnwYZvocosDPIMeAAuw=','管理たけお','島根県','0','1');
 
 INSERT INTO room VALUES('0201','大会議室');
 INSERT INTO room VALUES('0301','３Ａ会議室');

@@ -10,7 +10,14 @@ public class UserBean implements Serializable {
 	private String password;
 	private int isAdmin;
 	private int isDeleted;
-	
+	/**
+	 * ハッシュ化用の定数準備
+	 */
+	private final String pepper = "NKkxGDiVF9i+V7m5Ww70YA==";
+	private final byte[] hash = pepper.getBytes();
+	private final int iterations = 65536;
+	private final int keyLength = 256;
+
 	public UserBean() {
 	}
 
@@ -67,9 +74,21 @@ public class UserBean implements Serializable {
 	public void setId(String id) {
 		this.id = id;
 	}
-	
+
 	public void setIsAdmin(int isAdmin) {
 		this.isAdmin = isAdmin;
+	}
+
+	public byte[] getHash() {
+		return hash;
+	}
+
+	public int getIterations() {
+		return iterations;
+	}
+
+	public int getKeyLength() {
+		return keyLength;
 	}
 
 	@Override

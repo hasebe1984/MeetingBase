@@ -1,6 +1,8 @@
 package jp.co.sys.bean;
 
 import java.io.Serializable;
+import java.security.NoSuchAlgorithmException;
+import java.security.spec.InvalidKeySpecException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -149,8 +151,10 @@ public class MeetingRoom implements Serializable {
 	*会議室予約システムにログインします。
 	*@param id String 利用者ID , password String パスワード
 	*@return ログインできた場合はtrue，それ以外の場合false
+	 * @throws InvalidKeySpecException 
+	 * @throws NoSuchAlgorithmException 
 	*/
-	public boolean login​(String id, String password) {
+	public boolean login​(String id, String password) throws NoSuchAlgorithmException, InvalidKeySpecException {
 		UserBean result = UserDao.certificate​(id, password);
 		if (result == null || result.getIsDeleted()==1) {
 			return false;
