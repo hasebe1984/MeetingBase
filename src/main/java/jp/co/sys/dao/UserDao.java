@@ -31,9 +31,10 @@ public class UserDao {
 		UserBean attestation = new UserBean(id, password);
 		UserBean user = null;
 		String pass = attestation.getPassword();
-		//パスワードをハッシュ化
+		//パスワードをハッシュ化用アルゴリズムの設定です。
 		PBEKeySpec spec = new PBEKeySpec(pass.toCharArray(), attestation.getHash(), attestation.getIterations(),
 				attestation.getKeyLength());
+		//"PBKDF2WithHmacSHA256"は、ハッシュ化用アルゴリズムの設定です。
 		SecretKeyFactory skf = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA256");
 		byte[] hash = skf.generateSecret(spec).getEncoded();
 		//DB接続し、SQL実行。
