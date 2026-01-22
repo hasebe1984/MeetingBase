@@ -51,7 +51,15 @@ public class AdminUserServlet extends HttpServlet {
 		UserBean user = new UserBean(userAddress, userId, userName, userPw, userAdminInt);
 		
 		String nextPath = "/jsp/userList.jsp";
-		String cancelFlag = request.getParameter("cancelFlag");
+		int cancelFlag = mr.getUser().getIsAdmin();
+		
+		
+//		System.out.println("---------- Servlet Data Check ----------");
+//		System.out.println("Action     : [" + cancelFlag + "]");
+//		System.out.println("----------------------------------------");
+		
+		
+//		String cancelFlag = request.getParameter("cancelFlag");
 		String adminFlag = request.getParameter("adminFlag");
 		
 //		会議室の削除

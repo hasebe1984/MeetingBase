@@ -49,17 +49,18 @@ public class UserEditServlet extends HttpServlet {
 		
 		String nextPage = "/jsp/editInput.jsp";			
 		String message = "";
-		String cancelFlag = request.getParameter("cancelFlag");
+		int cancelFlag =  mr.getUser().getIsAdmin();
+//		int cancelFlag = request.getParameter("cancelFlag");
 		String adminFlag = request.getParameter("adminFlag");
 		
 		if ("会員情報編集".equals(action)) {
 			userAddress = mr.getUser().getAddress();
 			userId = mr.getUser().getId();
 			userName = mr.getUser().getName();
-			userPw = mr.getUser().getPassword();
+//			userPw = mr.getUser().getPassword();
+			userPw = "";
 			userAdminInt = mr.getUser().getIsAdmin();
 			checked = userAdminInt == 1 ? "checked" : "";
-			cancelFlag = "1";
 			
 			user = new UserBean(userAddress, userId, userName, userPw, userAdminInt);
 			
