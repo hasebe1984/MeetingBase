@@ -13,14 +13,14 @@
 		</tr>
 		<tr class="${title == '会議室編集' ? 'hidden' : ''}">
 			<th>会議室階</th>
-			<td>${addRoom.id}</td>
+			<td><c:out value="${addRoom.id}" /></td>
 		</tr>
 	</tbody>
 </table>
 <div class="button_row">
 	<form action="${pageContext.request.contextPath}/RoomEditServlet"
 		method="post">
-		<input type="hidden" name="roomName" <c:out value="${room.name}" />>
+		<input type="hidden" name="roomName" value="${room.name}">
 		<input type="hidden" name="roomFloor" value="${addRoom.id}">
 		<input type="hidden" name="roomId" value="${room.id}">
 		<input type="hidden" name="title" value="${title}">

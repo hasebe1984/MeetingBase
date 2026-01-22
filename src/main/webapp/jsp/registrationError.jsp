@@ -22,7 +22,7 @@
 		</tr>
 		<tr>
 			<th>住所</th>
-			<td>${user.address}</td>
+			<td><c:out value="${user.address}" /></td>
 		</tr>
 		<tr>
 			<th>会員区分</th>

@@ -9,7 +9,7 @@
 <form action="${pageContext.request.contextPath}/RoomEditServlet" method="post" class="form">
 	<div class="input-wrap">
 		<label for="roomName">会議室名</label>
-		<input type="text" name="roomName" <c:out value="${addRoom.name}" /> id="roomName" class="form_input" required>
+		<input type="text" name="roomName" value="${addRoom.name}" id="roomName" class="form_input" required>
 	</div>
 	<div class="input-wrap ${title == '会議室編集' ? 'hidden' : ''}">
 		<label for="roomFloor">会議室階数</label>

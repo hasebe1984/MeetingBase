@@ -93,15 +93,33 @@ public class RoomEditServlet extends HttpServlet {
 					isSuccess = mr.editRoom(room);
 				} catch (Exception e) {
 					e.printStackTrace();
+					
+					String errorMessage = e.getMessage();
+					
+					if("既に同じ名前で登録されています".equals(errorMessage)) {
+						message = "既に同じ名前で登録されています。";
+						
+					} else {
+						message = "変更できませんでした。";
+
+					}
 				}
 				
 			} else if ("会議室登録".equals(title)) {
 				try {
-//					ミーティングルームでき次第、差し替える
-//					isSuccess = mr.createRoom(addRoom);
 					isSuccess = mr.addRoom(addRoom);
 				} catch (Exception e) {
 					e.printStackTrace();
+					
+					String errorMessage = e.getMessage();
+					
+					if("既に登録されています".equals(errorMessage)) {
+						message = "既に登録されています";
+						
+					} else {
+						message = "登録できませんでした。";
+
+					}
 				}
 			}
 			
@@ -111,7 +129,6 @@ public class RoomEditServlet extends HttpServlet {
 				
 			} else {
 				nextPage = "/jsp/conferenceRoomError.jsp";	
-				message = "エラーメッセージ";
 			}
 			
 		} else if ("一覧へ".equals(action)) {
