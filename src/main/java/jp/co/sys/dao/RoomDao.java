@@ -135,4 +135,26 @@ public class RoomDao {
 		}
 		return ret != 0;
 	}
+	public static RoomList getFloorRooms(String idFloor) {
+		RoomList roomList = new RoomList();
+		//SQL文user_idを指定して、レコードを取得
+		String sql = "SELECT * FROM room WHERE id LIKE ?";
+		//データベースへ接続
+		try (Connection db = DatabaseConnectionProvider.getConnection();
+				PreparedStatement pstmt = db.prepareStatement(sql)) {
+			//受け取ったIdをSQL文へ代入
+			pstmt.setString(1, idFloor + "%");
+			ResultSet rs = pstmt.executeQuery();
+			while (rs.next()) {
+				String roomid = rs.getString("id");
+				String roomname = rs.getString("name");
+				RoomBean rb = new RoomBean(roomid, roomname);
+				roomList.add(rb);
+			}
+			return roomList;
+		} catch (SQLException ex) {
+			ex.printStackTrace();
+		}
+		return roomList;
+	}
 }
