@@ -15,6 +15,7 @@ import jp.co.sys.util.RoomList;
  */
 public class RoomDao {
 	/**
+	 * 引数なしで、予約データを取得するメソッドです。
 	 * @return RoomList型の全テーブルデータを返す。データがない場合は、nullを返す。
 	 */
 	public static RoomList findAll() {
@@ -31,15 +32,57 @@ public class RoomDao {
 			}
 			return roomlist;
 		} catch (SQLException e) {
-			System.out.println("★DAOエラー発生！"); // これを追加
+			System.out.println("★findAllのRoomDAOでエラー発生！");
 			e.printStackTrace();
 		}
 		return null;
 	}
-
-	//	追加・削除・編集のメソッド　名前は仮で
+	
 	/**
-	 * @param insertroom　登録するデータ
+	 * 会議室IDを引数に、当該会議室IDでの予約データを取得するメソッドです。
+	 * @param id 会議室ID
+	 * @return RoomBean型のデータを返す。データがない場合は、nullを返す。
+	 */
+	public static RoomBean findId(String id) {
+		String sql = "SELECT * FROM room WHERE id=?";
+		try (Connection db = DatabaseConnectionProvider.getConnection();
+				PreparedStatement pstmt = db.prepareStatement(sql)) {
+			pstmt.setString(1, id);
+			ResultSet rs = pstmt.executeQuery();
+			rs.next();
+			RoomBean rb = new RoomBean(rs.getString("id"), rs.getString("name"));
+			return rb;
+		} catch (SQLException e) {
+			System.out.println("★findIdのRoomDAOでエラー発生！");
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
+	/**
+	 * 会議室の階数にて、会議室IDの最新データを取得するメソッドです。
+	 * @param idFloor 会議室の階数
+	 * @return RoomBean型のデータを返す。データがない場合は、nullを返す。
+	 */
+	public static RoomBean getFloorId(String idFloor) {
+		//SQL文user_idを指定して、レコードを取得
+		String sql = "SELECT * FROM room WHERE id LIKE ? ORDER BY id DESC LIMIT 1";
+		try (Connection db = DatabaseConnectionProvider.getConnection();
+				PreparedStatement pstmt = db.prepareStatement(sql)) {
+			pstmt.setString(1, idFloor + "%");
+			ResultSet rs = pstmt.executeQuery();
+			rs.next();
+			RoomBean rb = new RoomBean(rs.getString("id"), rs.getString("name"));
+			return rb;
+		} catch (SQLException ex) {
+			ex.printStackTrace();
+		}
+		return null;
+	}
+
+	/**
+	 * 新規で会議室IDと、会議室名を登録するメソッドです。
+	 * @param insertroom　登録するデータをRoomBean型で取得する。
 	 * @return テーブル「room」へのデータ挿入真偽
 	 */
 	public static boolean insert(RoomBean insertroom) {
@@ -57,6 +100,7 @@ public class RoomDao {
 	}
 
 	/**
+	 * 既存のテーブルデータを会議室IDから取得し、会議室名を修正するメソッドです。
 	 * @param updateroom　修正するデータ
 	 * @return テーブル「room」のデータ「name」のデータ変更真偽
 	 */
@@ -75,6 +119,7 @@ public class RoomDao {
 	}
 
 	/**
+	 * 既存のテーブルデータを会議室IDから取得し、会議室データを物理削除するメソッドです。
 	 * @param deleteroom　削除するデータ
 	 * @return テーブル「room」のデータ「id」のデータ削除真偽
 	 */
@@ -90,40 +135,6 @@ public class RoomDao {
 		}
 		return ret != 0;
 	}
-
-	public static RoomBean findId(String id) {
-		String sql = "SELECT * FROM room WHERE id=?";
-		try (Connection db = DatabaseConnectionProvider.getConnection();
-				PreparedStatement pstmt = db.prepareStatement(sql)) {
-			pstmt.setString(1, id);
-			ResultSet rs = pstmt.executeQuery();
-			rs.next();
-			RoomBean rb = new RoomBean(rs.getString("id"), rs.getString("name"));
-			return rb;
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return null;
-	}
-	
-	public static RoomBean getFloorId(String idFloor) {
-		//SQL文user_idを指定して、レコードを取得
-		String sql = "SELECT * FROM room WHERE id LIKE ? ORDER BY id DESC LIMIT 1";
-		//データベースへ接続
-		try (Connection db = DatabaseConnectionProvider.getConnection();
-				PreparedStatement pstmt = db.prepareStatement(sql)) {
-			//受け取ったIdをSQL文へ代入
-			pstmt.setString(1, idFloor + "%");
-			ResultSet rs = pstmt.executeQuery();
-			rs.next();
-			RoomBean rb = new RoomBean(rs.getString("id"), rs.getString("name"));
-			return rb;
-		} catch (SQLException ex) {
-			ex.printStackTrace();
-		}
-		return null;
-	}
-	
 	public static RoomList getFloorRooms(String idFloor) {
 		RoomList roomList = new RoomList();
 		//SQL文user_idを指定して、レコードを取得
@@ -147,5 +158,3 @@ public class RoomDao {
 		return roomList;
 	}
 }
-
-
