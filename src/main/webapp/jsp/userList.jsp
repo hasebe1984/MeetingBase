@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8" %>
+	
+<%@ page import="jp.co.sys.bean.MeetingRoom" %>	
 <%@ page import="jp.co.sys.bean.UserBean"%>
 <%@ page import="jp.co.sys.util.UserList"%>
 <%@include file="../common/header.jsp"%>
@@ -10,7 +12,7 @@
 	<thead>
 		<tr>
 			<th>ID</th>
-			<th>パスワード</th>
+		
 			<th>氏名</th>
 			<th>住所</th>
 			<th>区分</th>
@@ -18,6 +20,7 @@
 	</thead>
 	<tbody>
 		<% 
+			MeetingRoom mr = (MeetingRoom) session.getAttribute("meetingRoom");	
 			UserList list = (UserList)request.getAttribute("list");
 			if (list != null) {
 			for (UserBean l : list) {
@@ -28,7 +31,7 @@
 		%>
 			<tr>
 				<td class="list_td_small"><%= l.getId() %></td>
-				<td class="list_td_middle"><%= l.getPassword() %></td>
+				
 				<td><c:out value="${name}" /></td>
 				<td class="list_td_large"><c:out value="${address}" /></td>
 				<td class="list_td_small"><%= l.getIsAdmin() == 0 ? "一般" : "管理者" %></td>				
@@ -37,7 +40,6 @@
 						<input type="hidden" name="userAddress" value="<c:out value="${address}" />">
 						<input type="hidden" name="userId" value="<%= l.getId() %>">
 						<input type="hidden" name="userName" value="<c:out value="${name}" />">
-						<input type="hidden" name="userPw" value="<%= l.getPassword() %>">
 						<input type="hidden" name="userAdmin" value="<%= l.getIsAdmin() %>">
 						<input type="submit" value="編集" class="button_list">
 					</form>
@@ -49,7 +51,7 @@
 						<input type="hidden" name="userName" value="<c:out value="${name}" />">
 						<input type="hidden" name="userPw" value="<%= l.getPassword() %>">
 						<input type="hidden" name="userAdmin" value="<%= l.getIsAdmin() %>">
-						<input type="submit" name="action" value="削除" class="button_list" onclick="return confirm('本当に削除してよろしいですか？');">
+						<input type="submit" name="action" value="削除" class="button_list <%= (l.getId()).equals(mr.getUser().getId()) ? "button_disabled" : "" %>" onclick="return confirm('本当に削除してよろしいですか？');" <%= (l.getId()).equals(mr.getUser().getId()) ? "disabled" : "" %> >
 					</form>
 				</td>
 			</tr>

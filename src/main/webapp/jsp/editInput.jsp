@@ -31,7 +31,7 @@
 	    <input type="submit" name="action" value="決定" class="button_submit">
     </div>
 </form>
-<form action="${pageContext.request.contextPath}/AdminUserServlet" method="post" class="form form_unsubscribe ${cancelFlag == '1' ? '' : 'hidden'}">
+<form action="${pageContext.request.contextPath}/AdminUserServlet" method="post" class="form form_unsubscribe ${cancelFlag == 1 ? 'hidden' : ''}">
     <input type="hidden" name="userId" value="${user.id}">
     <input type="hidden" name="userPw" value="${user.password}">
     <input type="hidden" name="userName" value="${user.name}">

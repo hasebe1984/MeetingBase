@@ -190,6 +190,12 @@ h2 {
 	transition: 0.3s;
 }
 
+.button_disabled {
+	color: #fff9e6;
+	background-color: #292929;
+	transition: 0.3s;
+}
+
 .button_row form {
 	margin: 0;
 }
