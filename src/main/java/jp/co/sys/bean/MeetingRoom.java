@@ -290,7 +290,9 @@ public class MeetingRoom implements Serializable {
 			throw new Exception("変更できないユーザーです。");
 		}
 		boolean isSuccess = UserDao.update(user);
-		this.user = user;
+		if(this.user.getId().equals(user.getId())) {			
+			this.user = user;
+		}
 		return isSuccess;
 	}
 

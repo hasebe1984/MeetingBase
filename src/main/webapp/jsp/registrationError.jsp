@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@include file="../common/header.jsp"%>
 <h1>会員登録画面</h1>
 <hr>
@@ -13,11 +14,11 @@
 		</tr>
 		<tr>
 			<th>パスワード</th>
-			<td>${user.password}</td>
+			<td><c:out value="${user.password}" /></td>
 		</tr>
 		<tr>
 			<th>氏名</th>
-			<td>${user.name}</td>
+			<td><c:out value="${user.name}" /></td>
 		</tr>
 		<tr>
 			<th>住所</th>

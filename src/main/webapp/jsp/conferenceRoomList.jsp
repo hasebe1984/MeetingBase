@@ -19,10 +19,12 @@
 			RoomList list = (RoomList)request.getAttribute("list");
 			if (list != null) {
 			for (RoomBean l : list) {
+				String name = l.getName();
+				request.setAttribute("name", name);
 		%>
 		<tr>
 			<td><%= l.getId() %></td>
-			<td><%= l.getName() %></td>
+			<td><c:out value="${name }" /></td>
 			<td class="list_td_small">
 				<form action="<%= request.getContextPath() %>/RoomEditServlet"
 					method="post">					
