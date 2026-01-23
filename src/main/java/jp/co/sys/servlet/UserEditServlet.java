@@ -14,101 +14,101 @@ import jp.co.sys.bean.UserBean;
 
 @WebServlet("/UserEditServlet")
 public class UserEditServlet extends HttpServlet {
-    private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        doPost(request, response);
-    }
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		doPost(request, response);
+	}
 
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.setCharacterEncoding("UTF-8");
-        HttpSession session = request.getSession();
-        MeetingRoom mr = (MeetingRoom)session.getAttribute("meetingRoom");
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		request.setCharacterEncoding("UTF-8");
+		HttpSession session = request.getSession();
+		MeetingRoom mr = (MeetingRoom) session.getAttribute("meetingRoom");
 
-        String action = request.getParameter("action");
-        String userId = request.getParameter("userId");
-        String userName = request.getParameter("userName");
-        String userAddress = request.getParameter("userAddress");
-        String userPw = request.getParameter("userPw");
-        String userAdmin = request.getParameter("userAdmin");
-        String adminFlag = request.getParameter("adminFlag");
-        String transition = request.getParameter("transition");
+		String action = request.getParameter("action");
+		String userId = request.getParameter("userId");
+		String userName = request.getParameter("userName");
+		String userAddress = request.getParameter("userAddress");
+		String userPw = request.getParameter("userPw");
+		String userAdmin = request.getParameter("userAdmin");
+		String adminFlag = request.getParameter("adminFlag");
+		String transition = request.getParameter("transition");
 
-        // --- 1. ルート判定とデータ補完 ---
-        if ("会員情報編集".equals(action)) {
-            UserBean self = mr.getUser();
-            userId = self.getId();
-            userName = self.getName();
-            userAddress = self.getAddress();
-            userPw = "";
-            adminFlag = "0";
-            transition = "会員情報編集";
-        } else if ("編集".equals(action)) {
-            adminFlag = "1";
-            transition = "編集";
-        }
+		if ("会員情報編集".equals(action)) {
+			UserBean self = mr.getUser();
+			userId = self.getId();
+			userName = self.getName();
+			userAddress = self.getAddress();
+			userPw = "";
+			adminFlag = "0";
+			transition = "会員情報編集";
+		} else if ("編集".equals(action)) {
+			adminFlag = "1";
+			transition = "編集";
+		}
 
-        // --- 2. Bean生成と表示フラグ作成 ---
-        int userAdminInt = "on".equals(userAdmin) || "1".equals(userAdmin) ? 1 : 0;
-        UserBean user = new UserBean(userAddress, userId, userName, userPw, userAdminInt);
-        String checked = (userAdminInt == 1) ? "checked" : "";
+		int userAdminInt = "on".equals(userAdmin) || "1".equals(userAdmin) ? 1 : 0;
+		UserBean user = new UserBean(userAddress, userId, userName, userPw, userAdminInt);
+		String checked = (userAdminInt == 1) ? "checked" : "";
 
-        boolean isSelf = mr.getUser().getId().equals(userId);
-        boolean isFromList = "1".equals(adminFlag);
-        
-        // クラス名判定
-        String adminConfigClass = (isFromList && !isSelf) ? "" : "hidden";
-        String unsubscribeClass = (!isFromList && mr.getUser().getIsAdmin() == 0) ? "" : "hidden";
+		boolean isSelf = mr.getUser().getId().equals(userId);
+		boolean isFromList = "1".equals(adminFlag);
 
-        String nextPage = "/jsp/editInput.jsp";
-        String message = "";
+		String adminConfigClass = (isFromList && !isSelf) ? "" : "hidden";
+		String unsubscribeClass = (!isFromList && mr.getUser().getIsAdmin() == 0) ? "" : "hidden";
 
-        // --- 3. アクション別処理 ---
-        if ("決定".equals(action)) {
-            // バリデーション（記号対策込み）
-            if (userPw.length() > 10 || userPw.length() < 6 || !userPw.matches("^[a-zA-Z0-9]+$")) {
-                message += "パスワードは、6文字から10文字の半角英数字のみ、";
-            }
-            if (userName.length() > 10) { message += "氏名は10文字以内、"; }
-            if (userAddress.length() > 30) { message += "住所は30文字以内、"; }
-            if (userName.matches(".*[<>'\"&; 　].*") || userAddress.matches(".*[<>'\"&; 　].*") ) {
-                message += "半角記号・スペースを使用しない形式、";
-            }
+		String nextPage = "/jsp/editInput.jsp";
+		String message = "";
 
-            if (!"".equals(message)) {
-                message += "で入力してください。";
-            } else {
-                nextPage = "/jsp/edittedConfirm.jsp";
-            }
-        } else if ("登録".equals(action)) {
-            try {
-                if (mr.editUser(user)) {
-                    mr.getUsers(); 
-                    nextPage = "/jsp/editted.jsp";
-                } else {
-                    nextPage = "/jsp/edittedError.jsp";
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-                nextPage = "/jsp/edittedError.jsp";
-            }
-        } else if ("戻る".equals(action)) {
-            nextPage = "/jsp/editInput.jsp";
-        } else if ("一覧へ".equals(action)) {
-            nextPage = "AdminUserServlet";
-        } else if ("メニューへ".equals(action)) {
-            nextPage = "/jsp/menu.jsp";
-        }
+		if ("決定".equals(action)) {
+			if (userPw.length() > 10 || userPw.length() < 6 || !userPw.matches("^[a-zA-Z0-9]+$")) {
+				message += "パスワードは、6文字から10文字の半角英数字のみ、";
+			}
+			if (userName.length() > 10) {
+				message += "氏名は10文字以内、";
+			}
+			if (userAddress.length() > 30) {
+				message += "住所は30文字以内、";
+			}
+			if (userName.matches(".*[<>'\"&; 　].*") || userAddress.matches(".*[<>'\"&; 　].*")) {
+				message += "半角記号・スペースを使用しない形式、";
+			}
 
-        // --- 4. 属性セットと転送 ---
-        request.setAttribute("user", user);
-        request.setAttribute("checked", checked);
-        request.setAttribute("message", message);
-        request.setAttribute("adminConfigClass", adminConfigClass);
-        request.setAttribute("unsubscribeClass", unsubscribeClass);
-        request.setAttribute("adminFlag", adminFlag);
-        request.setAttribute("transition", transition);
+			if (!"".equals(message)) {
+				message += "で入力してください。";
+			} else {
+				nextPage = "/jsp/edittedConfirm.jsp";
+			}
+		} else if ("登録".equals(action)) {
+			try {
+				if (mr.editUser(user)) {
+					mr.getUsers();
+					nextPage = "/jsp/editted.jsp";
+				} else {
+					nextPage = "/jsp/edittedError.jsp";
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+				nextPage = "/jsp/edittedError.jsp";
+			}
+		} else if ("戻る".equals(action)) {
+			nextPage = "/jsp/editInput.jsp";
+		} else if ("一覧へ".equals(action)) {
+			nextPage = "AdminUserServlet";
+		} else if ("メニューへ".equals(action)) {
+			nextPage = "/jsp/menu.jsp";
+		}
 
-        request.getRequestDispatcher(nextPage).forward(request, response);
-    }
+		request.setAttribute("user", user);
+		request.setAttribute("checked", checked);
+		request.setAttribute("message", message);
+		request.setAttribute("adminConfigClass", adminConfigClass);
+		request.setAttribute("unsubscribeClass", unsubscribeClass);
+		request.setAttribute("adminFlag", adminFlag);
+		request.setAttribute("transition", transition);
+
+		request.getRequestDispatcher(nextPage).forward(request, response);
+	}
 }
