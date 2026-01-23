@@ -15,6 +15,11 @@ import jp.co.sys.util.RoomList;
  */
 public class RoomDao {
 	/**
+	 * インスタンス化の抑制処理
+	 */
+	private RoomDao() {}
+	
+	/**
 	 * 引数なしで、予約データを取得するメソッドです。
 	 * @return RoomList型の全テーブルデータを返す。データがない場合は、nullを返す。
 	 */
@@ -39,7 +44,7 @@ public class RoomDao {
 	}
 	
 	/**
-	 * 会議室IDを引数に、当該会議室IDでの予約データを取得するメソッドです。
+	 * 会議室IDにて、当該会議室IDでの予約データを取得するメソッドです。
 	 * @param id 会議室ID
 	 * @return RoomBean型のテーブルデータを返す。データがない場合は、nullを返す。
 	 */
