@@ -23,8 +23,9 @@ public class UserDao {
 	/**
 	 * インスタンス化の抑制処理
 	 */
-	private UserDao() {}
-	
+	private UserDao() {
+	}
+
 	/**
 	 * 利用者IDとパスワードで利用者認証（データベースの登録可否）を行うメソッドです。
 	 * @param id 利用者ID
@@ -150,6 +151,22 @@ public class UserDao {
 			e.printStackTrace();
 		}
 		return null;
+	}
+
+	public static int findAdmin() {
+		String sql = "SELECT * FROM user WHERE isAdmin=1 and isDeleted!=1";
+		try (Connection db = DatabaseConnectionProvider.getConnection();
+				PreparedStatement pstmt = db.prepareStatement(sql, ResultSet.TYPE_SCROLL_INSENSITIVE,
+						ResultSet.CONCUR_READ_ONLY)) {
+			ResultSet rs = pstmt.executeQuery();
+			rs.last();
+			int row = rs.getRow();
+			return row;
+		} catch (SQLException e) {
+			System.out.println("★UserDAOのfindByIdでエラー発生！");
+			e.printStackTrace();
+		}
+		return 0;
 	}
 
 	/**
