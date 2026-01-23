@@ -207,6 +207,12 @@ public class MeetingRoom implements Serializable {
 				LocalTime time = LocalTime.parse(rs.getStart());
 				DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
 				String rsStart = formatter.format(time);
+				if (reservedRoomId.equals(reservation.getRoomId()) 
+						&& rsStart.equals(reservation.getStart())
+						&& !rs.getUserId().equals(user.getId()))
+				{
+					throw new Exception("他の方が既に予約されています");
+				}
 				if (reservedRoomId.equals(reservation.getRoomId()) && rsStart.equals(reservation.getStart()))
 				{
 					throw new Exception("既に予約されています");
