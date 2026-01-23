@@ -131,7 +131,7 @@ public class AdminUserServlet extends HttpServlet {
 			  session.invalidate();
 				
 			} else {
-				nextPath = "/jsp/editInput.jsp";
+				nextPath = "/jsp/menu.jsp";
 				
 			}
 		}

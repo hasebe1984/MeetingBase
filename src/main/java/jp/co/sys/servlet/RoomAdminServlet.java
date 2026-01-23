@@ -58,6 +58,7 @@ public class RoomAdminServlet extends HttpServlet {
 				if("会議室が見つかりません".equals(errorMessage)) {
 					message = "存在しない会議室です。";
 					
+//					ここ修正になる
 				} else if("予約があるため削除できません".equals(errorMessage)) {
 					message = "予約があるため削除できません。";
 					
