@@ -30,6 +30,7 @@
 	</tbody>
 </table>
 <form action="${pageContext.request.contextPath}/UserEditServlet" method="post">
-	<input type="submit" name="action" value="${'会員情報編集'.equals(transition) ? 'メニューへ' : '一覧へ'}" class="button_submit">
+    <input type="hidden" name="transition" value="${transition}">
+    <input type="submit" name="action" value="${'会員情報編集'.equals(transition) ? 'メニューへ' : '一覧へ'}" class="button_submit">
 </form>
 <%@include file="../common/footer.jsp"%>

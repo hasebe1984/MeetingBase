@@ -1,9 +1,8 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8" %>
-	
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ page import="jp.co.sys.bean.MeetingRoom" %>	
 <%@ page import="jp.co.sys.bean.UserBean"%>
 <%@ page import="jp.co.sys.util.UserList"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@include file="../common/header.jsp"%>
 <h1>会員一覧</h1>
 <hr>
@@ -12,10 +11,11 @@
 	<thead>
 		<tr>
 			<th>ID</th>
-		
 			<th>氏名</th>
 			<th>住所</th>
 			<th>区分</th>
+			<th>編集</th>
+			<th>削除</th>
 		</tr>
 	</thead>
 	<tbody>
@@ -25,33 +25,31 @@
 			if (list != null) {
 			for (UserBean l : list) {
 				String name = l.getName();
-				request.setAttribute("name", name);
 				String address = l.getAddress();
-				request.setAttribute("address", address);
+				// XSS対策として一度リクエスト属性に置いてからc:outで扱う
+				request.setAttribute("tmpName", name);
+				request.setAttribute("tmpAddress", address);
 		%>
 			<tr>
 				<td class="list_td_small"><%= l.getId() %></td>
-				
-				<td><c:out value="${name}" /></td>
-				<td class="list_td_large"><c:out value="${address}" /></td>
+				<td><c:out value="${tmpName}" /></td>
+				<td class="list_td_large"><c:out value="${tmpAddress}" /></td>
 				<td class="list_td_small"><%= l.getIsAdmin() == 0 ? "一般" : "管理者" %></td>				
 				<td class="list_td_small">
+					<%-- 編集ボタンのフォーム：name="action"を付与 --%>
 					<form action="<%= request.getContextPath() %>/UserEditServlet" method="post">
-						<input type="hidden" name="userAddress" value="<c:out value="${address}" />">
+						<input type="hidden" name="userAddress" value="<c:out value="${tmpAddress}" />">
 						<input type="hidden" name="userId" value="<%= l.getId() %>">
-						<input type="hidden" name="userName" value="<c:out value="${name}" />">
-						<input type="hidden" name="userAdmin" value="<%= l.getIsAdmin() %>">
-						<input type="submit" value="編集" class="button_list">
+						<input type="hidden" name="userName" value="<c:out value="${tmpName}" />">
+						<input type="hidden" name="userAdmin" value="<%= l.getIsAdmin() == 1 ? "on" : "" %>">
+						<input type="submit" name="action" value="編集" class="button_list">
 					</form>
 				</td>
 				<td class="list_td_small">
 					<form action="<%= request.getContextPath() %>/AdminUserServlet" method="post">
-						<input type="hidden" name="userAddress" value="<c:out value="${address}" />">
 						<input type="hidden" name="userId" value="<%= l.getId() %>">
-						<input type="hidden" name="userName" value="<c:out value="${name}" />">
-						<input type="hidden" name="userPw" value="<%= l.getPassword() %>">
-						<input type="hidden" name="userAdmin" value="<%= l.getIsAdmin() %>">
-						<input type="submit" name="action" value="削除" class="button_list <%= (l.getId()).equals(mr.getUser().getId()) ? "button_disabled" : "" %>" onclick="return confirm('本当に削除してよろしいですか？');" <%= (l.getId()).equals(mr.getUser().getId()) ? "disabled" : "" %> >
+						<input type="submit" name="action" value="削除" class="button_list <%= (l.getId()).equals(mr.getUser().getId()) ? "button_disabled" : "" %>" 
+						onclick="return confirm('本当に削除してよろしいですか？');" <%= (l.getId()).equals(mr.getUser().getId()) ? "disabled" : "" %> >
 					</form>
 				</td>
 			</tr>

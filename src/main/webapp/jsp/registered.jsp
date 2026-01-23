@@ -29,5 +29,5 @@
 		</tr>
 	</tbody>
 </table>
-<a href="${pageContext.request.contextPath}/AdminUserServlet" class="button_submit">メニューへ</a>
+<a href="${pageContext.request.contextPath}/AdminUserServlet" class="button_submit">一覧へ</a>
 <%@include file="../common/footer.jsp"%>
