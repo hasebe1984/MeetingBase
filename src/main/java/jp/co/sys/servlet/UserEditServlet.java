@@ -52,50 +52,52 @@ public class UserEditServlet extends HttpServlet {
 		int cancelFlag =  mr.getUser().getIsAdmin();
 //		int cancelFlag = request.getParameter("cancelFlag");
 		String adminFlag = request.getParameter("adminFlag");
+		String transition = request.getParameter("transition");
 		
 		if ("会員情報編集".equals(action)) {
 			userAddress = mr.getUser().getAddress();
 			userId = mr.getUser().getId();
 			userName = mr.getUser().getName();
-//			userPw = mr.getUser().getPassword();
 			userPw = "";
 			userAdminInt = mr.getUser().getIsAdmin();
 			checked = userAdminInt == 1 ? "checked" : "";
 			
 			user = new UserBean(userAddress, userId, userName, userPw, userAdminInt);
 			
+			transition = "会員情報編集";
 			
-//			System.out.println("---------- Servlet Data Check ----------");
-//			System.out.println("Action     : [" + user + "]");
-//			System.out.println("----------------------------------------");
-			
-		}
-		 if ("編集".equals(action) || mr.getUser().getIsAdmin() == 1) {
+//		} else if ("編集".equals(action) || mr.getUser().getIsAdmin() == 1) {
+		} else if ("編集".equals(action)) {
 			checked = userAdminInt == 1 ? "checked" : "";
 			adminFlag = "1";
-		 }
+			transition = "編集";
+		}
 		
 		
 		if ("決定".equals(action)) {
 			
 			if (userPw.length() > 10 || userPw.length() < 6) {
-				message += "パスワードは、6文字から10文字で入力してください。";
-				
+				message += "パスワードは、6文字から10文字、";
 			} 
 			
 			if (userName.length() > 10) {
-				message += "氏名は10文字以内で入力してください。";
-				
+				message += "氏名は10文字以内、";
 			}
 			if (userAddress.length() > 30) {
-				message += "住所は30文字以内で入力してください。";
-				
+				message += "住所は30文字以内、";
 			}
-			
+			if (userPw.matches(".*[-<>'\"&;].*") || userName.matches(".*[<>'\"&;].*") || userAddress.matches(".*[<>'\"&;].*") ) {
+				message += "半角記号（< > ' \" 等）を使用しない形式、";
+			}
+
 			if (message != "") {
+				message += "で入力してください。";
 				request.setAttribute("user", user);
 				request.setAttribute("checked", checked);
 				request.setAttribute("message", message);
+				request.setAttribute("cancelFlag", cancelFlag);
+//				request.setAttribute("adminFlag", adminFlag);
+				request.setAttribute("transition", transition);
 				request.getRequestDispatcher(nextPage).forward(request, response);
 				return;
 			}
@@ -134,21 +136,29 @@ public class UserEditServlet extends HttpServlet {
 			
 //			成功
 			if (isSuccess) {
-				nextPage = "/jsp/editted.jsp";
 				mr.getUsers();
+				nextPage = "/jsp/editted.jsp";
 				
 //			失敗
 			} else {
 				nextPage = "/jsp/edittedError.jsp";
 				
 			}
+
+		} else if ("メニューへ".equals(action)) {
+			nextPage = "/jsp/menu.jsp";
+			
+		} else if ("一覧へ".equals(action)) {
+			nextPage ="AdminUserServlet";
 		}
+		
 		
 		request.setAttribute("user", user);
 		request.setAttribute("checked", checked);
 		request.setAttribute("message", message);
 		request.setAttribute("cancelFlag", cancelFlag);
 		request.setAttribute("adminFlag", adminFlag);
+		request.setAttribute("transition", transition);
 
 		request.getRequestDispatcher(nextPage).forward(request, response);
 		

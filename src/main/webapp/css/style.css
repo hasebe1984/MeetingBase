@@ -73,7 +73,7 @@ h2 {
 	flex-direction: column;
 	gap: 24px;
 	margin: 24px auto;
-	width: 500px;
+	width: 550px;
 }
 
 .form_unsubscribe {
@@ -140,6 +140,7 @@ h2 {
 	padding: 8px 0;
 	width: 238px;
 	transition: 0.3s;
+	border-radius: 0.5rem;
 }
 
 .button_submit:hover {
@@ -177,22 +178,23 @@ h2 {
 
 .button_list {
 	padding: 0 24px;
-	color: #292929;
-	background-color: #fff9e6;
+	color: #fff9e6;
+	background-color: #292929;
 	border: 1px solid #292929;
 	transition: 0.3s;
 	margin: 0 auto;
+	border-radius: 0.5rem;
 }
 
 .button_list:hover {
-	color: #fff9e6;
-	background-color: #292929;
+	color: #292929;
+	background-color: #fff9e6;
 	transition: 0.3s;
 }
 
 .button_disabled {
-	color: #fff9e6;
-	background-color: #292929;
+	color: #292929;
+	background-color: #fff9e6;
 	transition: 0.3s;
 }
 

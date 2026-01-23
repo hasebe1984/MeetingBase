@@ -36,6 +36,7 @@
 		<input type="hidden" name="userAdmin" value="${user.isAdmin == 1 ? 'on' : ''}">
 		<input type="hidden" name="cancelFlag" value="${cancelFlag}">
 		<input type="hidden" name="adminFlag" value="${adminFlag}">
+		<input type="hidden" name="transition" value="${transition}">
 		
 		<input type="submit" name="action" value="戻る" class="button_submit">
 		<input type="submit" name="action" value="登録" class="button_submit">

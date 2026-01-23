@@ -30,5 +30,7 @@
 		</tr>
 	</tbody>
 </table>
-<a href="${pageContext.request.contextPath}/jsp/menu.jsp" class="button_submit">メニューへ</a>
+<form action="${pageContext.request.contextPath}/UserEditServlet" method="post">
+	<input type="submit" name="action" value="${'会員情報編集'.equals(transition) ? 'メニューへ' : '一覧へ'}" class="button_submit">
+</form>
 <%@include file="../common/footer.jsp"%>

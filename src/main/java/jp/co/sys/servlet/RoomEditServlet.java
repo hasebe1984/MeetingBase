@@ -60,17 +60,17 @@ public class RoomEditServlet extends HttpServlet {
 		} else if ("決定".equals(action)) {
 			
 			if (roomName.length() > 20) {
-				message += "会議室名は20文字以内で入力してください。";
-				
-
+				message += "会議室名は20文字以内、";
 			} 
-			
 			if (roomFloor.length() > 2) {
-				message += "階数は2桁以内で入力してください。";
-				
+				message += "階数は1-99の間、、";
+			}
+			if (roomFloor.matches(".*[-<>'\"&;].*") || roomName.matches(".*[<>'\"&;].*") ) {
+				message += "半角記号（< > ' \"- 等）を使用しない形式、";
 			}
 			
 			if (message != "") {
+				message += "で入力してください。";
 				request.setAttribute("room", room);
 				request.setAttribute("addRoom", addRoom);
 				request.setAttribute("title", title);
