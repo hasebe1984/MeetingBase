@@ -15,35 +15,53 @@ import jp.co.sys.util.ReservationList;
  * データベース「meetingroomb」のテーブル「reservation」を操作するクラスです。
  * @author 小山裕貴
  */
-
 public class ReservationDao {
-	private ReservationDao() {
-	}
-
 	/**
-	 * @return ReservationList型の利用日の予約データを返す。データがない場合は、nullを返す。
+	 * インスタンス化の抑制処理
 	 */
-	//	利用日の予約を検索します
+	private ReservationDao() {}
+	
+	/**
+	 * 引数なしで、予約状況を全件検索するメソッドです。
+	 * @return ReservationList型の全ての予約データを返す。データがない場合は、nullを返す。
+	 */
+	public static ReservationList findAll() {
+		ReservationList list = new ReservationList();
+		String sql = "SELECT * FROM Reservation";
+		try (Connection db = DatabaseConnectionProvider.getConnection();
+				PreparedStatement pstmt = db.prepareStatement(sql, ResultSet.TYPE_SCROLL_INSENSITIVE,
+						ResultSet.CONCUR_READ_ONLY);
+				ResultSet rs = pstmt.executeQuery()) {
+			while (rs.next()) {
+				ReservationBean rb = new ReservationBean(rs.getInt("id"), rs.getString("roomId"),
+						rs.getString("date"),
+						rs.getString("start"), rs.getString("end"), rs.getString("userId"));
+				list.add(rb);
+			}
+		} catch (SQLException e) {
+			System.out.println("★ReservationDaoのfindAllでエラー発生！");
+			e.printStackTrace();
+		}
+		// 空だったらnullを入れる
+		if (list.isEmpty()) {
+			return null;
+		}
+		return list;
+	}
+	
+	/**
+	 * 利用日情報で、当該日時の予約状況の検索を行うメソッドです。
+	 * @param date 利用日
+	 * @return ReservationList型の予約データを返す。データがない場合は、nullを返す。
+	 */
 	public static ReservationList findByDate​(String date) {
 		ReservationList list = new ReservationList();
 		String sql = "SELECT * FROM reservation WHERE date = ?";
-
 		try (Connection conn = DatabaseConnectionProvider.getConnection();
 				PreparedStatement pstmt = conn.prepareStatement(sql)) {
-
-			// プレースホルダに日付をセット
 			pstmt.setString(1, date);
-
 			try (ResultSet rs = pstmt.executeQuery()) {
 				while (rs.next()) {
-					// 値の取得
-					//					int id = rs.getInt("id");
-					//					String roomId = rs.getString("roomId");
-					//					String date2 = rs.getString("date");
-					//					String start = rs.getString("start");
-					//					String end = rs.getString("end");
-					//					String userID = rs.getString("userID");
-					//					ReservationBean rb = new ReservationBean(id, roomId, date2, start, end, userID);
 					ReservationBean rb = new ReservationBean(rs.getInt("id"), rs.getString("roomId"),
 							rs.getString("date"),
 							rs.getString("start"), rs.getString("end"), rs.getString("userId"));
@@ -51,19 +69,20 @@ public class ReservationDao {
 				}
 			}
 		} catch (SQLException e) {
+			System.out.println("★ReservationDaoのfindByDateでエラー発生！");
 			e.printStackTrace();
 		}
-		// 空だったらnullを入れる
 		if (list.isEmpty()) {
 			return null;
 		}
-
 		return list;
 	}
 
 	/**
+	 * 予約番号から、当該予約の検索を行うメソッドです。
+	 * @param id 予約番号
 	 * @return ReservationBean型のidの予約データを返す。データがない場合は、nullを返す。
-	 * @throws SQLException 
+	 * @throws SQLException データベース・アクセス・エラーまたはその他のエラーに関する情報を提供する例外です。
 	 */
 	public static ReservationBean findById​(int id) throws SQLException {
 		ReservationBean rb = null;
@@ -79,16 +98,22 @@ public class ReservationDao {
 							rs.getString("start"), rs.getString("end"), rs.getString("userId"));
 				}
 			} catch (SQLException e) {
+				System.out.println("★ReservationDaoのfindById​でエラー発生！");
 				e.printStackTrace();
 			}
 			return rb;
 		}
 	}
 
+	/**
+	 * 会議室IDから、当該会議室の予約状況の検索を行うメソッドです。
+	 * @param roomId 会議室ID
+	 * @return ReservationList型の予約データを返す。データがない場合は、nullを返す。
+	 * @throws SQLException データベース・アクセス・エラーまたはその他のエラーに関する情報を提供する例外です。
+	 */
 	public static ReservationList findByRoomId​(String roomId) throws SQLException {
 		ReservationList list = new ReservationList();
-		String sql = "SELECT * FROM reservation WHERE roomId = ?"; // いるか確認 and isDeleted = 0
-
+		String sql = "SELECT * FROM reservation WHERE roomId = ?";
 		try (Connection conn = DatabaseConnectionProvider.getConnection();
 				PreparedStatement pstmt = conn.prepareStatement(sql)) {
 			pstmt.setString(1, roomId);
@@ -101,6 +126,7 @@ public class ReservationDao {
 				}
 				return list;
 			} catch (SQLException e) {
+				System.out.println("★ReservationDaoのfindByRoomIdでエラー発生！");
 				e.printStackTrace();
 			}
 			return null;
@@ -108,18 +134,16 @@ public class ReservationDao {
 	}
 
 	/**
-	 * @return ReservationList型のuserIDの予約データを返す。データがない場合は、nullを返す。
+	 * 利用者IDにて、当該人物の予約状況の検索を行うメソッドです。
+	 * @param userID 利用者ID
+	 * @return ReservationList型の予約データを返す。データがない場合は、nullを返す。
 	 */
-	//	userID過去含め検索
 	public static ReservationList finduserID(String userID) {
 		ReservationList list = new ReservationList();
 		String sql = "SELECT * FROM reservation WHERE userId = ?";
 		try (Connection conn = DatabaseConnectionProvider.getConnection();
 				PreparedStatement pstmt = conn.prepareStatement(sql)) {
-
-			// プレースホルダにuserIDをセット
 			pstmt.setString(1, userID);
-
 			try (ResultSet rs = pstmt.executeQuery()) {
 				while (rs.next()) {
 					ReservationBean rb = new ReservationBean(rs.getInt("id"), rs.getString("roomId"),
@@ -129,67 +153,33 @@ public class ReservationDao {
 				}
 			}
 		} catch (SQLException e) {
+			System.out.println("★ReservationDaoのfinduserIDでエラー発生！");
 			e.printStackTrace();
 		}
-		// 空だったらnullを入れる
 		if (list.isEmpty()) {
 			return list;
 		}
-
 		return list;
 	}
 
 	/**
-	 * @return ReservationList型の全ての予約データを返す(削除フラグ1も含めてすべて)。データがない場合は、nullを返す。
+	 * 会議室予約を新規登録する為のメソッドです。
+	 * @param reservation 登録する予約データ
+	 * @return テーブル「reservation」のデータ登録真偽
 	 */
-	//	全件検索(削除フラグ1も含めてすべて)
-	public static ReservationList findAll() {
-		ReservationList list = new ReservationList();
-		String sql = "SELECT * FROM Reservation";
-		try (Connection db = DatabaseConnectionProvider.getConnection();
-				PreparedStatement pstmt = db.prepareStatement(sql, ResultSet.TYPE_SCROLL_INSENSITIVE,
-						ResultSet.CONCUR_READ_ONLY);
-				ResultSet rs = pstmt.executeQuery()) {
-			while (rs.next()) {
-				ReservationBean rb = new ReservationBean(rs.getInt("id"), rs.getString("roomId"),
-						rs.getString("date"),
-						rs.getString("start"), rs.getString("end"), rs.getString("userId"));
-				list.add(rb);
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		// 空だったらnullを入れる
-		if (list.isEmpty()) {
-			return null;
-		}
-
-		return list;
-	}
-
-	/**
-	 * @param reservation　登録するデータ
-	 * @return テーブル「reservation」へのデータ登録の真偽値を返す
-	 */
-	//	予約を追加します
 	public static boolean insert​(ReservationBean reservation) {
 		String sql = "INSERT INTO reservation (roomId,date,start,end,userID) VALUES(?, ?, ?, ?, ?)";
-		//INSERT INTO reservation (roomId, date, start, end, userID) VALUES ("0302", "2026-01-10", "09:00:00", "10:00:00", "2500003");
-		// try-with-resources構文でリソースを自動的にクローズ
 		try (Connection conn = DatabaseConnectionProvider.getConnection();
 				PreparedStatement pstmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
-			// プレースホルダーに値を設定
 			pstmt.setString(1, reservation.getRoomId());
 			pstmt.setString(2, reservation.getDate());
 			pstmt.setString(3, reservation.getStart());
 			pstmt.setString(4, reservation.getEnd());
 			pstmt.setString(5, reservation.getUserId());
-			//更新クエリの実行
 			int ret = pstmt.executeUpdate();
 			 if (ret == 0) {
 		            return false;
 		        }
-		        //自動生成されたIDを取得
 		        try (ResultSet rs = pstmt.getGeneratedKeys()) {
 		            if (rs.next()) {
 		                int id = rs.getInt(1);
@@ -197,11 +187,11 @@ public class ReservationDao {
 		            }
 		        }
 		        return true;
-
 		} catch (SQLIntegrityConstraintViolationException e) {
 			e.printStackTrace();
 			System.err.println("登録していないルームIDを入れているか日付や時間が重複しています。");
 		} catch (SQLException e) {
+			System.out.println("★ReservationDaoのinsertでエラー発生！");
 			e.printStackTrace();
 			System.err.println("SQLに関するエラーです。");
 		}
@@ -209,24 +199,20 @@ public class ReservationDao {
 	}
 
 	/**
-	 * @param reservation　削除するデータ
-	 * @return テーブル「reservation」への削除フラグの真偽値を返す
+	 * 予約番号から、当該予約を物理削除するメソッドです。
+	 * @param reservation 削除する予約データ
+	 * @return テーブル「reservation」のデータ削除真偽
 	 */
-	//	予約を削除します
 	public static boolean delete​(ReservationBean reservation) {
 		String sql = "DELETE FROM reservation WHERE id = ?";
-		//update reservation set isDeleted = 1 where roomId = "0302" and date = "2026-01-10" and start = "09:00:00 and isDeleted = 0";
-		// try-with-resources構文でリソースを自動的にクローズ
 		try (Connection conn = DatabaseConnectionProvider.getConnection();
 				PreparedStatement pstmt = conn.prepareStatement(sql)) {
-			// プレースホルダーに値を設定
 			pstmt.setInt(1, reservation.getId());
-			//更新クエリの実行
 			int ret = pstmt.executeUpdate();
 			return ret != 0;
 		} catch (SQLException e) {
+			System.out.println("★ReservationDaoのdeleteでエラー発生！");
 			e.printStackTrace();
-			System.err.println("SQLに関するエラーです。");
 		}
 		return false;
 	}

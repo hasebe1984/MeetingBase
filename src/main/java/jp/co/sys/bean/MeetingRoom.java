@@ -299,6 +299,9 @@ public class MeetingRoom implements Serializable {
 		if (!editUserId.equals(this.user.getId()) && this.user.getIsAdmin()==0) {
 			throw new Exception("変更できないユーザーです。");
 		}
+		if(user.getIsAdmin()==0 && userEdit.getIsAdmin()==1 && UserDao.findAdmin()==1) {
+			throw new Exception("管理者が0人となるため変更できません");
+		}
 		boolean isSuccess = UserDao.update(user);
 		if(this.user.getId().equals(user.getId())) {			
 			this.user = user;
@@ -434,7 +437,8 @@ public class MeetingRoom implements Serializable {
 				LocalTime rsTime = LocalTime.parse(rs.getEnd());
 				LocalDateTime rsDateTime = LocalDateTime.of(rsDate, rsTime);
 				if (rsDateTime.isAfter(now)) {
-					throw new Exception("予約があるため削除できません");
+					//throw new Exception("予約があるため削除できません");
+					ReservationDao.delete​(rs);//未来日の残予約はキャンセル(物理削除)
 				}
 			}
 		}

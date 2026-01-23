@@ -16,15 +16,23 @@ import jp.co.sys.util.DatabaseConnectionProvider;
 import jp.co.sys.util.UserList;
 
 /**
- * ユーザ認証が出来たか出来てないかを｢MeetingRoom｣に返す
+ * データベース「meetingroomb」のテーブル「user」を操作するクラスです。
  * @author 加藤博文
  */
 public class UserDao {
 	/**
-	 * 利用者IDとパスワードで利用者認証を行い，認証した利用者情報を返します。
-	 * @param id
-	 * @param password
-	 * @return 
+	 * インスタンス化の抑制処理
+	 */
+	private UserDao() {
+	}
+
+	/**
+	 * 利用者IDとパスワードで利用者認証（データベースの登録可否）を行うメソッドです。
+	 * @param id 利用者ID
+	 * @param password パスワード
+	 * @return UserBean型のデータベース情報を返す。
+	 * @throws NoSuchAlgorithmException この例外は、ある暗号アルゴリズムが要求されたにもかかわらず、現在の環境では使用可能でない場合にスローされます。
+	 * @throws InvalidKeySpecException 無効なキー仕様の例外です。
 	 */
 	public static UserBean certificate​(String id, String password)
 			throws NoSuchAlgorithmException, InvalidKeySpecException {
@@ -37,12 +45,12 @@ public class UserDao {
 		//"PBKDF2WithHmacSHA256"は、ハッシュ化用アルゴリズムの設定です。
 		SecretKeyFactory skf = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA256");
 		byte[] hash = skf.generateSecret(spec).getEncoded();
-		//DB接続し、SQL実行。
 		String sql = "select * from user where id = ? AND password=? ";
 		try (Connection db = DatabaseConnectionProvider.getConnection();
 				PreparedStatement pstmt = db.prepareStatement(sql)) {
 			pstmt.setString(1, id);
-			pstmt.setString(2, Base64.getEncoder().encodeToString(hash)); //ハッシュ化したパスワードをString変換
+			//ハッシュ化したパスワードをString変換
+			pstmt.setString(2, Base64.getEncoder().encodeToString(hash));
 			try (ResultSet rs = pstmt.executeQuery()) {
 				while (rs.next()) {
 					password = rs.getString("password");
@@ -55,88 +63,25 @@ public class UserDao {
 				}
 			}
 		} catch (SQLException ex) {
+			System.out.println("★UserDAOのcertificateでエラー発生！");
 			ex.printStackTrace();
 		}
 		return user;
 	}
 
 	/**
-	 * ユーザを追加します
-	 * @param userbean
-	 * @return　ユーザテーブルにアカウント情報を追加
-	 */
-	public static boolean insert​(UserBean userbean) throws Exception {
-		int ret = -1;
-		UserBean cipher = new UserBean();
-		String sql = "INSERT INTO user (id,password,name, address ,isDeleted, isAdmin) VALUES(?, ?, ?, ?, ?,?)";
-		//パスワードをハッシュ化
-		String password = userbean.getPassword();
-		PBEKeySpec spec = new PBEKeySpec(password.toCharArray(), cipher.getHash(), cipher.getIterations(),
-				cipher.getKeyLength());
-		SecretKeyFactory skf = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA256");
-		byte[] hash = skf.generateSecret(spec).getEncoded();
-
-		try (Connection conn = DatabaseConnectionProvider.getConnection();
-				PreparedStatement pstmt = conn.prepareStatement(sql)) {
-			pstmt.setString(1, userbean.getId());
-			pstmt.setString(2, Base64.getEncoder().encodeToString(hash)); //ハッシュ化したパスワードをString変換
-			pstmt.setString(3, userbean.getName());
-			pstmt.setString(4, userbean.getAddress());
-			pstmt.setInt(5, userbean.getIsDeleted());
-			pstmt.setInt(6, userbean.getIsAdmin());
-			ret = pstmt.executeUpdate();
-		} catch (SQLException e) {
-			e.printStackTrace();
-			System.err.println("SQLに関するエラーです。");
-		}
-		return ret != 0;
-	}
-
-	/**
-	 * ユーザーに削除フラグ（論理削除）を実施します。
-	 * @param id
-	 * @return　isDeletedが出来たらtrueをisDeletedが出来なければfalseを返す
-	 */
-	public static boolean delete​(UserBean userbean) {
-		String sql = "update user set isDeleted = 1 where id  = ?";
-		//update user set isDeleted = '1' where id  = '2500001' ;
-		// try-with-user構文でリソースを自動的にクローズ
-		//		if (userbean.getDeleted() != 1) {
-		try (Connection conn = DatabaseConnectionProvider.getConnection();
-				PreparedStatement pstmt = conn.prepareStatement(sql)) {
-			// プレースホルダーに値を設定
-			pstmt.setString(1, userbean.getId());
-			//更新クエリの実行
-			int ret = pstmt.executeUpdate();
-			return ret != 0;
-
-		} catch (SQLException e) {
-			e.printStackTrace();
-			System.err.println("SQLに関するエラーです。");
-
-		}
-		return false;
-	}
-
-	/**
-	 * 引数idNowから始まるid検索
-	 * @param idNow
-	 * @return
+	 * 引数idNowにて、現在の西暦下二桁に存在する現在の最新利用者IDを取得するメソッドです。
+	 * @param idNow 西暦下二桁の情報
+	 * @return UserList型でデータベース情報を返す。
 	 */
 	public static UserList getNowId(String idNow) {
 		UserList userlist = new UserList();
-		//SQL文user_idを指定して、レコードを取得
 		String sql = "select * from user where id like ? ";
-		//データベースへ接続
 		try (Connection db = DatabaseConnectionProvider.getConnection();
 				PreparedStatement pstmt = db.prepareStatement(sql)) {
-			//受け取ったIdをSQL文へ代入
 			pstmt.setString(1, idNow + "%");
 			try (ResultSet rs = pstmt.executeQuery()) {
-
-				//			SQL文を実行して実行結果を取
 				while (rs.next()) {
-					//実行結果よりそれぞれのカラムの値を取得
 					String id = rs.getString("id");
 					String address = rs.getString("address");
 					String name = rs.getString("name");
@@ -148,30 +93,23 @@ public class UserDao {
 				}
 			}
 		} catch (SQLException ex) {
+			System.out.println("★UserDAOのgetNowIdでエラー発生！");
 			ex.printStackTrace();
 		}
 		return userlist;
-
 	}
 
 	/**
-	 * 有効ユーザーをUserListで全件出力する
-	 * @return
+	 * 有効ユーザーをUserListで全件出力するメソッドです。
+	 * @return UserList型でデータベース情報を返す。
 	 */
 	public static UserList findAll() {
 		UserList userlist = new UserList();
-		//SQL文user_idを指定して、レコードを取得
 		String sql = "select * from user where id AND isDeleted != 1";
-		//データベースへ接続
 		try (Connection db = DatabaseConnectionProvider.getConnection();
 				PreparedStatement pstmt = db.prepareStatement(sql)) {
-			//受け取ったIdをSQL文へ代入
-
 			try (ResultSet rs = pstmt.executeQuery()) {
-
-				//			SQL文を実行して実行結果を取
 				while (rs.next()) {
-					//実行結果よりそれぞれのカラムの値を取得
 					String id = rs.getString("id");
 					String address = rs.getString("address");
 					String name = rs.getString("name");
@@ -183,15 +121,16 @@ public class UserDao {
 				}
 			}
 		} catch (SQLException ex) {
+			System.out.println("★UserDAOのfindAllでエラー発生！");
 			ex.printStackTrace();
 		}
 		return userlist;
 	}
 
 	/**
-	 * 利用者IDで該当するユーザーを検索し、存在する場合UserBeanで返し、存在しないばあいnullを返す。
-	 * @param id
-	 * @return
+	 * 利用者IDで該当するユーザーを検索するメソッドです。
+	 * @param id 利用者ID
+	 * @return 存在する場合、UserBean型でデータベース情報を返し、存在しない場合nullを返す。
 	 */
 	public static UserBean findById(String id) {
 		String sql = "SELECT * FROM user WHERE id=?";
@@ -208,14 +147,69 @@ public class UserDao {
 					rs.getInt("isAdmin"));
 			return rb;
 		} catch (SQLException e) {
+			System.out.println("★UserDAOのfindByIdでエラー発生！");
 			e.printStackTrace();
 		}
 		return null;
 	}
 
 	/**
-	 * @param userbean
-	 * @return
+	 * 現存する有効な管理者ユーザーを検索するメソッドです。
+	 * @return 管理者数
+	 */
+	public static int findAdmin() {
+		String sql = "SELECT * FROM user WHERE isAdmin=1 and isDeleted!=1";
+		try (Connection db = DatabaseConnectionProvider.getConnection();
+				PreparedStatement pstmt = db.prepareStatement(sql, ResultSet.TYPE_SCROLL_INSENSITIVE,
+						ResultSet.CONCUR_READ_ONLY)) {
+			ResultSet rs = pstmt.executeQuery();
+			rs.last();
+			int row = rs.getRow();
+			return row;
+		} catch (SQLException e) {
+			System.out.println("★UserDAOのfindAdminでエラー発生！");
+			e.printStackTrace();
+		}
+		return 0;
+	}
+
+	/**
+	 * 新規ユーザー登録を実行するメソッドです。
+	 * @param userbean 登録するデータをUserBean型で取得する
+	 * @return テーブル「user」へのデータ挿入真偽
+	 * @throws Exception 発生する可能性がある検査例外を呼び出し元に委譲する為に記載。
+	 */
+	public static boolean insert​(UserBean userbean) throws Exception {
+		int ret = -1;
+		UserBean cipher = new UserBean();
+		String sql = "INSERT INTO user (id,password,name, address ,isDeleted, isAdmin) VALUES(?, ?, ?, ?, ?,?)";
+		String password = userbean.getPassword();
+		PBEKeySpec spec = new PBEKeySpec(password.toCharArray(), cipher.getHash(), cipher.getIterations(),
+				cipher.getKeyLength());
+		SecretKeyFactory skf = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA256");
+		byte[] hash = skf.generateSecret(spec).getEncoded();
+		try (Connection conn = DatabaseConnectionProvider.getConnection();
+				PreparedStatement pstmt = conn.prepareStatement(sql)) {
+			pstmt.setString(1, userbean.getId());
+			pstmt.setString(2, Base64.getEncoder().encodeToString(hash));
+			pstmt.setString(3, userbean.getName());
+			pstmt.setString(4, userbean.getAddress());
+			pstmt.setInt(5, userbean.getIsDeleted());
+			pstmt.setInt(6, userbean.getIsAdmin());
+			ret = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			System.out.println("★UserDAOのinsert​でエラー発生！");
+			e.printStackTrace();
+		}
+		return ret != 0;
+	}
+
+	/**
+	 * 既存ユーザー情報を修正するメソッドです。
+	 * @param userbean 修正するデータをUserBean型で取得する
+	 * @return テーブル「user」のデータ変更真偽（id以外）
+	 * @throws NoSuchAlgorithmException この例外は、ある暗号アルゴリズムが要求されたにもかかわらず、現在の環境では使用可能でない場合にスローされます。
+	 * @throws InvalidKeySpecException 無効なキー仕様の例外です。
 	 */
 	public static boolean update(UserBean userbean) throws NoSuchAlgorithmException, InvalidKeySpecException {
 		int ret = -1;
@@ -235,9 +229,28 @@ public class UserDao {
 			pstmt.setString(5, userbean.getId());
 			ret = pstmt.executeUpdate();
 		} catch (SQLException e) {
+			System.out.println("★UserDAOのupdate​でエラー発生！");
 			e.printStackTrace();
 		}
 		return ret != 0;
 	}
 
+	/**
+	 * ユーザーに削除フラグ（論理削除）設定を実施します。
+	 * @param userbean 削除するデータをUserBean型で取得する
+	 * @return テーブル「user」のデータ論理削除の真偽
+	 */
+	public static boolean delete​(UserBean userbean) {
+		String sql = "update user set isDeleted = 1 where id  = ?";
+		try (Connection conn = DatabaseConnectionProvider.getConnection();
+				PreparedStatement pstmt = conn.prepareStatement(sql)) {
+			pstmt.setString(1, userbean.getId());
+			int ret = pstmt.executeUpdate();
+			return ret != 0;
+		} catch (SQLException e) {
+			System.out.println("★UserDAOのdelete​​でエラー発生！");
+			e.printStackTrace();
+		}
+		return false;
+	}
 }
