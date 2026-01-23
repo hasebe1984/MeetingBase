@@ -153,6 +153,10 @@ public class UserDao {
 		return null;
 	}
 
+	/**
+	 * 現存する有効な管理者ユーザーを検索するメソッドです。
+	 * @return 管理者数
+	 */
 	public static int findAdmin() {
 		String sql = "SELECT * FROM user WHERE isAdmin=1 and isDeleted!=1";
 		try (Connection db = DatabaseConnectionProvider.getConnection();
@@ -163,7 +167,7 @@ public class UserDao {
 			int row = rs.getRow();
 			return row;
 		} catch (SQLException e) {
-			System.out.println("★UserDAOのfindByIdでエラー発生！");
+			System.out.println("★UserDAOのfindAdminでエラー発生！");
 			e.printStackTrace();
 		}
 		return 0;
