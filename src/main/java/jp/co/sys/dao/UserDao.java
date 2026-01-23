@@ -21,6 +21,11 @@ import jp.co.sys.util.UserList;
  */
 public class UserDao {
 	/**
+	 * インスタンス化の抑制処理
+	 */
+	private UserDao() {}
+	
+	/**
 	 * 利用者IDとパスワードで利用者認証（データベースの登録可否）を行うメソッドです。
 	 * @param id 利用者ID
 	 * @param password パスワード
