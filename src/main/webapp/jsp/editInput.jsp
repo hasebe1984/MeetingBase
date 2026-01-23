@@ -8,16 +8,16 @@
 <p class="message">${message}</p>
 <form action="${pageContext.request.contextPath}/UserEditServlet" method="post" class="form form_unsubscribe">
 	<div class="input-wrap">
-		<label for="userPw">パスワード</label>
+		<label for="userPw">パスワード(6～10文字)</label>
 		<input type="text" name="userPw" value="${user.password}" id="userPw" class="form_input" required>
 	</div>
 	<div class="input-wrap">
-		<label for="userName">氏名</label>
+		<label for="userName">氏名(10文字以内)</label>
 		<input type="text" name="userName" value="${user.name}" id="userName" class="form_input" required>
 	</div>
 	<div class="input-wrap">
-		<label for="userAddress">住所</label>
-		<input type="text" name="userAddress" value="${user.address}" id="userAddress" class="form_input" required>
+		<label for="userAddress">住所(30文字以内)</label>
+		<input type="text" name="userAddress" value="<c:out value='${user.address}' />" id="userAddress" class="form_input" required>
 	</div>
 	<div class="input-wrap input-wrap_check ${'1'.equals(adminFlag) ? '' : 'hidden' || meetingRoom.user.isAdmin == '0' ? 'hidden' : ''}">
 		<label for="userAdmin">管理者</label>
@@ -28,6 +28,7 @@
 	    <input type="hidden" name="userId" value="${user.id}">
 	    <input type="hidden" name="cancelFlag" value="${cancelFlag}">
 	    <input type="hidden" name="adminFlag" value="${adminFlag}">
+        <input type="hidden" name="transition" value="${transition}">
 	    <input type="submit" name="action" value="決定" class="button_submit">
     </div>
 </form>

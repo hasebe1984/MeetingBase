@@ -8,15 +8,15 @@
 <p class="message">${message}</p>
 <form action="${pageContext.request.contextPath}/RegistrationServlet" method="post" class="form">
 	<div class="input-wrap">
-		<label for="userPw">パスワード</label>
+		<label for="userPw">パスワード(6～10文字)</label>
 		<input type="text" name="userPw" value="${user.password}" id="userPw" class="form_input" required>
 	</div>
 	<div class="input-wrap">
-		<label for="userName">氏名</label>
+		<label for="userName">氏名(10文字以内)</label>
 		<input type="text" name="userName" value="${user.name}" id="userName" class="form_input" required>
 	</div>
 	<div class="input-wrap">
-		<label for="userAddress">住所</label>
+		<label for="userAddress">住所(30文字以内)</label>
 		<input type="text" name="userAddress" value="${user.address}" id="userAddress" class="form_input" required>
 	</div>
 	<div class="input-wrap input-wrap_check">

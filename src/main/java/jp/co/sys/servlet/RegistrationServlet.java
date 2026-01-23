@@ -55,20 +55,20 @@ public class RegistrationServlet extends HttpServlet {
 		if ("決定".equals(action)) {
 			
 			if (userPw.length() > 10 || userPw.length() < 6) {
-				message += "パスワードは、6文字から10文字で入力してください。";
-
+				message += "パスワードは、6文字から10文字、";
 			} 
-			
 			if (userName.length() > 10) {
-				message += "氏名は10文字以内で入力してください。";
-				
+				message += "氏名は10文字以内、";
 			}
 			if (userAddress.length() > 30) {
-				message += "住所は30文字以内で入力してください。";
-				
+				message += "住所は30文字以内、";
+			}
+			if (userPw.matches(".*[-<>'\"&;].*") || userName.matches(".*[<>'\"&;].*") || userAddress.matches(".*[<>'\"&;].*") ) {
+				message += "半角記号（< > ' \" 等）を使用しない形式、";
 			}
 			
 			if (message != "") {
+				message += "で入力してください。";
 				request.setAttribute("user", user);
 				request.setAttribute("checked", checked);
 				request.setAttribute("message", message);

@@ -23,11 +23,13 @@
 			<th>住所</th>
 			<td><c:out value="${user.address}" /></td>
 		</tr>
-		<tr class="${'1'.equals(adminFlag) ? '' : 'hidden' || meetingRoom.user.isAdmin == '0' ? 'hidden' : ''}"">
+		<tr class="${'1'.equals(adminFlag) ? '' : 'hidden' || meetingRoom.user.isAdmin == '0' ? 'hidden' : ''}">
 			<th>会員区分</th>
 			<td>${user.isAdmin}</td>
 		</tr>
 	</tbody>
 </table>
-<a href="${pageContext.request.contextPath}/jsp/menu.jsp"class="button_submit">メニューへ戻る</a>
+<form action="${pageContext.request.contextPath}/UserEditServlet" method="post">
+	<input type="submit" name="action" value="${'会員情報編集'.equals(transition) ? 'メニューへ' : '一覧へ'}" class="button_submit">
+</form>
 <%@include file="../common/footer.jsp"%>
