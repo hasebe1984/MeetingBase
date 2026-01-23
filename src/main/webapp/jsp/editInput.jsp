@@ -8,8 +8,8 @@
 <p class="message">${message}</p>
 <form action="${pageContext.request.contextPath}/UserEditServlet" method="post" class="form form_unsubscribe">
 	<div class="input-wrap">
-		<label for="userPw">パスワード(6～10文字)</label>
-		<input type="text" name="userPw" value="${user.password}" id="userPw" class="form_input" required>
+		<label for="userPw">パスワード(半角英数字6～10文字)</label>
+		<input type="text" name="userPw" value="${user.password}" id="userPw" class="form_input" inputmode="url" required>
 	</div>
 	<div class="input-wrap">
 		<label for="userName">氏名(10文字以内)</label>
