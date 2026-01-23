@@ -16,11 +16,8 @@
     </div>
     <div class="input-wrap">
         <label>住所(30文字以内)</label>
-        <%-- c:outの代わりにEL式。<>などの記号はサニタイズ済みの前提 --%>
         <input type="text" name="userAddress" value="${user.address}" class="form_input" required>
     </div>
-
-    <%--  --%>
 	<div class="input-wrap input-wrap_check ${adminConfigClass}">
 	    <label>管理者</label>
 	    <input type="checkbox" name="userAdmin" id="userAdmin" class="form_check" ${checked}>
@@ -34,11 +31,8 @@
         <input type="submit" name="action" value="決定" class="button_submit">
     </div>
 </form>
-
-<%-- 退会ボタン：サーブレットで計算したクラス名を適用 --%>
 <form action="${pageContext.request.contextPath}/AdminUserServlet" method="post" class="form ${unsubscribeClass}">
     <input type="hidden" name="userId" value="${user.id}">
     <input type="submit" name="action" value="退会する" class="button_submit button_unsubscribe" onclick="return confirm('本当に退会しますか？');">
 </form>
-
 <%@include file="../common/footer.jsp"%>

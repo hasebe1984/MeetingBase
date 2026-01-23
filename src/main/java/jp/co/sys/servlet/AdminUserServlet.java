@@ -38,7 +38,6 @@ public class AdminUserServlet extends HttpServlet {
 		String action = request.getParameter("action");
 		
 		String userAddress = request.getParameter("userAddress");
-//		String userId = request.getParameter("userId");
 		String userId = "会員情報編集".equals(action) ? mr.getUser().getId() : request.getParameter("userId");
 		String userName = request.getParameter("userName");
 		String userPw = request.getParameter("userPw");
@@ -53,13 +52,6 @@ public class AdminUserServlet extends HttpServlet {
 		String nextPath = "/jsp/userList.jsp";
 		int cancelFlag = mr.getUser().getIsAdmin();
 		
-		
-//		System.out.println("---------- Servlet Data Check ----------");
-//		System.out.println("Action     : [" + cancelFlag + "]");
-//		System.out.println("----------------------------------------");
-		
-		
-//		String cancelFlag = request.getParameter("cancelFlag");
 		String adminFlag = request.getParameter("adminFlag");
 		
 //		会議室の削除
