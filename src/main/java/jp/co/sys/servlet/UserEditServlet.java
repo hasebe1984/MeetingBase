@@ -76,18 +76,17 @@ public class UserEditServlet extends HttpServlet {
 		
 		if ("決定".equals(action)) {
 			
-			if (userPw.length() > 10 || userPw.length() < 6) {
-				message += "パスワードは、6文字から10文字、";
+			if (userPw.length() > 10 || userPw.length() < 6 || !userPw.matches("^[a-zA-Z0-9]+$")) {
+				message += "パスワードは、6文字から10文字の半角英数字のみ、";
 			} 
-			
 			if (userName.length() > 10) {
 				message += "氏名は10文字以内、";
 			}
 			if (userAddress.length() > 30) {
 				message += "住所は30文字以内、";
 			}
-			if (userPw.matches(".*[-<>'\"&;].*") || userName.matches(".*[<>'\"&;].*") || userAddress.matches(".*[<>'\"&;].*") ) {
-				message += "半角記号（< > ' \" 等）を使用しない形式、";
+			if (userName.matches(".*[<>'\"&; 　].*") || userAddress.matches(".*[<>'\"&; 　].*") ) {
+				message += "半角記号・スペースを使用しない形式、";
 			}
 
 			if (message != "") {

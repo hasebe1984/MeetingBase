@@ -65,8 +65,8 @@ public class RoomEditServlet extends HttpServlet {
 			if (roomFloor.length() > 2) {
 				message += "階数は1-99の間、、";
 			}
-			if (roomFloor.matches(".*[-<>'\"&;].*") || roomName.matches(".*[<>'\"&;].*") ) {
-				message += "半角記号（< > ' \"- 等）を使用しない形式、";
+			if (roomFloor.matches(".*[-<>'\"&;].*") || roomName.matches(".*[<>'\"&; 　].*") ) {
+				message += "半角記号・スペースを使用しない形式、";
 			}
 			
 			if (message != "") {
