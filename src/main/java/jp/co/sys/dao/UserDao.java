@@ -25,7 +25,35 @@ public class UserDao {
 	 */
 	private UserDao() {
 	}
-
+	
+	/**
+	 * 有効ユーザーをUserListで全件出力するメソッドです。
+	 * @return UserList型でデータベース情報を返す。
+	 */
+	public static UserList findAll() {
+		UserList userlist = new UserList();
+		String sql = "select * from user where id AND isDeleted != 1";
+		try (Connection db = DatabaseConnectionProvider.getConnection();
+				PreparedStatement pstmt = db.prepareStatement(sql)) {
+			try (ResultSet rs = pstmt.executeQuery()) {
+				while (rs.next()) {
+					String id = rs.getString("id");
+					String address = rs.getString("address");
+					String name = rs.getString("name");
+					String password = rs.getString("password");
+					int isAdmin = rs.getInt("isAdmin");
+					int isDeleted = rs.getInt("isDeleted");
+					UserBean ub = new UserBean(address, id, name, password, isAdmin, isDeleted);
+					userlist.add(ub);
+				}
+			}
+		} catch (SQLException ex) {
+			System.out.println("★UserDAOのfindAllでエラー発生！");
+			ex.printStackTrace();
+		}
+		return userlist;
+	}
+	
 	/**
 	 * 利用者IDとパスワードで利用者認証（データベースの登録可否）を行うメソッドです。
 	 * @param id 利用者ID
@@ -100,34 +128,6 @@ public class UserDao {
 	}
 
 	/**
-	 * 有効ユーザーをUserListで全件出力するメソッドです。
-	 * @return UserList型でデータベース情報を返す。
-	 */
-	public static UserList findAll() {
-		UserList userlist = new UserList();
-		String sql = "select * from user where id AND isDeleted != 1";
-		try (Connection db = DatabaseConnectionProvider.getConnection();
-				PreparedStatement pstmt = db.prepareStatement(sql)) {
-			try (ResultSet rs = pstmt.executeQuery()) {
-				while (rs.next()) {
-					String id = rs.getString("id");
-					String address = rs.getString("address");
-					String name = rs.getString("name");
-					String password = rs.getString("password");
-					int isAdmin = rs.getInt("isAdmin");
-					int isDeleted = rs.getInt("isDeleted");
-					UserBean ub = new UserBean(address, id, name, password, isAdmin, isDeleted);
-					userlist.add(ub);
-				}
-			}
-		} catch (SQLException ex) {
-			System.out.println("★UserDAOのfindAllでエラー発生！");
-			ex.printStackTrace();
-		}
-		return userlist;
-	}
-
-	/**
 	 * 利用者IDで該当するユーザーを検索するメソッドです。
 	 * @param id 利用者ID
 	 * @return 存在する場合、UserBean型でデータベース情報を返し、存在しない場合nullを返す。
@@ -170,7 +170,7 @@ public class UserDao {
 			System.out.println("★UserDAOのfindAdminでエラー発生！");
 			e.printStackTrace();
 		}
-		return 0;
+		return 1;
 	}
 
 	/**
