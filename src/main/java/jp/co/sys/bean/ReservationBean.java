@@ -7,13 +7,34 @@ import java.io.Serializable;
  * @author 小山祐貴
  */
 public class ReservationBean implements Serializable {
-	private static final long serialVersionUID = 1L;
+	/**
+	 * 予約番号（テーブルreservation：id）
+	 */
 	private int id;
+	/**
+	 * 会議室ID（テーブルreservation：roomId）
+	 */
 	private String roomId;
+	/**
+	 * 利用日（テーブルreservation：date）
+	 */
 	private String date;
+	/**
+	 * 開始時刻（テーブルreservation：start）
+	 */
 	private String start;
+	/**
+	 * 終了時刻（テーブルreservation：end）
+	 */
 	private String end;
+	/**
+	 * 利用者ID（テーブルreservation：userId）
+	 */
 	private String userId;
+	/**
+	 * 直列化用バージョン番号
+	 */
+	private static final long serialVersionUID = 1L;
 
 	/**
 	 * デフォルトコンストラクタ
@@ -64,34 +85,67 @@ public class ReservationBean implements Serializable {
 		this.id = id;
 	}
 
+	/**
+	 * 予約番号を返します。
+	 * @return int id 予約番号
+	 */
 	public int getId() {
 		return id;
 	}
 
+	/**
+	 * 予約番号に値を代入するためのメソッドです。
+	 * @param int id 予約番号
+	 */
 	public void setId(int id) {
 		this.id = id;
 	}
 
+	/**
+	 * 会議室IDをかえします。
+	 * @return String roomId 会議室ID
+	 */
 	public String getRoomId() {
 		return roomId;
 	}
 
+	/**
+	 * 利用日を返します。
+	 * @return String date 利用日
+	 */
 	public String getDate() {
 		return date;
 	}
 
+	/**
+	 * 開始時刻を返します。
+	 * @return String start 開始時刻
+	 */
 	public String getStart() {
 		return start;
 	}
 
+	/**
+	 * 終了時刻を返します。
+	 * @return String end 終了時刻
+	 */
 	public String getEnd() {
 		return end;
 	}
 
+	/**
+	 * 利用者IDを返します。
+	 * @return String userId 利用者ID
+	 */
 	public String getUserId() {
 		return userId;
 	}
-
+	
+	/**
+	 *このオブジェクトの文字列表現を返します。
+	 *デバック用
+	 *@return String 現在のフィールドに設定された文字列表現
+	 */
 	@Override
 	public String toString() {
 		return id + " " + date + " " + start + " " + end + " " + userId + "\n";
