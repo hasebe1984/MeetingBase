@@ -374,15 +374,15 @@ public class MeetingRoom implements Serializable {
 	public Boolean addRoom(RoomBean room) throws Exception {
 		int num = Integer.parseInt(room.getId());
 		String floorNum = String.format("%02d", num);
-		RoomList floorRoms = RoomDao.getFloorRooms(floorNum);
-		if(floorRoms.size()>=99) {
-			throw new Exception("この階にはこれ以上登録できません");
-		}
+		RoomList floorRooms = RoomDao.getFloorRooms(floorNum);
 		RoomBean floorRoom = RoomDao.getFloorId(floorNum);
 		String roomId;
 		if(floorRoom==null) {
 			roomId = floorNum + "01";
 		} else {
+			if(floorRooms.size()>=99||floorRoom.getId().equals(floorNum+"99")) {
+				throw new Exception("この階にはこれ以上登録できません");
+			}
 			int roomIdNum = Integer.parseInt(floorRoom.getId());
 			roomIdNum++;
 			roomId = String.format("%04d", roomIdNum);
