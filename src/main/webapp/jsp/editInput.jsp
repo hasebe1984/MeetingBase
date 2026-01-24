@@ -7,8 +7,8 @@
 
 <form action="${pageContext.request.contextPath}/UserEditServlet" method="post" class="form">
     <div class="input-wrap">
-        <label>パスワード(半角英数字6～10文字)</label>
-        <input type="text" name="userPw" value="${user.password}" class="form_input" required>
+        <label>パスワード</label>
+        <input type="text" name="userPw" value="${user.password}" class="form_input" placeholder="半角英数字6～10文字" required>
     </div>
     <div class="input-wrap">
         <label>氏名(10文字以内)</label>
@@ -16,7 +16,7 @@
     </div>
     <div class="input-wrap">
         <label>住所(30文字以内)</label>
-        <input type="text" name="userAddress" value="${user.address}" class="form_input" required>
+        <input type="text" name="userAddress" value="<c:out value='${user.address}'/>" class="form_input" required>
     </div>
 	<div class="input-wrap input-wrap_check ${adminConfigClass}">
 	    <label>管理者</label>

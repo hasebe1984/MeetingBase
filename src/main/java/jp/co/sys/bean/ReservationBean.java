@@ -102,7 +102,7 @@ public class ReservationBean implements Serializable {
 	}
 
 	/**
-	 * 会議室IDをかえします。
+	 * 会議室IDを返します。
 	 * @return String roomId 会議室ID
 	 */
 	public String getRoomId() {
