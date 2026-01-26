@@ -43,6 +43,7 @@ public class AdminUserServlet extends HttpServlet {
 		String userPw = request.getParameter("userPw");
 		String userAdmin = request.getParameter("userAdmin");
 		
+		// 確認の「戻る」ボタン押しても、チェック維持する
 		String checked = "on".equals(userAdmin) ? "checked" : "";
 		userAdmin = "on".equals(userAdmin) ? "管理者" : "一般会員";
 		int userAdminInt = "管理者".equals(userAdmin) ? 1 : 0;
@@ -50,18 +51,22 @@ public class AdminUserServlet extends HttpServlet {
 		UserBean user = new UserBean(userAddress, userId, userName, userPw, userAdminInt);
 		
 		String nextPath = "/jsp/userList.jsp";
-		int cancelFlag = mr.getUser().getIsAdmin();
-		
-		String adminFlag = request.getParameter("adminFlag");
-		
-//		会議室の削除
 		String message = "";
+//		int cancelFlag = mr.getUser().getIsAdmin();
+//		String adminFlag = request.getParameter("adminFlag");
 		
 		if ("削除".equals(action)) {
-			Boolean isSuccess = false;
 			
 			try {
-				isSuccess = mr.deleteUser(user);
+				//成功したらtrue
+				if(mr.deleteUser(user)) {
+					message = "削除しました。";
+					mr.getUsers();
+				} else {
+					
+					message = "削除できませんでした。";
+				}
+				
 			} catch (Exception e) {
 				e.printStackTrace();
 				
@@ -74,7 +79,7 @@ public class AdminUserServlet extends HttpServlet {
 					message = "既に削除されています。";
 					
 					
-				} else if("予約があるため削除できません。".equals(errorMessage)) {
+				} else if("予約があるため削除できません".equals(errorMessage)) {
 					message = "予約があるため削除できません。";
 				
 				} else {
@@ -82,19 +87,22 @@ public class AdminUserServlet extends HttpServlet {
 
 				}
 			}
-			
-			if(isSuccess) {
-				message = "削除しました。";
-				mr.getUsers();
-
-			} 
 		}
 		
 		if ("退会する".equals(action)) {
-			Boolean isSuccess = false;
 			
 			try {
-				isSuccess = mr.deleteUser(user);
+				if(mr.deleteUser(user)) {
+					message = "退会しました。";
+					nextPath = "/jsp/login.jsp";
+				  //session破棄
+				  session.invalidate();
+					
+				} else {
+					nextPath = "/jsp/menu.jsp";
+					
+				}
+				
 			} catch (Exception e) {
 				e.printStackTrace();
 				
@@ -114,28 +122,17 @@ public class AdminUserServlet extends HttpServlet {
 					message = "退会できませんでした。";
 
 				}
-			}
-			
-			if(isSuccess) {
-				message = "退会しました。";
-				nextPath = "/jsp/login.jsp";
-			  //session破棄
-			  session.invalidate();
-				
-			} else {
-				nextPath = "/jsp/menu.jsp";
-				
-			}
+			}	
 		}
-		
+//		最新の会員一覧取得
 		UserList list = mr.getUsers();
 		
 		request.setAttribute("message", message);
 		request.setAttribute("list", list);
 		request.setAttribute("user", user);
 		request.setAttribute("checked", checked);
-		request.setAttribute("cancelFlag", cancelFlag);
-		request.setAttribute("adminFlag", adminFlag);
+//		request.setAttribute("cancelFlag", cancelFlag);
+//		request.setAttribute("adminFlag", adminFlag);
 		
 		request.getRequestDispatcher(nextPath).forward(request, response);
 	}

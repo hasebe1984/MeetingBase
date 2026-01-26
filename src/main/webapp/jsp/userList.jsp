@@ -26,7 +26,6 @@
 			for (UserBean l : list) {
 				String name = l.getName();
 				String address = l.getAddress();
-				// XSS対策として一度リクエスト属性に置いてからc:outで扱う
 				request.setAttribute("tmpName", name);
 				request.setAttribute("tmpAddress", address);
 		%>
@@ -36,7 +35,6 @@
 				<td class="list_td_large"><c:out value="${tmpAddress}" /></td>
 				<td class="list_td_small"><%= l.getIsAdmin() == 0 ? "一般" : "管理者" %></td>				
 				<td class="list_td_small">
-					<%-- 編集ボタンのフォーム：name="action"を付与 --%>
 					<form action="<%= request.getContextPath() %>/UserEditServlet" method="post">
 						<input type="hidden" name="userAddress" value="<c:out value="${tmpAddress}" />">
 						<input type="hidden" name="userId" value="<%= l.getId() %>">

@@ -21,13 +21,14 @@
 		</tr>
 		<tr>
 			<th>会員区分</th>
-			<td>${user.isAdmin}</td>
+			<td>${user.isAdmin == 1 ? '管理者' : '一般会員'}</td>
 		</tr>
 	</tbody>
 </table>
 <div class="button_row">
 	<form action="${pageContext.request.contextPath}/RegistrationServlet"
 		method="post">
+		<input type="hidden" name="userId" value="${user.id}">
 		<input type="hidden" name="userPw" value="${user.password}">
 		<input type="hidden" name="userName" value="${user.name}">
 		<input type="hidden" name="userAddress" value="${user.address}">

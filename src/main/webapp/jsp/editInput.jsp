@@ -22,7 +22,6 @@
 	    <label>管理者</label>
 	    <input type="checkbox" name="userAdmin" id="userAdmin" class="form_check" ${checked}>
 	</div>
-
     <div class="button_row">
         <a href="${pageContext.request.contextPath}/${'編集'.equals(transition) ? 'AdminUserServlet' : 'jsp/menu.jsp' }" class="button_submit">戻る</a>
         <input type="hidden" name="userId" value="${user.id}">

@@ -343,8 +343,6 @@ public class MeetingRoom implements Serializable {
 		return isSuccess;
 	}
 
-	//	==========
-	//	長谷部作成
 	/**
 	*userテーブルの全データの取得（削除フラグが立っていないもの）
 	*会員一覧表示の為。

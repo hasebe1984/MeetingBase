@@ -54,6 +54,7 @@ public class RegistrationServlet extends HttpServlet {
 
 		if ("決定".equals(action)) {
 			
+			// バリデーション
 			if (userPw.length() > 10 || userPw.length() < 6 || !userPw.matches("^[a-zA-Z0-9]+$")) {
 				message += "パスワードは、6文字から10文字の半角英数字のみ、";
 			} 
@@ -81,14 +82,21 @@ public class RegistrationServlet extends HttpServlet {
 			nextPage = "jsp/registrationInput.jsp";
 			
 		}  else if ("登録".equals(action)) {
-			Boolean isSuccess = false; 
 			try {
-//				成功判定のメソッド考える
-				isSuccess = mr.addUser(user);
+				// 成功したらtrue
+				if (mr.addUser(user)) {
+					nextPage = "/jsp/registered.jsp";
+					mr.getUsers();
+					
+				} else {
+					nextPage = "/jsp/registrationError.jsp";
+					message = "登録できませんでした。";
+				}
 				
 			} catch (Exception e) {
 				e.printStackTrace();
 				
+				// meetingroomからthrowされたmessage
 				String errorMessage = e.getMessage();
 				
 				if("既に登録されています".equals(errorMessage)) {
@@ -98,18 +106,6 @@ public class RegistrationServlet extends HttpServlet {
 					message = "登録できませんでした。";
 
 				}
-			}
-			
-//			成功
-			if (isSuccess) {
-//				mr.addUser(user);
-				nextPage = "/jsp/registered.jsp";
-				mr.getUsers();
-				
-//			失敗
-			} else {
-				nextPage = "/jsp/registrationError.jsp";
-				
 			}
 		}
 
