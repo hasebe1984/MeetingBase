@@ -8,12 +8,12 @@
 <p class="message">${message}</p>
 <form action="${pageContext.request.contextPath}/RoomEditServlet" method="post" class="form">
 	<div class="input-wrap">
-		<label for="roomName">会議室名(20文字以内)</label>
-		<input type="text" name="roomName" value="<c:out value="${addRoom.name}" />" id="roomName" class="form_input" required>
+		<label for="roomName">会議室名</label>
+		<input type="text" name="roomName" value="<c:out value="${addRoom.name}" />" id="roomName" class="form_input" placeholder="20文字以内" required>
 	</div>
 	<div class="input-wrap ${title == '会議室編集' ? 'hidden' : ''}">
-		<label for="roomFloor">会議室階数(1～99)</label>
-		<input type="number" name="roomFloor" value="${addRoom.id}" id="roomFloor" min="1" max="99" step="1" class="form_input" ${title == '会議室編集' ? '' : 'required'}>
+		<label for="roomFloor">会議室階数</label>
+		<input type="number" name="roomFloor" value="${addRoom.id}" id="roomFloor" min="1" max="99" step="1" class="form_input" placeholder="1～99以内" ${title == '会議室編集' ? '' : 'required'}>
 	</div>
  	<div class="button_row">
 	    <input type="hidden" name="title" value="${title}">
