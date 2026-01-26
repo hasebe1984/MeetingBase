@@ -4,6 +4,8 @@ import java.util.ArrayList;
 
 import jp.co.sys.bean.ReservationBean;
 
-public class ReservationList extends ArrayList<ReservationBean>{
-
-}
+/**
+ * ReservationListをReservationBean型のArrayListで固定化する為のクラスです。
+ * @author ???
+ */
+public class ReservationList extends ArrayList<ReservationBean>{}

@@ -4,6 +4,8 @@ import java.util.ArrayList;
 
 import jp.co.sys.bean.UserBean;
 
-public class UserList extends ArrayList<UserBean> {
-
-}
+/**
+ * UserListをUserBean型のArrayListで固定化する為のクラスです。
+ * @author ???
+ */
+public class UserList extends ArrayList<UserBean> {}

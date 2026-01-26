@@ -15,6 +15,7 @@ import jp.co.sys.util.UserList;
 
 /**
  * 会員の一覧表示および削除を制御するサーブレットです。
+ * @author 長谷部広樹
  */
 @WebServlet("/AdminUserServlet")
 public class AdminUserServlet extends HttpServlet {
