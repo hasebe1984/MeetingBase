@@ -42,6 +42,7 @@ INSERT INTO user VALUES('2500002','Pc1r9X5AiEsNcKSDcWRdqNCILstbKAVQriUmt+5D6Jo='
 INSERT INTO user VALUES('2500003','ffREdNu4Y6wzVXYB+EwuRDHHsnwYZvocosDPIMeAAuw=','<h1>悪</h1>','<script>confirm("悪")</script>','0','0');
 INSERT INTO user VALUES('2500004','ffREdNu4Y6wzVXYB+EwuRDHHsnwYZvocosDPIMeAAuw=','管理削除リチャード','USA','1','1');
 INSERT INTO user VALUES('2500005','ffREdNu4Y6wzVXYB+EwuRDHHsnwYZvocosDPIMeAAuw=','管理たけお','島根県','0','1');
+INSERT INTO user VALUES('2500006','ffREdNu4Y6wzVXYB+EwuRDHHsnwYZvocosDPIMeAAuw=','削除されるくん','削除県','0','0');
 
 INSERT INTO room VALUES('0201','大会議室');
 INSERT INTO room VALUES('0301','３Ａ会議室');
