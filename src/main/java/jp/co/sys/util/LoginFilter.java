@@ -12,6 +12,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+/**
+ * ログイン状態管理や、ブラウザバック対策を行うクラスです。
+ * 	@author ???
+ */
 @WebFilter("/*")
 public class LoginFilter implements Filter {
 

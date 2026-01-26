@@ -4,6 +4,8 @@ import java.util.ArrayList;
 
 import jp.co.sys.bean.RoomBean;
 
-public class RoomList extends ArrayList<RoomBean>{
-
-}
+/**
+ * RoomListをRoomBean型のArrayListで固定化する為のクラスです。
+ * @author ???
+ */
+public class RoomList extends ArrayList<RoomBean>{}
