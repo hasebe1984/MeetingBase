@@ -32,7 +32,7 @@ public class LoginFilter implements Filter {
 
         if (loggedIn || isLogin || isCss || isImages) {
         	
-//  		  ブラウザバック対策
+//  	ブラウザバック対策
   			res.setHeader("Cache-Control", "no-cache,no-store,must-revalidate");
   			res.setHeader("Pragma", "no-cache");
   			res.setDateHeader("Expires", 0);
@@ -40,7 +40,7 @@ public class LoginFilter implements Filter {
         	
             chain.doFilter(request, response);
 
-//        未ログインならログイン画面へ飛ばす
+//       未ログインならログイン画面へ飛ばす
         } else {
         	session = req.getSession(true);
         	session.setAttribute("message", "一定時間が経過したため再ログインしてください");

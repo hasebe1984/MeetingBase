@@ -25,7 +25,7 @@
 		</tr>
 		<tr>
 			<th>会員区分</th>
-			<td>${user.isAdmin}</td>
+			<td>${user.isAdmin == 1 ? '管理者' : '一般会員'}</td>
 		</tr>
 	</tbody>
 </table>

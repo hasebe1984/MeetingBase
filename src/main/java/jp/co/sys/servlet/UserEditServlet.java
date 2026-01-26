@@ -44,6 +44,8 @@ public class UserEditServlet extends HttpServlet {
 			userPw = "";
 			adminFlag = "0";
 			transition = "会員情報編集";
+			userAdmin = String.valueOf(mr.getUser().getIsAdmin());
+			
 		} else if ("編集".equals(action)) {
 			adminFlag = "1";
 			transition = "編集";
@@ -53,15 +55,20 @@ public class UserEditServlet extends HttpServlet {
 		UserBean user = new UserBean(userAddress, userId, userName, userPw, userAdminInt);
 		String checked = (userAdminInt == 1) ? "checked" : "";
 
+		// 自分の情報であればtrue
 		boolean isSelf = mr.getUser().getId().equals(userId);
+		// 管理者フラグが1ならtrue
 		boolean isFromList = "1".equals(adminFlag);
 
+		// 管理者は自分自身の編集ボタンを非表示（チェックボックス）
 		String adminConfigClass = (isFromList && !isSelf) ? "" : "hidden";
+		// 一般の会員かつメニューからの編集のみ表示（退会ボタン）
 		String unsubscribeClass = (!isFromList && mr.getUser().getIsAdmin() == 0) ? "" : "hidden";
 
 		String nextPage = "/jsp/editInput.jsp";
 		String message = "";
 
+		// バリデーション
 		if ("決定".equals(action)) {
 			if (userPw.length() > 10 || userPw.length() < 6 || !userPw.matches("^[a-zA-Z0-9]+$")) {
 				message += "パスワードは、6文字から10文字の半角英数字のみ、";
@@ -81,8 +88,10 @@ public class UserEditServlet extends HttpServlet {
 			} else {
 				nextPage = "/jsp/edittedConfirm.jsp";
 			}
+			
 		} else if ("登録".equals(action)) {
 			try {
+				// 登録が成功したらtrue
 				if (mr.editUser(user)) {
 					mr.getUsers();
 					nextPage = "/jsp/editted.jsp";
@@ -93,6 +102,7 @@ public class UserEditServlet extends HttpServlet {
 				e.printStackTrace();
 				nextPage = "/jsp/edittedError.jsp";
 			}
+			
 		} else if ("戻る".equals(action)) {
 			nextPage = "/jsp/editInput.jsp";
 		} else if ("一覧へ".equals(action)) {

@@ -5,7 +5,7 @@
 <h1>会員登録画面</h1>
 <hr>
 <h2>登録情報の失敗</h2>
-<p class="message">${"エラーメッセージ"}</p>
+<p class="message">${message}</p>
 <table>
 	<tbody>
 		<tr>
@@ -26,9 +26,9 @@
 		</tr>
 		<tr>
 			<th>会員区分</th>
-			<td>${user.isAdmin}</td>
+			<td>${user.isAdmin == 1 ? '管理者' : '一般会員'}</td>
 		</tr>
 	</tbody>
 </table>
-<a href="${pageContext.request.contextPath}/jsp/menu.jsp" class="button_submit">メニューへ</a>
+<a href="${pageContext.request.contextPath}/AdminUserServlet" class="button_submit">メニューへ</a>
 <%@include file="../common/footer.jsp"%>
