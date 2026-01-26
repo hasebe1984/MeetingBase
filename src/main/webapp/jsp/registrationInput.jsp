@@ -24,7 +24,7 @@
 		<input type="checkbox" name="userAdmin" id="userAdmin" class="form_check" ${checked}>
 	</div>
  	<div class="button_row">
-	    <a href="${pageContext.request.contextPath}/jsp/menu.jsp" class="button_submit">戻る</a>
+	    <a href="${pageContext.request.contextPath}/AdminUserServlet" class="button_submit">戻る</a>
 	    <input type="submit" name="action" value="決定" class="button_submit">
     </div>
 </form>
