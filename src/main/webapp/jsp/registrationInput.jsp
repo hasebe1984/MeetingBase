@@ -8,16 +8,16 @@
 <p class="message">${message}</p>
 <form action="${pageContext.request.contextPath}/RegistrationServlet" method="post" class="form">
 	<div class="input-wrap">
-		<label for="userPw">パスワード(6～10文字)</label>
-		<input type="text" name="userPw" value="${user.password}" id="userPw" class="form_input" required>
+		<label for="userPw">パスワード</label>
+		<input type="text" name="userPw" value="${user.password}" id="userPw" class="form_input" placeholder="6～10文字以内の半角英数字のみ" required>
 	</div>
 	<div class="input-wrap">
-		<label for="userName">氏名(10文字以内)</label>
-		<input type="text" name="userName" value="${user.name}" id="userName" class="form_input" required>
+		<label for="userName">氏名</label>
+		<input type="text" name="userName" value="${user.name}" id="userName" class="form_input" placeholder="10文字以内" required>
 	</div>
 	<div class="input-wrap">
-		<label for="userAddress">住所(30文字以内)</label>
-		<input type="text" name="userAddress" value="${user.address}" id="userAddress" class="form_input" required>
+		<label for="userAddress">住所</label>
+		<input type="text" name="userAddress" value="${user.address}" id="userAddress" class="form_input" placeholder="30文字以内" required>
 	</div>
 	<div class="input-wrap input-wrap_check">
 		<label for="userAdmin">管理者</label>
