@@ -16,6 +16,7 @@ import jp.co.sys.bean.ReservationBean;
  * 予約を削除し、予約成功時は予約完了画面に遷移し
  * 例外を捕捉した場合は，例外メッセージをリクエスト属性に
  * セットして予約エラー画面に遷移するサーブレットです。
+ * @author 佐々木美智子
  */
 
 @WebServlet("/CancelServlet")

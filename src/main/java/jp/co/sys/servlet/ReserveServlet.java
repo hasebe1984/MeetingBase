@@ -16,6 +16,7 @@ import jp.co.sys.bean.ReservationBean;
 
 /**
  * 予約を登録するサーブレットです
+ * @author 浅野裕子
  */
 @WebServlet("/ReserveServlet")
 public class ReserveServlet extends HttpServlet {

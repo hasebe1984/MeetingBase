@@ -12,6 +12,10 @@ import javax.servlet.http.HttpSession;
 import jp.co.sys.bean.MeetingRoom;
 import jp.co.sys.bean.UserBean;
 
+/**
+ * 登録ユーザーを編集する為のサーブレットです。
+ * @author 長谷部広樹
+ */
 @WebServlet("/UserEditServlet")
 public class UserEditServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
