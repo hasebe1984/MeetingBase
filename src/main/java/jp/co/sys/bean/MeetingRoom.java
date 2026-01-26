@@ -429,21 +429,20 @@ public class MeetingRoom implements Serializable {
 		}
 		ReservationList reserveList = ReservationDao.findByRoomId​(deleteRoomId);
 		if(reserveList !=null) {
-			LocalDateTime now = LocalDateTime.now();		
+//			LocalDateTime now = LocalDateTime.now();		
 			for(ReservationBean rs:reserveList) {
-				LocalDate rsDate = LocalDate.parse(rs.getDate());
-				LocalTime rsTime = LocalTime.parse(rs.getEnd());
-				LocalDateTime rsDateTime = LocalDateTime.of(rsDate, rsTime);
-				if (rsDateTime.isAfter(now)) {
+//				LocalDate rsDate = LocalDate.parse(rs.getDate());
+//				LocalTime rsTime = LocalTime.parse(rs.getEnd());
+//				LocalDateTime rsDateTime = LocalDateTime.of(rsDate, rsTime);
+//				if (rsDateTime.isAfter(now)) {
 					//throw new Exception("予約があるため削除できません");
 					ReservationDao.delete​(rs);//未来日の残予約はキャンセル(物理削除)
-				}
+//				}
 			}
 		}
 		boolean isSuccess = RoomDao.delete(room);
 		return isSuccess;
 	}
-
 	public String toString() {
 		return user.toString() + rooms.toString() + this.date;
 	}
