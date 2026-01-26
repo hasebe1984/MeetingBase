@@ -358,8 +358,8 @@ public class MeetingRoom implements Serializable {
 	*会議室一覧表示の為。（登録・編集・削除後に再取得する時に使用）
 	*@return RoomList
 	*/
-	public void reloadRooms() {
-		this.rooms = RoomDao.findAll();
+	public RoomList reloadRooms() {
+		return this.rooms = RoomDao.findAll();
 	}
 
 	/**
