@@ -14,7 +14,6 @@ import jp.co.sys.bean.UserBean;
 
 /**
  * 会員の新規登録を制御するサーブレットです。
- * @author 長谷部広樹
  */
 @WebServlet("/RegistrationServlet")
 public class RegistrationServlet extends HttpServlet {
