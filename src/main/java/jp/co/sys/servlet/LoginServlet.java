@@ -11,6 +11,10 @@ import javax.servlet.http.HttpSession;
 
 import jp.co.sys.bean.MeetingRoom;
 
+/**
+ * ログイン処理を管理するサーブレットです。
+ * @author 加藤博文
+ */
 @WebServlet("/LoginServlet")
 public class LoginServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;

@@ -14,7 +14,8 @@ import jp.co.sys.bean.ReservationBean;
 
 
 /**
- * 会議室予約を生成するサーブレットです
+ * 会議室予約を生成するサーブレットです。
+ * @author 浅野裕子
  */
 
 @WebServlet("/reserveCreateServlet")

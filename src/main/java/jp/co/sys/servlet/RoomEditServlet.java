@@ -14,6 +14,7 @@ import jp.co.sys.bean.RoomBean;
 
 /**
  * 会議室の登録および編集を制御するサーブレットです。
+ * @author 長谷部広樹
  */
 @WebServlet("/RoomEditServlet")
 public class RoomEditServlet extends HttpServlet {

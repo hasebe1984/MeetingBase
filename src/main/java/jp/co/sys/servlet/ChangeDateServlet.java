@@ -15,6 +15,7 @@ import jp.co.sys.bean.MeetingRoom;
 
 /**
  * 利用日を変更するサーブレットです。
+ * @author 浅野裕子
  */
 @WebServlet("/ChangeDateServlet")
 public class ChangeDateServlet extends HttpServlet {

@@ -15,6 +15,10 @@ import jp.co.sys.util.ReservationList;
 import jp.co.sys.util.RoomList;
 import jp.co.sys.util.UserList;
 
+/**
+ * 会議室管理システムのモデル
+ * @author 坪田大毅
+ */
 public class MeetingRoom implements Serializable {
 	//フィールド
 	private static final long serialVersionUID = 1L;

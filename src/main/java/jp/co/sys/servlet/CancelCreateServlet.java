@@ -15,6 +15,7 @@ import jp.co.sys.bean.ReservationBean;
 
 /**
  * キャンセルしたい予約情報を生成するサーブレットです。
+ * @author 佐々木美智子
  */
 
 @WebServlet("/CancelCreateServlet")

@@ -15,6 +15,7 @@ import jp.co.sys.util.RoomList;
 
 /**
  * 会議室の一覧表示および削除を制御するサーブレットです。
+ * @author 長谷部広樹
  */
 @WebServlet("/RoomAdminServlet")
 public class RoomAdminServlet extends HttpServlet {
