@@ -110,17 +110,19 @@ public class AdminUserServlet extends HttpServlet {
 				
 				if("存在しないユーザーです".equals(errorMessage)) {
 					message = "存在しないユーザーです。";
+					nextPath = "/jsp/login.jsp";					
 					
 				} else if("既に削除されています".equals(errorMessage)) {
 					message = "既に退会されています。";
+					nextPath = "/jsp/login.jsp";					
 					
-					
-				} else if("予約があるため削除できません。".equals(errorMessage)) {
+				} else if("予約があるため削除できません".equals(errorMessage)) {
 					message = "予約があるため退会できません。";
+					nextPath = "/jsp/menu.jsp";
 				
 				} else {
 					message = "退会できませんでした。";
-
+					nextPath = "/jsp/menu.jsp";
 				}
 			}	
 		}
