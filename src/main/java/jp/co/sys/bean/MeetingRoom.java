@@ -157,13 +157,11 @@ public class MeetingRoom implements Serializable {
 		if (reserveList == null) {
 			return reservations;
 		}
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
 		for (ReservationBean reserve : reserveList) {
 			int roomInd = roomIndex​(reserve.getRoomId());
-			String ReserveStart = reserve.getStart();
-			LocalTime time = LocalTime.parse(ReserveStart);
-			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
-			String start = formatter.format(time);
-			int startInd = startPeriod​(start);
+			LocalTime time = LocalTime.parse(reserve.getStart());
+			int startInd = startPeriod​(formatter.format(time));
 			reservations[roomInd][startInd] = reserve;
 		}
 		return reservations;
@@ -201,6 +199,7 @@ public class MeetingRoom implements Serializable {
 		ReservationBean reservation = new ReservationBean(roomId, date, start, end, userId);
 		return reservation;
 	}
+	
 	/**
 	*予約登録
 	*会議室予約情報で会議室Daoを利用し、予約します。
@@ -244,6 +243,7 @@ public class MeetingRoom implements Serializable {
 		}
 		ReservationDao.insert​(reservation);
 	}
+	
 	/**
 	*予約キャンセル
 	*会議室予約情報で会議室をキャンセルします。
@@ -269,6 +269,7 @@ public class MeetingRoom implements Serializable {
 		}
 		ReservationDao.delete​(reservation);
 	}
+	
 	/**
 	*利用者登録生成
 	*登録情報がセットされた利用者情報にIDを追加して利用者登録情報として完成させ、DBに追加する。
@@ -304,16 +305,16 @@ public class MeetingRoom implements Serializable {
 	}
 
 	/**
-	 *UserBeanの内容でDBを変更する
-	 *会員の編集処理
-	 *@param UserBean
-	 *@return DBが更新できたらtrue、失敗したらfalse  
-	 *@throws java.lang.Exception 会員編集ができない場合に次のメッセージの例外を投げます。
-	 *			会員情報が存在しない場合:"存在しないユーザーです"
-	 *			会員情報が削除されている場合:"削除されたユーザーです"
-	 *			変更出来ない会員の場合:"変更できないユーザーです。"
-	 *			管理者が0人となってしまう場合:"管理者が0人となるため変更できません"
-	 */
+	*UserBeanの内容でDBを変更する
+	*会員の編集処理
+	*@param UserBean
+	*@return DBが更新できたらtrue、失敗したらfalse  
+	*@throws java.lang.Exception 会員編集ができない場合に次のメッセージの例外を投げます。
+	*			会員情報が存在しない場合:"存在しないユーザーです"
+	*			会員情報が削除されている場合:"削除されたユーザーです"
+	*			変更出来ない会員の場合:"変更できないユーザーです。"
+	*			管理者が0人となってしまう場合:"管理者が0人となるため変更できません"
+	*/
 	public boolean editUser(UserBean user) throws Exception {
 		String editUserId = user.getId();
 		UserBean userEdit = UserDao.findById(editUserId);
@@ -337,16 +338,16 @@ public class MeetingRoom implements Serializable {
 	}
 
 	/**
-	 *UserBeanのidを元に、isDeleteを1に変更する
-	 *会員の削除処理
-	 *@param UserBean
-	 *@return DBで論理削除できたらtrue、失敗したらfalse  
-	 *@throws java.lang.Exception 会員の削除ができない場合に次のメッセージの例外を投げます。
-	 *			会員情報が存在しない場合:"存在しないユーザーです"
-	 *			既に削除されている場合:"既に削除されています"
-	 *			管理者である自信を削除しようとした場合:"削除できませんでした"
-	 *			未来日に予約がある場合:"予約があるため削除できません"		
-	 */
+	*UserBeanのidを元に、isDeleteを1に変更する
+	*会員の削除処理
+	*@param UserBean
+	*@return DBで論理削除できたらtrue、失敗したらfalse  
+	*@throws java.lang.Exception 会員の削除ができない場合に次のメッセージの例外を投げます。
+	*			会員情報が存在しない場合:"存在しないユーザーです"
+	*			既に削除されている場合:"既に削除されています"
+	*			管理者である自信を削除しようとした場合:"削除できませんでした"
+	*			未来日に予約がある場合:"予約があるため削除できません"		
+	*/
 	public boolean deleteUser(UserBean user) throws Exception {
 		UserBean deleteUser = UserDao.findById(user.getId());
 		if (deleteUser==null) {
@@ -374,14 +375,14 @@ public class MeetingRoom implements Serializable {
 	}
 
 	/**
-	 *RoomBeanの内容をDBに追加する
-	 *会議室の追加処理
-	 *@param RoomBean
-	 *@return DBに追加できたらtrue、失敗したらfalse 
-	 *@throws java.lang.Exception 会議室の追加ができない場合に次のメッセージの例外を投げます。
-	 *			同一階に100部屋目の会議室を登録しようとした場合:"この階にはこれ以上登録できません"
-	 *			既に同一IDの会議室が登録されている場合:"既に登録されています"
-	 */
+	*RoomBeanの内容をDBに追加する
+	*会議室の追加処理
+	*@param RoomBean
+	*@return DBに追加できたらtrue、失敗したらfalse 
+	*@throws java.lang.Exception 会議室の追加ができない場合に次のメッセージの例外を投げます。
+	*			同一階に100部屋目の会議室を登録しようとした場合:"この階にはこれ以上登録できません"
+	*			既に同一IDの会議室が登録されている場合:"既に登録されています"
+	*/
 	public Boolean addRoom(RoomBean room) throws Exception {
 		int num = Integer.parseInt(room.getId());
 		String floorNum = String.format("%02d", num);
@@ -428,7 +429,7 @@ public class MeetingRoom implements Serializable {
 	}
 
 	/**
-	 *RoomBeanの内容でDBを変更する
+	*RoomBeanの内容でDBを変更する
 	 *会議室の削除処理
 	 *@param RoomBean
 	 *@return DBで物理削除できたらtrue、失敗したらfalse 
@@ -448,6 +449,7 @@ public class MeetingRoom implements Serializable {
 		}
 		return RoomDao.delete(room);
 	}
+	
 	/**
 	*このオブジェクトの文字列表現を返します。デバッグ用
 	*@return String 会議室予約システムの文字列表現
