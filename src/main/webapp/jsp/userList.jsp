@@ -3,6 +3,16 @@
 <%@ page import="jp.co.sys.bean.UserBean"%>
 <%@ page import="jp.co.sys.util.UserList"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%
+    MeetingRoom mr = (MeetingRoom) session.getAttribute("meetingRoom");
+
+    // 未ログイン、または管理者ではない場合セッションを破棄してログイン画面へ
+    if (mr == null || mr.getUser() == null || mr.getUser().getIsAdmin() == 0) {
+		session.invalidate();
+        response.sendRedirect(request.getContextPath() + "/jsp/login.jsp?message=loggedout");
+        return; 
+    }
+%>
 <%@include file="../common/header.jsp"%>
 <h1>会員一覧</h1>
 <hr>
@@ -20,7 +30,6 @@
 	</thead>
 	<tbody>
 		<% 
-			MeetingRoom mr = (MeetingRoom) session.getAttribute("meetingRoom");	
 			UserList list = (UserList)request.getAttribute("list");
 			if (list != null) {
 			for (UserBean l : list) {

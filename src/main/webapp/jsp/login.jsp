@@ -6,6 +6,9 @@
 <%-- 動的にパスを取得するため、プロジェクト名が変わっても修正不要です --%>
 <h2>ログイン</h2>
 <p class="message">${message}</p>
+<% if ("loggedout".equals(request.getParameter("message"))) { %>
+    <p class="message">アクセス権限がありません。</p>
+<% } %>
 <%session.removeAttribute("message"); %>
 <form action="${pageContext.request.contextPath}/LoginServlet"
 	method="post" class="form">
