@@ -14,7 +14,7 @@ import javax.servlet.http.HttpSession;
 
 /**
  * ログイン状態管理や、ブラウザバック対策を行うクラスです。
- * 	@author ???
+ * 	@author 長谷部広樹
  */
 @WebFilter("/*")
 public class LoginFilter implements Filter {

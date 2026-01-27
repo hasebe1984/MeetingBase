@@ -6,6 +6,6 @@ import jp.co.sys.bean.ReservationBean;
 
 /**
  * ReservationListをReservationBean型のArrayListで固定化する為のクラスです。
- * @author ???
+ * @author 小山裕貴
  */
 public class ReservationList extends ArrayList<ReservationBean>{}
