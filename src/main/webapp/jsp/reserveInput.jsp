@@ -24,7 +24,8 @@ ReservationBean[][] reservations = meetingRoom.getReservations();
 	method="POST" class="input_table">
 
 	<input type="date" name="date" class="form_input_date"
-		value="${meetingRoom.date}"> <input type="submit" value="日付変更"
+		value="${meetingRoom.date}"min="<%= new java.text.SimpleDateFormat("yyyy-MM-dd").format(new java.util.Date()) %>"
+		> <input type="submit" value="日付変更"
 		class="button_submit"><br> <input type="hidden"
 		name="page" value="reserveInput.jsp">
 </form>
