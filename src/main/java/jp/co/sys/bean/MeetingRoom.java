@@ -94,7 +94,26 @@ public class MeetingRoom implements Serializable {
 		}
 		return null;
 	}
+	
+	/**
+	*userテーブルの全データの取得（削除フラグが立っていないもの）
+	*会員一覧表示の為。
+	*@return UserList
+	*/
+	public UserList getUsers() {
+		this.users = UserDao.findAll();
+		return users;
+	}
 
+	/**
+	*roomテーブルの全データの取得（削除フラグが立っていないもの）
+	*会議室一覧表示の為。（登録・編集・削除後に再取得する時に使用）
+	*@return RoomList
+	*/
+	public RoomList reloadRooms() {
+		return this.rooms = RoomDao.findAll();
+	}
+	
 	/**
 	*roomIdの会議室が配列に格納されている添字を返します。
 	*@param roomId 会議室ID
@@ -255,9 +274,9 @@ public class MeetingRoom implements Serializable {
 	*登録情報がセットされた利用者情報にIDを追加して利用者登録情報として完成させ、DBに追加する。
 	*@param UserBean 利用者情報
 	*@return UserBean 利用者情報
-	*@throws Exception
+	*@throws java.lang.Exception 登録ができない場合に次のメッセージの例外を投げます。
+	*			登録済みの場合:"既に登録されています"
 	*/
-
 	public boolean addUser(UserBean addUser) throws Exception {
 		LocalDateTime now = LocalDateTime.now();
 		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yy");
@@ -289,7 +308,11 @@ public class MeetingRoom implements Serializable {
 	 *会員の編集処理
 	 *@param UserBean
 	 *@return DBが更新できたらtrue、失敗したらfalse  
-	 *@throws Exception
+	 *@throws java.lang.Exception 会員編集ができない場合に次のメッセージの例外を投げます。
+	 *			会員情報が存在しない場合:"存在しないユーザーです"
+	 *			会員情報が削除されている場合:"削除されたユーザーです"
+	 *			変更出来ない会員の場合:"変更できないユーザーです。"
+	 *			管理者が0人となってしまう場合:"管理者が0人となるため変更できません"
 	 */
 	public boolean editUser(UserBean user) throws Exception {
 		String editUserId = user.getId();
@@ -307,7 +330,7 @@ public class MeetingRoom implements Serializable {
 			throw new Exception("管理者が0人となるため変更できません");
 		}
 		boolean isSuccess = UserDao.update(user);
-		if(this.user.getId().equals(user.getId())) {			
+		if(this.user.getId().equals(user.getId())) {
 			this.user = user;
 		}
 		return isSuccess;
@@ -318,7 +341,11 @@ public class MeetingRoom implements Serializable {
 	 *会員の削除処理
 	 *@param UserBean
 	 *@return DBで論理削除できたらtrue、失敗したらfalse  
-	 *@throws Exception
+	 *@throws java.lang.Exception 会員の削除ができない場合に次のメッセージの例外を投げます。
+	 *			会員情報が存在しない場合:"存在しないユーザーです"
+	 *			既に削除されている場合:"既に削除されています"
+	 *			管理者である自信を削除しようとした場合:"削除できませんでした"
+	 *			未来日に予約がある場合:"予約があるため削除できません"		
 	 */
 	public boolean deleteUser(UserBean user) throws Exception {
 		UserBean deleteUser = UserDao.findById(user.getId());
@@ -343,27 +370,7 @@ public class MeetingRoom implements Serializable {
 				}
 			}
 		}
-		boolean isSuccess = UserDao.delete​(user);
-		return isSuccess;
-	}
-
-	/**
-	*userテーブルの全データの取得（削除フラグが立っていないもの）
-	*会員一覧表示の為。
-	*@return UserList
-	*/
-	public UserList getUsers() {
-		this.users = UserDao.findAll();
-		return users;
-	}
-
-	/**
-	*roomテーブルの全データの取得（削除フラグが立っていないもの）
-	*会議室一覧表示の為。（登録・編集・削除後に再取得する時に使用）
-	*@return RoomList
-	*/
-	public RoomList reloadRooms() {
-		return this.rooms = RoomDao.findAll();
+		return UserDao.delete​(user);
 	}
 
 	/**
@@ -371,7 +378,9 @@ public class MeetingRoom implements Serializable {
 	 *会議室の追加処理
 	 *@param RoomBean
 	 *@return DBに追加できたらtrue、失敗したらfalse 
-	 *@throws Exception
+	 *@throws java.lang.Exception 会議室の追加ができない場合に次のメッセージの例外を投げます。
+	 *			同一階に100部屋目の会議室を登録しようとした場合:"この階にはこれ以上登録できません"
+	 *			既に同一IDの会議室が登録されている場合:"既に登録されています"
 	 */
 	public Boolean addRoom(RoomBean room) throws Exception {
 		int num = Integer.parseInt(room.getId());
@@ -407,14 +416,13 @@ public class MeetingRoom implements Serializable {
 	*会議室の編集処理
 	*@param RoomBean
 	*@return DBが更新できたらtrue、失敗したらfalse 
-	*@throws Exception
+	*@throws java.lang.Exception 会議室の編集ができない場合に次のメッセージの例外を投げます。
+	*			編集前と同じ会議室名の場合:"変更前と同じ会議室名です"
 	*/
 	public boolean editRoom(RoomBean room) throws Exception {
-		RoomList rooms = RoomDao.findAll();
-		for(RoomBean rm:rooms) {
-			if(rm.getName().equals(room.getName())) {
-				throw new Exception("既に同じ名前で登録されています");
-			}
+		RoomBean rm = RoomDao.findId(room.getId());
+		if(rm.getName().equals(room.getName())) {
+			throw new Exception("変更前と同じ会議室名です");
 		}
 		return RoomDao.update(room);
 	}
@@ -424,7 +432,8 @@ public class MeetingRoom implements Serializable {
 	 *会議室の削除処理
 	 *@param RoomBean
 	 *@return DBで物理削除できたらtrue、失敗したらfalse 
-	 *@throws Exception
+	 *@throws java.lang.Exception 会議室の編集ができない場合に次のメッセージの例外を投げます。
+	 *			該当する会議室がない場合:"会議室が見つかりません"
 	 */
 	public boolean deleteRoom(RoomBean room) throws Exception {
 		String deleteRoomId = room.getId();
@@ -432,21 +441,18 @@ public class MeetingRoom implements Serializable {
 			throw new Exception("会議室が見つかりません");
 		}
 		ReservationList reserveList = ReservationDao.findByRoomId​(deleteRoomId);
-		if(reserveList !=null) {
-//			LocalDateTime now = LocalDateTime.now();		
+		if(reserveList !=null) {	
 			for(ReservationBean rs:reserveList) {
-//				LocalDate rsDate = LocalDate.parse(rs.getDate());
-//				LocalTime rsTime = LocalTime.parse(rs.getEnd());
-//				LocalDateTime rsDateTime = LocalDateTime.of(rsDate, rsTime);
-//				if (rsDateTime.isAfter(now)) {
-					//throw new Exception("予約があるため削除できません");
 					ReservationDao.delete​(rs);//未来日の残予約はキャンセル(物理削除)
-//				}
 			}
 		}
-		boolean isSuccess = RoomDao.delete(room);
-		return isSuccess;
+		return RoomDao.delete(room);
 	}
+	/**
+	*このオブジェクトの文字列表現を返します。デバッグ用
+	*@return String 会議室予約システムの文字列表現
+	*/
+	@Override
 	public String toString() {
 		return user.toString() + rooms.toString() + this.date;
 	}
