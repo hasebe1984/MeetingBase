@@ -3,6 +3,17 @@
 <%@ page import="jp.co.sys.bean.RoomBean"%>
 <%@ page import="jp.co.sys.util.RoomList"%>
 <%@ page import="jp.co.sys.dao.RoomDao"%>
+<%@ page import="jp.co.sys.bean.MeetingRoom" %>	
+<%
+    MeetingRoom mr = (MeetingRoom) session.getAttribute("meetingRoom");
+
+    // 未ログイン、または管理者ではない場合セッションを破棄してログイン画面へ
+    if (mr == null || mr.getUser() == null || mr.getUser().getIsAdmin() == 0) {
+		session.invalidate();
+        response.sendRedirect(request.getContextPath() + "/jsp/login.jsp?message=loggedout");
+        return; 
+    }
+%>
 <%@include file="../common/header.jsp"%>
 <h1>会議室一覧</h1>
 <hr>

@@ -1,6 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page import="jp.co.sys.bean.MeetingRoom" %>	
+<%
+    MeetingRoom mr = (MeetingRoom) session.getAttribute("meetingRoom");
+
+    // 未ログイン、または管理者ではない場合セッションを破棄してログイン画面へ
+    if (mr == null || mr.getUser() == null || mr.getUser().getIsAdmin() == 0) {
+		session.invalidate();
+        response.sendRedirect(request.getContextPath() + "/jsp/login.jsp?message=loggedout");
+        return; 
+    }
+%>
 <%@include file="../common/header.jsp"%>
 <h1>${title}</h1>
 <hr>
