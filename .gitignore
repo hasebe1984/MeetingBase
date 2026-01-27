@@ -1,5 +1,5 @@
 # doc怖いので、除外しておく　1/12
-/doc
+# /doc
 
 # Compiled class file
 *.class
