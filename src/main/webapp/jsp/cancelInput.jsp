@@ -11,8 +11,8 @@
 <h2>利用日</h2>
 <form action="${pageContext.request.contextPath}/ChangeDateServlet"
 	method="post">
-	<input type="date" name="date" class="form_input_date" value="${meetingRoom.date}"> <input
-		type="submit" value="日付変更" class="button_submit">
+	<input type="date" name="date" class="form_input_date" value="${meetingRoom.date}" min="<%= new java.text.SimpleDateFormat("yyyy-MM-dd").format(new java.util.Date()) %>"> <input
+		type="submit" value="日付変更" class="button_submit" >
 	<input type="hidden" name="page" value="cancelInput.jsp">
 </form>
 <h2>キャンセル可能時間帯（<c:out value="${meetingRoom.user.name}さん" />）</h2>
