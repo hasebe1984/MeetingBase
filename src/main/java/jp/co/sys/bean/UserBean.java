@@ -138,7 +138,7 @@ public class UserBean implements Serializable {
 	}
 
 	/**
-	 * 削除フラグの値を返します。（一般：0 管理者：1）
+	 * 削除フラグの値を返します。（未削除：0 削除済：1）
 	 * @return int isDeleted 削除フラグ
 	 */
 	public int getIsDeleted() {
