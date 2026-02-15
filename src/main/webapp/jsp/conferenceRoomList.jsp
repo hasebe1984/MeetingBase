@@ -16,13 +16,14 @@
 %>
 <%@include file="../common/header.jsp"%>
 <h1>会議室一覧</h1>
-<hr>
 <p class="message">${message}</p>
 <table class="list_table">
 	<thead>
 		<tr>
 			<th>ID</th>
 			<th>会議室名</th>
+			<th></th>
+			<th></th>
 		</tr>
 	</thead>
 	<tbody>
@@ -56,7 +57,6 @@
 		<% }} %>
 	</tbody>
 </table>
-<hr>
 <div class="button_row">
 	<a href="${pageContext.request.contextPath}/jsp/menu.jsp" class="button_submit">戻る</a>
 	<form action="${pageContext.request.contextPath}/RoomEditServlet"

@@ -6,16 +6,6 @@
 <%@ page import="jp.co.sys.bean.MeetingRoom"%>
 <%@ page import="jp.co.sys.bean.RoomBean"%>
 
-<%@include file="../common/header.jsp"%>
-<h1>会議室予約キャンセル</h1>
-<h2>利用日</h2>
-<form action="${pageContext.request.contextPath}/ChangeDateServlet"
-	method="post">
-	<input type="date" name="date" class="form_input_date" value="${meetingRoom.date}" min="<%= new java.text.SimpleDateFormat("yyyy-MM-dd").format(new java.util.Date()) %>"> <input
-		type="submit" value="日付変更" class="button_submit" >
-	<input type="hidden" name="page" value="cancelInput.jsp">
-</form>
-<h2>キャンセル可能時間帯（<c:out value="${meetingRoom.user.name}さん" />）</h2>
 <%
 //meetingRoomをセッションから取得
 MeetingRoom meetingRoom = (MeetingRoom) session.getAttribute("meetingRoom");
@@ -26,69 +16,97 @@ String[] period = meetingRoom.getPeriod();
 //予約情報の一覧
 ReservationBean[][] reservations = meetingRoom.getReservations();
 %>
-<table class="input_table">
-	<tr>
-		<th class="input_th">会議室 / 時間</th>
-		<%--始まりの時間を要素分取り出して順に表示--%>
-		<%
-		for (int j = 0; j < period.length; j++) {
-		%>
-		<th><%=period[j]%></th>
-		<%
-		}
-		%>
-	</tr>
-	<%--二重for文　i=会議室名の表示--%>
-	<%
-	for (int i = 0; i < rooms.size(); i++) {
-		String room = rooms.get(i).getName();
-		request.setAttribute("room", room);
-	%>
-	<tr>
-		<th><c:out value="${room }" /></th>
-		<%
-		for (int j = 0; j < period.length; j++) {
-		%>
-		<td>
-			<%--予約キャンセルできるデータに〇をつける--%> <%
- if (reservations[i][j] != null) {
- 	String resUser = reservations[i][j].getUserId();
- 	String logUser = meetingRoom.getUser().getId();
- 	if (resUser.equals(logUser)) {
- 		System.out.println(reservations[i][j].getUserId() + meetingRoom.getUser().getId());
- %>
-			<form action="${pageContext.request.contextPath}/CancelCreateServlet"
-				method="post">
-				<input type="hidden" name="roomId" value="<%=rooms.get(i).getId()%>">
-				<input type="submit" value="〇"
-					class="button_submit button_submit_small button_submit_blue">
-				<input type="hidden" name="time" value="<%=period[j]%>">
-				<input type="hidden" name="researvationId" value="<%=reservations[i][j].getId()%>">
-			</form> <%--配列の中身が×だったら×を直書き--%> <%
- } else {
- %>
-			<button
-				class="button_submit button_submit_small button_submit_blue ${'button_submit_impossible'}"
-				${"disabled"}>×</button> <%
- }
- } else {
- %>
-			<button
-				class="button_submit button_submit_small button_submit_blue ${'button_submit_impossible'}"
-				${"disabled"}>×</button> <%
- }
- %>
 
-		</td>
-		<%
-		}
-		%>
-	</tr>
-	<%
-	}
-	%>
-</table>
-<a href="${pageContext.request.contextPath}/jsp/menu.jsp"
-	class="button_submit">戻る</a>
+<%@include file="../common/header.jsp"%>
+
+<main>
+	<h1>予約キャンセル</h1>
+
+	<h2>日付 -day-</h2>
+	<div class="section_box">
+		<form action="${pageContext.request.contextPath}/ChangeDateServlet"
+			method="POST" class="date_form_layout">
+			
+			<input type="date" name="date" class="form_input_date"
+				value="${meetingRoom.date}"
+				min="<%= new java.text.SimpleDateFormat("yyyy-MM-dd").format(new java.util.Date()) %>">
+			
+			<input type="submit" value="変更する" class="button_submit button_date_change">
+			<input type="hidden" name="page" value="cancelInput.jsp">
+		</form>
+	</div>
+
+	<h2>時間 -time-</h2>
+	
+	<table class="input_table">
+		<thead>
+			<tr>
+				<th></th>
+				<%-- 時間ヘッダー --%>
+				<% for (int j = 0; j < period.length; j++) { %>
+					<th><%=period[j]%></th>
+				<% } %>
+			</tr>
+		</thead>
+		<tbody>
+			<%-- 会議室ループ --%>
+			<% for (int i = 0; i < rooms.size(); i++) {
+				String room = rooms.get(i).getName();
+				request.setAttribute("room", room);
+			%>
+			<tr>
+				<td><c:out value="${room }" /></td>
+				<%
+				for (int j = 0; j < period.length; j++) {
+				%>
+				<td>
+					<%
+					if (reservations[i][j] != null) {
+						String resUser = reservations[i][j].getUserId();
+						String logUser = meetingRoom.getUser().getId();
+						if (resUser.equals(logUser)) {
+					%>
+						<form action="${pageContext.request.contextPath}/CancelCreateServlet" method="post" class="table_form_wrapper">
+							<input type="hidden" name="roomId" value="<%=rooms.get(i).getId()%>">
+							<button class="button_circle_orange"></button>
+							<input type="hidden" name="time" value="<%=period[j]%>">
+							<input type="hidden" name="researvationId" value="<%=reservations[i][j].getId()%>">
+						</form>
+					<%
+						} else {
+					%>
+						<span class="status_hyphen">―</span>
+					<%
+						}
+					} else {
+					%>
+						<span class="status_hyphen">―</span>
+					<%
+					}
+					%>
+				</td>
+				<%
+				}
+				%>
+			</tr>
+			<%
+			}
+			%>
+		</tbody>
+	</table>
+
+    <div class="legend_area">
+        <div class="legend_item">
+            <span class="legend_dot_sample"></span> 自分の予約
+        </div>
+        <div class="legend_item">
+            <span class="legend_hyphen_sample">―</span> 予約なし
+        </div>
+    </div>
+
+	<div class="button_row">
+		<a href="${pageContext.request.contextPath}/jsp/menu.jsp" class="button_submit">メニューへ</a>
+	</div>
+</main>
 
 <%@include file="../common/footer.jsp"%>

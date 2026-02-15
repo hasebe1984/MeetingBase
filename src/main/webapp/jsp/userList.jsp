@@ -15,7 +15,6 @@
 %>
 <%@include file="../common/header.jsp"%>
 <h1>会員一覧</h1>
-<hr>
 <p class="message">${message}</p>
 <table class="list_table">
 	<thead>
@@ -24,8 +23,8 @@
 			<th>氏名</th>
 			<th>住所</th>
 			<th>区分</th>
-			<th>編集</th>
-			<th>削除</th>
+			<th></th>
+			<th></th>
 		</tr>
 	</thead>
 	<tbody>
@@ -49,13 +48,13 @@
 						<input type="hidden" name="userId" value="<%= l.getId() %>">
 						<input type="hidden" name="userName" value="<c:out value="${tmpName}" />">
 						<input type="hidden" name="userAdmin" value="<%= l.getIsAdmin() == 1 ? "on" : "" %>">
-						<input type="submit" name="action" value="編集" class="button_list">
+						<input type="submit" name="action" value="編集" class="button_submit button_submit_sm">
 					</form>
 				</td>
 				<td class="list_td_small">
 					<form action="<%= request.getContextPath() %>/AdminUserServlet" method="post">
 						<input type="hidden" name="userId" value="<%= l.getId() %>">
-						<input type="submit" name="action" value="削除" class="button_list <%= (l.getId()).equals(mr.getUser().getId()) ? "button_disabled" : "" %>" 
+						<input type="submit" name="action" value="削除" class="button_submit button_submit_sm <%= (l.getId()).equals(mr.getUser().getId()) ? "button_disabled" : "" %>" 
 						onclick="return confirm('本当に削除してよろしいですか？');" <%= (l.getId()).equals(mr.getUser().getId()) ? "disabled" : "" %> >
 					</form>
 				</td>

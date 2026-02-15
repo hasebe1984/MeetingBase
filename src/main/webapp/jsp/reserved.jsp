@@ -29,5 +29,7 @@
 		</tr>
 	</tbody>
 </table>
-<a href="${pageContext.request.contextPath}/jsp/menu.jsp" class="button_submit">完了</a>
+<div class="button_row">
+	<a href="${pageContext.request.contextPath}/jsp/menu.jsp" class="button_submit">完了</a>
+</div>
 <%@include file="../common/footer.jsp"%>
