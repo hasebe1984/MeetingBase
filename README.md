@@ -3,7 +3,11 @@
 職業訓練校のチーム開発課題として制作した、Web会議室予約システムです。
 既存のアナログ管理（紙・Excel）による「ダブルブッキング」や「予約変更の手間」を解消し、業務効率化を目指しました。
 
-![Top Screen](./images/top_screen.png)
+![Top Screen](./images/login)
+![Top Screen](./images/menu)
+![Top Screen](./images/reservation)
+![Top Screen](./images/userlist)
+
 
 ## 🔗 ドキュメント・仕様書（成果物）
 PL（プロジェクトリーダー）として管理・作成したドキュメントおよび、コードの仕様書を公開しています。
