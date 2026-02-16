@@ -29,16 +29,16 @@
 ## ドキュメント
 ドキュメント一式を公開しています。
 
-| 資料名 | リンク |
-| :--- | :--- |
-| **JavaDoc** | [View Spec](https://hasebe1984.github.io/MeetingBase/) |
-| **要件定義書** | [PDF](./docs/requirements.pdf) |
-| **WBS** | [PDF](./docs/wbs.pdf) |
-| **DB設計書** | [PDF](./docs/db_schema.pdf) |
-| **画面遷移図** | [PDF](./docs/screen_transition.pdf) |
-| **テスト仕様書** | [PDF](./docs/test_cases.pdf) |
-| **不具合管理表** | [PDF](./docs/bug_report.pdf) |
-| **プロジェクト完了報告書** | [PDF](./docs/project_report.pdf) |
+| 資料名 |
+| :--- |
+| [JavaDoc](https://hasebe1984.github.io/MeetingBase/) |
+| [要件定義書](./docs/requirements.pdf) |
+| [WBS](./docs/wbs.pdf) |
+| [DB設計書](./docs/db_schema.pdf) |
+| [画面遷移図](./docs/screen_transition.pdf) |
+| [テスト仕様書](./docs/test_cases.pdf) |
+| [不具合管理表](./docs/bug_report.pdf) |
+| [プロジェクト完了報告書](./docs/project_report.pdf) |
 
 ## 担当領域と実装詳細
 
