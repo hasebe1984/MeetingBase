@@ -21,10 +21,24 @@
 <br>
 
 ## 開発体制
-* **開発期間**: 20日間（2026年1月6日 ～ 1月26日）
+* **開発期間**: 20日間（2026年1月6日 ～ 1月27日）
 * **チーム構成**: 7名
 * **私の役割**: PL / バックエンド開発 / CSS設計・実装
 <br>
+
+## ドキュメント
+ドキュメント一式を公開しています。
+
+| 資料名 | リンク |
+| :--- | :--- |
+| **JavaDoc** | [View Spec](https://hasebe1984.github.io/MeetingBase/) |
+| **要件定義書** | [PDF](./docs/requirements.pdf) |
+| **WBS** | [PDF](./docs/wbs.pdf) |
+| **DB設計書** | [PDF](./docs/db_schema.pdf) |
+| **画面遷移図** | [PDF](./docs/screen_transition.pdf) |
+| **テスト仕様書** | [PDF](./docs/test_cases.pdf) |
+| **不具合管理表** | [PDF](./docs/bug_report.pdf) |
+| **プロジェクト完了報告書** | [PDF](./docs/project_report.pdf) |
 
 ## 担当領域と実装詳細
 
